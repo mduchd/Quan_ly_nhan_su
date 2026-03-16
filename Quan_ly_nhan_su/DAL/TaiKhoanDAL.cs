@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
 using System.Text;
-using System.Data.SqlClient;
 
 namespace Quan_ly_nhan_su.DAL
 {
-    internal class DbContext
+    internal class TaiKhoanDAL
     {
         
     }
