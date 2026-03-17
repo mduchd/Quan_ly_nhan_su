@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Quan_ly_nhan_su.GUI
 {
-    public partial class frmDangNhap : Form
+    public partial class frmDangNhap : System.Windows.Forms.Form
     {
         public frmDangNhap()
         {
