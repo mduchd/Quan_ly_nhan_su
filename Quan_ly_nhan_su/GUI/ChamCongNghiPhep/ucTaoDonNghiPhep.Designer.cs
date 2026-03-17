@@ -73,10 +73,10 @@
             label4 = new Label();
             panel9 = new Panel();
             guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
-            guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
-            label9 = new Label();
-            label10 = new Label();
             label11 = new Label();
+            label10 = new Label();
+            label9 = new Label();
+            guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
             panel10 = new Panel();
             tableLayoutPanel2 = new TableLayoutPanel();
             tableLayoutPanel1.SuspendLayout();
@@ -113,7 +113,7 @@
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 11.7241383F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 88.27586F));
-            tableLayoutPanel1.Size = new Size(1602, 1160);
+            tableLayoutPanel1.Size = new Size(1619, 1160);
             tableLayoutPanel1.TabIndex = 0;
             tableLayoutPanel1.Paint += tableLayoutPanel1_Paint;
             // 
@@ -125,7 +125,7 @@
             panel1.Location = new Point(3, 4);
             panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1006, 128);
+            panel1.Size = new Size(1017, 128);
             panel1.TabIndex = 0;
             // 
             // label2
@@ -154,10 +154,10 @@
             // 
             panel2.Controls.Add(guna2Panel1);
             panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(1015, 4);
+            panel2.Location = new Point(1026, 4);
             panel2.Margin = new Padding(3, 4, 3, 4);
             panel2.Name = "panel2";
-            panel2.Size = new Size(584, 128);
+            panel2.Size = new Size(590, 128);
             panel2.TabIndex = 1;
             // 
             // guna2Panel1
@@ -213,7 +213,7 @@
             panel3.Margin = new Padding(3, 4, 3, 4);
             panel3.Name = "panel3";
             panel3.Padding = new Padding(46, 13, 23, 13);
-            panel3.Size = new Size(1006, 1016);
+            panel3.Size = new Size(1017, 1016);
             panel3.TabIndex = 2;
             // 
             // guna2Panel2
@@ -232,7 +232,7 @@
             guna2Panel2.Margin = new Padding(3, 4, 3, 4);
             guna2Panel2.Name = "guna2Panel2";
             guna2Panel2.ShadowDecoration.CustomizableEdges = customizableEdges14;
-            guna2Panel2.Size = new Size(937, 990);
+            guna2Panel2.Size = new Size(948, 990);
             guna2Panel2.TabIndex = 0;
             guna2Panel2.Paint += guna2Panel2_Paint;
             // 
@@ -439,9 +439,9 @@
             panel9.Controls.Add(guna2Panel4);
             panel9.Controls.Add(guna2Panel3);
             panel9.Dock = DockStyle.Fill;
-            panel9.Location = new Point(1015, 139);
+            panel9.Location = new Point(1026, 139);
             panel9.Name = "panel9";
-            panel9.Size = new Size(584, 1018);
+            panel9.Size = new Size(590, 1018);
             panel9.TabIndex = 3;
             panel9.Paint += panel9_Paint;
             // 
@@ -460,29 +460,16 @@
             guna2Panel4.Size = new Size(533, 268);
             guna2Panel4.TabIndex = 1;
             // 
-            // guna2Panel3
+            // label11
             // 
-            guna2Panel3.BorderColor = Color.FromArgb(224, 224, 224);
-            guna2Panel3.BorderRadius = 8;
-            guna2Panel3.BorderThickness = 2;
-            guna2Panel3.Controls.Add(panel10);
-            guna2Panel3.CustomizableEdges = customizableEdges17;
-            guna2Panel3.Location = new Point(27, 14);
-            guna2Panel3.Name = "guna2Panel3";
-            guna2Panel3.ShadowDecoration.CustomizableEdges = customizableEdges18;
-            guna2Panel3.Size = new Size(533, 530);
-            guna2Panel3.TabIndex = 0;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
-            label9.Location = new Point(53, 35);
-            label9.MaximumSize = new Size(450, 0);
-            label9.Name = "label9";
-            label9.Size = new Size(412, 50);
-            label9.TabIndex = 0;
-            label9.Text = "Đơn xin nghỉ phép phải được gửi trước ít nhất 2 ngày làm việc.";
+            label11.AutoSize = true;
+            label11.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
+            label11.Location = new Point(53, 156);
+            label11.MaximumSize = new Size(450, 0);
+            label11.Name = "label11";
+            label11.Size = new Size(446, 50);
+            label11.TabIndex = 2;
+            label11.Text = "Các yêu cầu nghỉ phép thai sản cần nộp kèm hồ sơ y tế liên quan.";
             // 
             // label10
             // 
@@ -495,16 +482,30 @@
             label10.TabIndex = 1;
             label10.Text = "Nghỉ ốm trên 3 ngày yêu cầu phải có giấy xác nhận của bác sĩ.";
             // 
-            // label11
+            // label9
             // 
-            label11.AutoSize = true;
-            label11.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
-            label11.Location = new Point(53, 156);
-            label11.MaximumSize = new Size(450, 0);
-            label11.Name = "label11";
-            label11.Size = new Size(446, 50);
-            label11.TabIndex = 2;
-            label11.Text = "Các yêu cầu nghỉ phép thai sản cần nộp kèm hồ sơ y tế liên quan.";
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
+            label9.Location = new Point(53, 35);
+            label9.MaximumSize = new Size(450, 0);
+            label9.Name = "label9";
+            label9.Size = new Size(412, 50);
+            label9.TabIndex = 0;
+            label9.Text = "Đơn xin nghỉ phép phải được gửi trước ít nhất 2 ngày làm việc.";
+            // 
+            // guna2Panel3
+            // 
+            guna2Panel3.BorderColor = Color.FromArgb(224, 224, 224);
+            guna2Panel3.BorderRadius = 8;
+            guna2Panel3.BorderThickness = 2;
+            guna2Panel3.Controls.Add(panel10);
+            guna2Panel3.CustomizableEdges = customizableEdges17;
+            guna2Panel3.FillColor = Color.Gainsboro;
+            guna2Panel3.Location = new Point(27, 14);
+            guna2Panel3.Name = "guna2Panel3";
+            guna2Panel3.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            guna2Panel3.Size = new Size(533, 530);
+            guna2Panel3.TabIndex = 0;
             // 
             // panel10
             // 
@@ -516,6 +517,7 @@
             // 
             // tableLayoutPanel2
             // 
+            tableLayoutPanel2.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
             tableLayoutPanel2.ColumnCount = 7;
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.28571F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857161F));
@@ -527,7 +529,7 @@
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(0, 0);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 7;
+            tableLayoutPanel2.RowCount = 6;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2859173F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2859182F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2859182F));
@@ -545,7 +547,8 @@
             Controls.Add(tableLayoutPanel1);
             Margin = new Padding(3, 4, 3, 4);
             Name = "ucTaoDonNghiPhep";
-            Size = new Size(1602, 1160);
+            Size = new Size(1619, 1160);
+            Load += ucTaoDonNghiPhep_Load;
             tableLayoutPanel1.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();

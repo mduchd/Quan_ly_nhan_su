@@ -13,6 +13,14 @@ namespace Quan_ly_nhan_su.GUI.ChamCongNghiPhep
         public ucTaoDonNghiPhep()
         {
             InitializeComponent();
+            int thangHienTai = DateTime.Now.Month;
+            int namHienTai = DateTime.Now.Year;
+
+            // Hiển thị text lên một Label tiêu đề (Ví dụ: "Tháng 3, 2026")
+            // lblThangNam.Text = $"Tháng {thangHienTai}, {namHienTai}"; 
+
+            // Gọi hàm render lịch
+            
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -34,85 +42,90 @@ namespace Quan_ly_nhan_su.GUI.ChamCongNghiPhep
         {
 
         }
-        
-            // Xóa dữ liệu cũ trong bảng (nếu có) trước khi tạo tháng mới
-            // Sự kiện chạy ngay khi UserControl vừa được mở lên
-private void UserControlNghiPhep_Load(object sender, EventArgs e)
+
+        // Xóa dữ liệu cũ trong bảng (nếu có) trước khi tạo tháng mới
+        // Sự kiện chạy ngay khi UserControl vừa được mở lên
+       
+
+        // Hàm xử lý logic đổ nút bấm vào bảng
+       
+
+        private void ucTaoDonNghiPhep_Load(object sender, EventArgs e)
         {
+           
             // Lấy tháng và năm hiện tại để hiển thị
-            int thangHienTai = DateTime.Now.Month;
-            int namHienTai = DateTime.Now.Year;
+            int thang = DateTime.Now.Month;
+            int nam = DateTime.Now.Year;
 
             // Hiển thị text lên một Label tiêu đề (Ví dụ: "Tháng 3, 2026")
             // lblThangNam.Text = $"Tháng {thangHienTai}, {namHienTai}"; 
 
             // Gọi hàm render lịch
-            HienThiLich(thangHienTai, namHienTai);
-        }
+            VeLichThuan(thang, nam);
 
-        // Hàm xử lý logic đổ nút bấm vào bảng
-        private void HienThiLich(int month, int year)
+        }
+        private void VeLichThuan(int month, int year)
         {
-            // 1. Dọn dẹp các nút của tháng cũ (nếu có), CHỈ XÓA BUTTON, giữ lại Label tiêu đề T2-CN
-            for (int i = tableLayoutPanel1.Controls.Count - 1; i >= 0; i--)
+            for (int i = tableLayoutPanel2.Controls.Count - 1; i >= 0; i--)
             {
-                if (tableLayoutPanel1.Controls[i] is Guna.UI2.WinForms.Guna2Button)
+                Control ctrl = tableLayoutPanel2.Controls[i];
+                if (tableLayoutPanel2.GetRow(ctrl) > 0)
                 {
-                    tableLayoutPanel1.Controls.RemoveAt(i);
+                    tableLayoutPanel2.Controls.Remove(ctrl);
+                    ctrl.Dispose(); //
                 }
             }
-
-            // 2. Tính toán ngày tháng
             DateTime ngayDauThang = new DateTime(year, month, 1);
             int soNgayCuaThang = DateTime.DaysInMonth(year, month);
 
-            // Tính xem mùng 1 rơi vào cột nào (Quy ước: Thứ 2 = Cột 0, ..., Chủ Nhật = Cột 6)
-            int dayOfWeek = (int)ngayDauThang.DayOfWeek; // Trong C#: 0 = Sunday, 1 = Monday...
-            int cotBatDau = (dayOfWeek == 0) ? 6 : dayOfWeek - 1;
+            // Trong C#: Chủ nhật = 0, Thứ 2 = 1, ... Thứ 7 = 6
+            // Bảng của bạn: Thứ 2 = Cột 0, ..., Chủ nhật = Cột 6
+            // -> Công thức quy đổi để mùng 1 rơi vào đúng cột:
+            int thuCuaNgayMung1 = (int)ngayDauThang.DayOfWeek;
+            int cotHienTai = (thuCuaNgayMung1 == 0) ? 6 : thuCuaNgayMung1 - 1;
 
-            int hangHienTai = 1; // Bắt đầu đổ ngày từ hàng số 1 (vì hàng 0 là chữ T2-CN rồi)
-            int cotHienTai = cotBatDau;
+            int hangHienTai = 1; // Bắt đầu đẩy ngày từ hàng số 1
 
-            // 3. Vòng lặp tạo ngày
-            for (int i = 1; i <= soNgayCuaThang; i++)
+            // 3. VÒNG LẶP SINH RA LỊCH
+            for (int ngay = 1; ngay <= soNgayCuaThang; ngay++)
             {
-                // Khởi tạo nút
-                Guna.UI2.WinForms.Guna2Button btnDay = new Guna.UI2.WinForms.Guna2Button();
-                btnDay.Text = i.ToString();
-                btnDay.Size = new Size(40, 40);
-                btnDay.BorderRadius = 20; // Bo tròn thành hình oval/tròn
-                btnDay.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-                btnDay.Cursor = Cursors.Hand;
-                btnDay.Anchor = AnchorStyles.None; // Rất quan trọng: Giúp nút luôn nằm chính giữa ô
+                // Sử dụng Label thuần của WinForms
+                Label lblNgay = new Label();
+                lblNgay.Text = ngay.ToString();
+                lblNgay.Dock = DockStyle.Fill;
+                lblNgay.TextAlign = ContentAlignment.MiddleCenter; // Canh chữ ra giữa ô
+                lblNgay.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+                lblNgay.Margin = new Padding(2);
+                lblNgay.Cursor = Cursors.Hand;
 
-                // Mặc định là ngày thường (Không màu nền)
-                btnDay.FillColor = Color.Transparent;
-                btnDay.ForeColor = Color.Black;
+                // Thiết lập màu cơ bản
+                lblNgay.BackColor = Color.Transparent;
+                lblNgay.ForeColor = Color.Black;
 
-                // (TÙY CHỌN) Test thử tô màu theo mẫu thiết kế của bạn
-                if (i == 5) // Ngày 5: Đã duyệt (Màu xanh)
+                // TÔ MÀU DEMO THEO TRẠNG THÁI
+                // (Lưu ý: Label mặc định của WinForms là hình chữ nhật, nên nền sẽ là ô vuông chứ không bo tròn được như Guna)
+                if (ngay == 5)
                 {
-                    btnDay.FillColor = Color.FromArgb(200, 240, 210);
-                    btnDay.ForeColor = Color.FromArgb(0, 150, 50);
+                    lblNgay.BackColor = Color.LightGreen;
+                    lblNgay.ForeColor = Color.DarkGreen;
                 }
-                else if (i >= 24 && i <= 26) // Ngày 24-26: Đang chờ (Màu vàng)
+                else if (ngay >= 24 && ngay <= 26)
                 {
-                    btnDay.FillColor = Color.FromArgb(255, 245, 200);
-                    btnDay.ForeColor = Color.FromArgb(200, 120, 0);
+                    lblNgay.BackColor = Color.LightGoldenrodYellow;
+                    lblNgay.ForeColor = Color.DarkOrange;
                 }
 
-                // Đẩy nút vào bảng ở đúng tọa độ (Cột, Hàng)
-                tableLayoutPanel1.Controls.Add(btnDay, cotHienTai, hangHienTai);
+                // ĐẨY VÀO BẢNG
+                tableLayoutPanel2.Controls.Add(lblNgay, cotHienTai, hangHienTai);
 
-                // Tính toán tọa độ cho ngày tiếp theo
+                // TÍNH TOÁN TỌA ĐỘ CHO NGÀY MAI
                 cotHienTai++;
-                if (cotHienTai > 6) // Nếu vượt qua Chủ Nhật (cột 6) thì xuống dòng mới
+                if (cotHienTai > 6) // Vượt quá Chủ Nhật (cột 6)
                 {
-                    cotHienTai = 0; // Quay lại Thứ 2
-                    hangHienTai++;  // Xuống hàng tiếp theo
+                    cotHienTai = 0; // Quay lại Thứ 2 (cột 0)
+                    hangHienTai++;  // Rớt xuống hàng dưới
                 }
             }
-        
         }
     }
 }

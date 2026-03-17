@@ -33,10 +33,16 @@ namespace Quan_ly_nhan_su
         private void button4_Click(object sender, EventArgs e)
         {
             pnlDesktop.Controls.Clear();
-            ucChamCong uc = new ucChamCong();
+            //ucChamCong uc = new ucChamCong();
+            ucTaoDonNghiPhep uc = new ucTaoDonNghiPhep();
             uc.Dock = DockStyle.Fill;
             pnlDesktop.Controls.Add(uc);
             //uc.loadDanhSachNghiPhep();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
         }
 
 

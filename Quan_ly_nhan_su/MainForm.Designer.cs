@@ -84,6 +84,7 @@
             button3.Text = "Tính tiền lương";
             button3.TextAlign = ContentAlignment.MiddleLeft;
             button3.UseVisualStyleBackColor = false;
+            button3.Click += button3_Click;
             // 
             // button1
             // 
