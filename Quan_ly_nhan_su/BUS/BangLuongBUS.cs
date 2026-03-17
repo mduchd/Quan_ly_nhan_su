@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Quan_ly_nhan_su.DTO;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Quan_ly_nhan_su.BUS
 {
-    internal class BangLuongBUS
+    internal class BangLuong
     {
     }
 }
