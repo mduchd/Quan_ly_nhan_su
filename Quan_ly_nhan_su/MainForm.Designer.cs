@@ -1,6 +1,6 @@
 ﻿namespace Quan_ly_nhan_su
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
