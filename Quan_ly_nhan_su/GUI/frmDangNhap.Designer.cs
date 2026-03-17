@@ -28,51 +28,48 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             pnlLeft = new Panel();
-            label1 = new Label();
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            button1 = new Button();
+            btnDangNhap = new Guna.UI2.WinForms.Guna2Button();
+            txtTaiKhoan = new Guna.UI2.WinForms.Guna2TextBox();
+            txtMatKhau = new Guna.UI2.WinForms.Guna2TextBox();
+            guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             pnlLeft.SuspendLayout();
             SuspendLayout();
             // 
             // pnlLeft
             // 
-            pnlLeft.BackColor = Color.LightSkyBlue;
-            pnlLeft.Controls.Add(label1);
+            pnlLeft.BackColor = Color.DarkCyan;
+            pnlLeft.Controls.Add(guna2HtmlLabel1);
             pnlLeft.Dock = DockStyle.Left;
             pnlLeft.Location = new Point(0, 0);
             pnlLeft.Name = "pnlLeft";
-            pnlLeft.Size = new Size(346, 411);
+            pnlLeft.Size = new Size(377, 411);
             pnlLeft.TabIndex = 0;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(69, 291);
-            label1.Name = "label1";
-            label1.Size = new Size(163, 32);
-            label1.TabIndex = 0;
-            label1.Text = "HRM SYSTEM";
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(475, 39);
+            label2.Location = new Point(503, 34);
             label2.Name = "label2";
             label2.Size = new Size(134, 32);
             label2.TabIndex = 1;
             label2.Text = "Đăng nhập";
+            label2.Click += label2_Click;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(382, 105);
+            label3.Location = new Point(405, 104);
             label3.Name = "label3";
             label3.Size = new Size(58, 15);
             label3.TabIndex = 2;
@@ -82,35 +79,88 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(382, 201);
+            label4.Location = new Point(405, 202);
             label4.Name = "label4";
             label4.Size = new Size(57, 15);
             label4.TabIndex = 3;
             label4.Text = "Mật khẩu";
             // 
-            // textBox1
+            // btnDangNhap
             // 
-            textBox1.Location = new Point(382, 139);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(325, 23);
-            textBox1.TabIndex = 4;
+            btnDangNhap.BorderRadius = 15;
+            btnDangNhap.CustomizableEdges = customizableEdges7;
+            btnDangNhap.DisabledState.BorderColor = Color.DarkGray;
+            btnDangNhap.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnDangNhap.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnDangNhap.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnDangNhap.FillColor = Color.DarkCyan;
+            btnDangNhap.Font = new Font("Segoe UI", 9F);
+            btnDangNhap.ForeColor = Color.White;
+            btnDangNhap.Location = new Point(475, 305);
+            btnDangNhap.Margin = new Padding(3, 2, 3, 2);
+            btnDangNhap.Name = "btnDangNhap";
+            btnDangNhap.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btnDangNhap.Size = new Size(197, 42);
+            btnDangNhap.TabIndex = 7;
+            btnDangNhap.Text = "Đăng nhập";
+            btnDangNhap.Click += btnDangNhap_Click;
             // 
-            // textBox2
+            // txtTaiKhoan
             // 
-            textBox2.Location = new Point(382, 245);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(325, 23);
-            textBox2.TabIndex = 5;
+            txtTaiKhoan.BorderColor = Color.Black;
+            txtTaiKhoan.BorderRadius = 15;
+            txtTaiKhoan.CustomizableEdges = customizableEdges9;
+            txtTaiKhoan.DefaultText = "";
+            txtTaiKhoan.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
+            txtTaiKhoan.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
+            txtTaiKhoan.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
+            txtTaiKhoan.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
+            txtTaiKhoan.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            txtTaiKhoan.Font = new Font("Segoe UI", 9F);
+            txtTaiKhoan.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
+            txtTaiKhoan.IconLeft = Properties.Resources.user;
+            txtTaiKhoan.IconLeftOffset = new Point(5, 0);
+            txtTaiKhoan.Location = new Point(405, 135);
+            txtTaiKhoan.Name = "txtTaiKhoan";
+            txtTaiKhoan.PlaceholderText = "";
+            txtTaiKhoan.SelectedText = "";
+            txtTaiKhoan.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            txtTaiKhoan.Size = new Size(339, 34);
+            txtTaiKhoan.TabIndex = 8;
             // 
-            // button1
+            // txtMatKhau
             // 
-            button1.BackColor = Color.LightSkyBlue;
-            button1.Location = new Point(494, 321);
-            button1.Name = "button1";
-            button1.Size = new Size(102, 32);
-            button1.TabIndex = 6;
-            button1.Text = "ĐĂNG NHẬP";
-            button1.UseVisualStyleBackColor = false;
+            txtMatKhau.BorderColor = Color.Black;
+            txtMatKhau.BorderRadius = 15;
+            txtMatKhau.CustomizableEdges = customizableEdges11;
+            txtMatKhau.DefaultText = "";
+            txtMatKhau.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
+            txtMatKhau.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
+            txtMatKhau.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
+            txtMatKhau.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
+            txtMatKhau.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            txtMatKhau.Font = new Font("Segoe UI", 9F);
+            txtMatKhau.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
+            txtMatKhau.IconLeft = Properties.Resources.eye;
+            txtMatKhau.IconLeftOffset = new Point(5, 0);
+            txtMatKhau.Location = new Point(405, 227);
+            txtMatKhau.Name = "txtMatKhau";
+            txtMatKhau.PlaceholderText = "";
+            txtMatKhau.SelectedText = "";
+            txtMatKhau.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            txtMatKhau.Size = new Size(339, 34);
+            txtMatKhau.TabIndex = 9;
+            // 
+            // guna2HtmlLabel1
+            // 
+            guna2HtmlLabel1.BackColor = Color.Transparent;
+            guna2HtmlLabel1.Font = new Font("Segoe UI Semibold", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guna2HtmlLabel1.ForeColor = Color.White;
+            guna2HtmlLabel1.Location = new Point(82, 280);
+            guna2HtmlLabel1.Name = "guna2HtmlLabel1";
+            guna2HtmlLabel1.Size = new Size(203, 47);
+            guna2HtmlLabel1.TabIndex = 1;
+            guna2HtmlLabel1.Text = "HRM SYSTEM";
             // 
             // frmDangNhap
             // 
@@ -118,9 +168,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(784, 411);
-            Controls.Add(button1);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            Controls.Add(txtMatKhau);
+            Controls.Add(txtTaiKhoan);
+            Controls.Add(btnDangNhap);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -137,12 +187,12 @@
         #endregion
 
         private Panel pnlLeft;
-        private Label label1;
         private Label label2;
         private Label label3;
         private Label label4;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private Button button1;
+        private Guna.UI2.WinForms.Guna2Button btnDangNhap;
+        private Guna.UI2.WinForms.Guna2TextBox txtTaiKhoan;
+        private Guna.UI2.WinForms.Guna2TextBox txtMatKhau;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
     }
 }
