@@ -1,43 +1,47 @@
+
+using System;
+using System.Windows.Forms;
 using Quan_ly_nhan_su.GUI.ChamCongNghiPhep;
 
 namespace Quan_ly_nhan_su
 {
-    public partial class Form1 : Form
+    public partial class Form : System.Windows.Forms.Form
     {
-        public Form1()
+        public Form()
         {
             InitializeComponent();
         }
 
-        private void btnClickTest_Click(object sender, EventArgs e)
-        {
-            pnContainer.Controls.Clear();
-            ucChamCong uc = new ucChamCong();
 
-            // 3. Thiết lập cho ucChamCong tự động phóng to lấp đầy cái Panel
-            uc.Dock = DockStyle.Fill;
 
-            // 4. Nhúng ucChamCong vào Panel để nó hiện lên
-            pnContainer.Controls.Add(uc);
+        private void label1_Click(object sender, EventArgs e)
 
-            // 5. (Tùy chọn) Gọi hàm load dữ liệu nếu bạn muốn thấy data ảo ngay lập tức
-            uc.loadDanhSachNghiPhep();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pnContainer_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            pnContainer.Controls.Clear();
-           
+
         }
+
+        private void pnlDesktop_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            pnlDesktop.Controls.Clear();
+            ucChamCong uc = new ucChamCong();
+            uc.Dock = DockStyle.Fill;
+            pnlDesktop.Controls.Add(uc);
+            //uc.loadDanhSachNghiPhep();
+        }
+
+
+
+        // Add event handlers or methods here as needed
+
     }
 }

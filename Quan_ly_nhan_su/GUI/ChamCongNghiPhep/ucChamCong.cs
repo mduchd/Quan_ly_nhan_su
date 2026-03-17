@@ -108,5 +108,10 @@ namespace Quan_ly_nhan_su.GUI.ChamCongNghiPhep
         private void tableLayoutPanel3_Paint(object sender, PaintEventArgs e) { }
         private void panel16_Paint(object sender, PaintEventArgs e) { }
         private void guna2Panel1_Paint_1(object sender, PaintEventArgs e) { }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }
