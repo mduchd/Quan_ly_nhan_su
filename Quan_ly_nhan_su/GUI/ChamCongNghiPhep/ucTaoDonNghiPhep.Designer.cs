@@ -78,7 +78,7 @@
             label9 = new Label();
             guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
             panel10 = new Panel();
-            tableLayoutPanel2 = new TableLayoutPanel();
+            dateTimePicker1 = new DateTimePicker();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -447,6 +447,7 @@
             // 
             // guna2Panel4
             // 
+            guna2Panel4.BackColor = SystemColors.GradientInactiveCaption;
             guna2Panel4.BorderColor = Color.FromArgb(192, 255, 255);
             guna2Panel4.BorderRadius = 8;
             guna2Panel4.BorderThickness = 2;
@@ -509,36 +510,19 @@
             // 
             // panel10
             // 
-            panel10.Controls.Add(tableLayoutPanel2);
+            panel10.Controls.Add(dateTimePicker1);
             panel10.Location = new Point(3, 3);
             panel10.Name = "panel10";
             panel10.Size = new Size(527, 428);
             panel10.TabIndex = 0;
             // 
-            // tableLayoutPanel2
+            // dateTimePicker1
             // 
-            tableLayoutPanel2.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
-            tableLayoutPanel2.ColumnCount = 7;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.28571F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857161F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857161F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857161F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857161F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857161F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857161F));
-            tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(0, 0);
-            tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 6;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2859173F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2859182F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2859182F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2859182F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2859182F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2859182F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2844906F));
-            tableLayoutPanel2.Size = new Size(527, 428);
-            tableLayoutPanel2.TabIndex = 0;
+            dateTimePicker1.Dock = DockStyle.Fill;
+            dateTimePicker1.Location = new Point(0, 0);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(527, 27);
+            dateTimePicker1.TabIndex = 0;
             // 
             // ucTaoDonNghiPhep
             // 
@@ -610,6 +594,6 @@
         private Label label10;
         private Label label9;
         private Panel panel10;
-        private TableLayoutPanel tableLayoutPanel2;
+        private DateTimePicker dateTimePicker1;
     }
 }

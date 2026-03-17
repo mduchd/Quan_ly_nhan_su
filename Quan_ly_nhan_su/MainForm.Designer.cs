@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             pnlSidebar = new Panel();
-            button4 = new Button();
-            button3 = new Button();
-            button1 = new Button();
-            button2 = new Button();
+            btnNghiPhep = new Button();
+            this.btnTienLuong = new Button();
+            btnChamCong = new Button();
+            this.btnQLNhanSu = new Button();
             lblLogo = new Label();
             pnlDesktop = new Panel();
             pnlSidebar.SuspendLayout();
@@ -41,10 +41,10 @@
             // pnlSidebar
             // 
             pnlSidebar.BackColor = Color.SteelBlue;
-            pnlSidebar.Controls.Add(button4);
-            pnlSidebar.Controls.Add(button3);
-            pnlSidebar.Controls.Add(button1);
-            pnlSidebar.Controls.Add(button2);
+            pnlSidebar.Controls.Add(btnNghiPhep);
+            pnlSidebar.Controls.Add(this.btnTienLuong);
+            pnlSidebar.Controls.Add(btnChamCong);
+            pnlSidebar.Controls.Add(this.btnQLNhanSu);
             pnlSidebar.Controls.Add(lblLogo);
             pnlSidebar.Dock = DockStyle.Left;
             pnlSidebar.Location = new Point(0, 0);
@@ -52,72 +52,74 @@
             pnlSidebar.Size = new Size(249, 561);
             pnlSidebar.TabIndex = 0;
             // 
-            // button4
+            // btnNghiPhep
             // 
-            button4.BackColor = Color.Transparent;
-            button4.Dock = DockStyle.Top;
-            button4.FlatAppearance.BorderSize = 0;
-            button4.FlatStyle = FlatStyle.Flat;
-            button4.ForeColor = Color.White;
-            button4.Location = new Point(0, 230);
-            button4.Name = "button4";
-            button4.Padding = new Padding(25, 0, 0, 0);
-            button4.Size = new Size(249, 50);
-            button4.TabIndex = 4;
-            button4.Text = "Nghỉ phép";
-            button4.TextAlign = ContentAlignment.MiddleLeft;
-            button4.UseVisualStyleBackColor = false;
-            button4.Click += button4_Click;
+            btnNghiPhep.BackColor = Color.Transparent;
+            btnNghiPhep.Dock = DockStyle.Top;
+            btnNghiPhep.FlatAppearance.BorderSize = 0;
+            btnNghiPhep.FlatStyle = FlatStyle.Flat;
+            btnNghiPhep.ForeColor = Color.White;
+            btnNghiPhep.Location = new Point(0, 230);
+            btnNghiPhep.Name = "btnNghiPhep";
+            btnNghiPhep.Padding = new Padding(25, 0, 0, 0);
+            btnNghiPhep.Size = new Size(249, 50);
+            btnNghiPhep.TabIndex = 4;
+            btnNghiPhep.Text = "Nghỉ phép";
+            btnNghiPhep.TextAlign = ContentAlignment.MiddleLeft;
+            btnNghiPhep.UseVisualStyleBackColor = false;
+            btnNghiPhep.Click += btnNghiPhep_Click;
             // 
-            // button3
+            // btnTienLuong
             // 
-            button3.BackColor = Color.Transparent;
-            button3.Dock = DockStyle.Top;
-            button3.FlatAppearance.BorderSize = 0;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.ForeColor = Color.White;
-            button3.Location = new Point(0, 180);
-            button3.Name = "button3";
-            button3.Padding = new Padding(25, 0, 0, 0);
-            button3.Size = new Size(249, 50);
-            button3.TabIndex = 2;
-            button3.Text = "Tính tiền lương";
-            button3.TextAlign = ContentAlignment.MiddleLeft;
-            button3.UseVisualStyleBackColor = false;
-            button3.Click += button3_Click;
+
+            this.btnTienLuong.BackColor = Color.Transparent;
+            this.btnTienLuong.Dock = DockStyle.Top;
+            this.btnTienLuong.FlatAppearance.BorderSize = 0;
+            this.btnTienLuong.FlatStyle = FlatStyle.Flat;
+            this.btnTienLuong.ForeColor = Color.White;
+            this.btnTienLuong.Location = new Point(0, 180);
+            this.btnTienLuong.Name = "btnTienLuong";
+            this.btnTienLuong.Padding = new Padding(25, 0, 0, 0);
+            this.btnTienLuong.Size = new Size(249, 50);
+            this.btnTienLuong.TabIndex = 2;
+            this.btnTienLuong.Text = "Tính tiền lương";
+            this.btnTienLuong.TextAlign = ContentAlignment.MiddleLeft;
+            this.btnTienLuong.UseVisualStyleBackColor = false;
+            this.btnTienLuong.Click += this.btnTienLuong_Click;
+
             // 
-            // button1
+            // btnChamCong
             // 
-            button1.BackColor = Color.Transparent;
-            button1.Dock = DockStyle.Top;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(0, 130);
-            button1.Name = "button1";
-            button1.Padding = new Padding(25, 0, 0, 0);
-            button1.Size = new Size(249, 50);
-            button1.TabIndex = 0;
-            button1.Text = "Chấm công";
-            button1.TextAlign = ContentAlignment.MiddleLeft;
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
+            btnChamCong.BackColor = Color.Transparent;
+            btnChamCong.Dock = DockStyle.Top;
+            btnChamCong.FlatAppearance.BorderSize = 0;
+            btnChamCong.FlatStyle = FlatStyle.Flat;
+            btnChamCong.ForeColor = Color.White;
+            btnChamCong.Location = new Point(0, 130);
+            btnChamCong.Name = "btnChamCong";
+            btnChamCong.Padding = new Padding(25, 0, 0, 0);
+            btnChamCong.Size = new Size(249, 50);
+            btnChamCong.TabIndex = 0;
+            btnChamCong.Text = "Chấm công";
+            btnChamCong.TextAlign = ContentAlignment.MiddleLeft;
+            btnChamCong.UseVisualStyleBackColor = false;
+            btnChamCong.Click += button1_Click;
             // 
-            // button2
+            // btnQLNhanSu
             // 
-            button2.BackColor = Color.Transparent;
-            button2.Dock = DockStyle.Top;
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.ForeColor = Color.White;
-            button2.Location = new Point(0, 80);
-            button2.Name = "button2";
-            button2.Padding = new Padding(25, 0, 0, 0);
-            button2.Size = new Size(249, 50);
-            button2.TabIndex = 1;
-            button2.Text = "Quản lý nhân sự";
-            button2.TextAlign = ContentAlignment.MiddleLeft;
-            button2.UseVisualStyleBackColor = false;
+            this.btnQLNhanSu.BackColor = Color.Transparent;
+            this.btnQLNhanSu.Dock = DockStyle.Top;
+            this.btnQLNhanSu.FlatAppearance.BorderSize = 0;
+            this.btnQLNhanSu.FlatStyle = FlatStyle.Flat;
+            this.btnQLNhanSu.ForeColor = Color.White;
+            this.btnQLNhanSu.Location = new Point(0, 80);
+            this.btnQLNhanSu.Name = "btnQLNhanSu";
+            this.btnQLNhanSu.Padding = new Padding(25, 0, 0, 0);
+            this.btnQLNhanSu.Size = new Size(249, 50);
+            this.btnQLNhanSu.TabIndex = 1;
+            this.btnQLNhanSu.Text = "Quản lý nhân sự";
+            this.btnQLNhanSu.TextAlign = ContentAlignment.MiddleLeft;
+            this.btnQLNhanSu.UseVisualStyleBackColor = false;
             // 
             // lblLogo
             // 
@@ -162,9 +164,12 @@
         private Panel pnlSidebar;
         private Button button3;
         private Button button2;
-        private Button button1;
+        private Button btnChamCong;
         private Panel pnlDesktop;
         private Label lblLogo;
         private Button button4;
+        private Button btnNghiPhep;
+        private Button btnTienLuong;
+        private Button btnQLNhanSu;
     }
 }
