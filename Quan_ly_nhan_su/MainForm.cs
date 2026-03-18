@@ -7,13 +7,12 @@ namespace Quan_ly_nhan_su
 {
     public partial class MainForm : System.Windows.Forms.Form
     {
-<<<<<<< HEAD
         private readonly ucNhanVien _ucNhanVien = new();
         private readonly ucBangLuong _ucBangLuong = new();
         private readonly ucChamCong _ucChamCong = new();
         private readonly ucTaoDonNghiPhep _ucTaoDonNghiPhep = new();
 
-        public Form()
+        public MainForm()
         {
             InitializeComponent();
 
@@ -43,7 +42,7 @@ namespace Quan_ly_nhan_su
         private void lblLogo_Click(object? sender, EventArgs e)
         {
             OpenControl(_ucNhanVien);
-=======
+        }
         private string quyen;
         public MainForm(string quyen)
         {
@@ -56,7 +55,6 @@ namespace Quan_ly_nhan_su
             this.Text = "Phần mềm Quản lý Nhân sự - Phân hệ Tiền Lương";
             this.Size = new System.Drawing.Size(850, 500);
             this.StartPosition = FormStartPosition.CenterScreen;
->>>>>>> aa205d7053074df71b7d9a0ba3ae7bef943a8772
         }
 
         public void ThietLapPhanQuyen()
@@ -105,9 +103,6 @@ namespace Quan_ly_nhan_su
         {
             OpenControl(_ucBangLuong);
         }
-<<<<<<< HEAD
-=======
-
         private void guna2HtmlLabel1_Click(object sender, EventArgs e)
         {
 
@@ -135,6 +130,5 @@ namespace Quan_ly_nhan_su
 
         // Add event handlers or methods here as needed
 
->>>>>>> aa205d7053074df71b7d9a0ba3ae7bef943a8772
     }
 }
