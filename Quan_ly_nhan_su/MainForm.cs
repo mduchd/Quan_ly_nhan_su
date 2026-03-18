@@ -62,25 +62,6 @@ namespace Quan_ly_nhan_su
 
         }
 
-        private void btnNghiPhep_Click(object sender, EventArgs e)
-        {
-            pnlDesktop.Controls.Clear();
-            //ucChamCong uc = new ucChamCong();
-            ucTaoDonNghiPhep uc = new ucTaoDonNghiPhep();
-            uc.Dock = DockStyle.Fill;
-            pnlDesktop.Controls.Add(uc);
-            //uc.loadDanhSachNghiPhep();
-        }
-
-
-        private void btnTienLuong_Click(object sender, EventArgs e)
-        {
-            pnlDesktop.Controls.Clear();
-            ucBangLuong uc = new ucBangLuong();
-            uc.Dock = DockStyle.Fill;
-            pnlDesktop.Controls.Add(uc);
-
-        }
 
         private void guna2HtmlLabel1_Click(object sender, EventArgs e)
         {
@@ -114,6 +95,14 @@ namespace Quan_ly_nhan_su
             uc.Dock = DockStyle.Fill;
             pnlDesktop.Controls.Add(uc);
             //uc.loadDanhSachNghiPhep();
+        }
+
+        private void btnTienLuong_Click_1(object sender, EventArgs e)
+        {
+            pnlDesktop.Controls.Clear();
+            ucBangLuong uc = new ucBangLuong();
+            uc.Dock = DockStyle.Fill;
+            pnlDesktop.Controls.Add(uc);
         }
 
 

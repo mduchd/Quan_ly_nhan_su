@@ -103,6 +103,7 @@
             btnTienLuong.Size = new Size(225, 56);
             btnTienLuong.TabIndex = 12;
             btnTienLuong.Text = "Tiền Lương";
+            btnTienLuong.Click += btnTienLuong_Click_1;
             // 
             // btnChamCong
             // 
@@ -143,10 +144,11 @@
             guna2Panel1.Controls.Add(lblVaiTro);
             guna2Panel1.Controls.Add(btnDangXuat);
             guna2Panel1.CustomizableEdges = customizableEdges11;
-            guna2Panel1.Location = new Point(3, 433);
+            guna2Panel1.Dock = DockStyle.Bottom;
+            guna2Panel1.Location = new Point(0, 436);
             guna2Panel1.Name = "guna2Panel1";
             guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            guna2Panel1.Size = new Size(250, 125);
+            guna2Panel1.Size = new Size(249, 125);
             guna2Panel1.TabIndex = 9;
             // 
             // lblVaiTro
