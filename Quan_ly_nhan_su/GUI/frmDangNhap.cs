@@ -19,5 +19,10 @@ namespace Quan_ly_nhan_su.GUI
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

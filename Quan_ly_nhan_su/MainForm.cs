@@ -41,12 +41,15 @@ namespace Quan_ly_nhan_su
 
         private void btnNghiPhep_Click(object sender, EventArgs e)
         {
+            pnlDesktop.SuspendLayout();
             pnlDesktop.Controls.Clear();
-            //ucChamCong uc = new ucChamCong();
-            ucTaoDonNghiPhep uc = new ucTaoDonNghiPhep();
+            ucChamCong uc = new ucChamCong();
+            //ucItemYeuCau uc = new ucItemYeuCau();
+            //ucTaoDonNghiPhep uc = new ucTaoDonNghiPhep();
             uc.Dock = DockStyle.Fill;
             pnlDesktop.Controls.Add(uc);
             //uc.loadDanhSachNghiPhep();
+            pnlDesktop.ResumeLayout();
         }
 
 

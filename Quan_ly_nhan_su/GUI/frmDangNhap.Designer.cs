@@ -74,7 +74,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(382, 105);
             label3.Name = "label3";
-            label3.Size = new Size(58, 15);
+            label3.Size = new Size(57, 15);
             label3.TabIndex = 2;
             label3.Text = "Tài khoản";
             label3.Click += label3_Click;
@@ -111,6 +111,7 @@
             button1.TabIndex = 6;
             button1.Text = "ĐĂNG NHẬP";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // frmDangNhap
             // 

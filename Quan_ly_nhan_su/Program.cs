@@ -1,4 +1,4 @@
-namespace Quan_ly_nhan_su
+namespace Quan_ly_nhan_su.GUI
 {
     internal static class Program
     {
