@@ -32,7 +32,7 @@ namespace Quan_ly_nhan_su
                 btnTienLuong.Visible = false;
 
                 lblVaiTro.Text = "Vai trò: Nhân viên";
-            } 
+            }
             else if (this.quyen == "Admin")
             {
                 btnQLNhanSu.Visible = false;
@@ -85,6 +85,24 @@ namespace Quan_ly_nhan_su
         private void guna2HtmlLabel1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnDangXuat_Click(object sender, EventArgs e)
+        {
+            DialogResult rs = MessageBox.Show("Bạn có chắc chắn muốn đăng xuất không ?", "Xác nhận đăng xuất", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (rs == DialogResult.Yes)
+            {
+                Form frmLogin = Application.OpenForms["frmDangNhap"];
+                if (frmLogin != null)
+                {
+                    frmLogin.Show();
+                } else
+                {
+                    new frmDangNhap().Show();
+                }
+                this.Close();
+            }
         }
 
 

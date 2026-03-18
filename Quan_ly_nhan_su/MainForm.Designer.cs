@@ -63,9 +63,9 @@
             lblVaiTro.BackColor = Color.Transparent;
             lblVaiTro.Dock = DockStyle.Bottom;
             lblVaiTro.ForeColor = Color.White;
-            lblVaiTro.Location = new Point(0, 488);
+            lblVaiTro.Location = new Point(0, 483);
             lblVaiTro.Name = "lblVaiTro";
-            lblVaiTro.Size = new Size(249, 17);
+            lblVaiTro.Size = new Size(249, 22);
             lblVaiTro.TabIndex = 8;
             lblVaiTro.Text = "Vai trò";
             lblVaiTro.TextAlignment = ContentAlignment.TopCenter;
@@ -88,6 +88,7 @@
             btnDangXuat.Size = new Size(249, 56);
             btnDangXuat.TabIndex = 7;
             btnDangXuat.Text = "Đăng xuất";
+            btnDangXuat.Click += btnDangXuat_Click;
             // 
             // btnNghiPhep
             // 
@@ -180,7 +181,7 @@
             // 
             // MainForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
+            AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(984, 561);
             Controls.Add(pnlDesktop);

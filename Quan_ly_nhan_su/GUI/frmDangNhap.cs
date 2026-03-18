@@ -40,5 +40,10 @@ namespace Quan_ly_nhan_su.GUI
                 this.Hide();
             }
         }
+
+        private void guna2PictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
