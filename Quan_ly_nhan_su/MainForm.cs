@@ -1,18 +1,24 @@
 using System;
 using System.Windows.Forms;
 using Quan_ly_nhan_su.GUI;
+using Quan_ly_nhan_su.GUI.ChamCongNghiPhep;
 
 namespace Quan_ly_nhan_su
 {
-    public partial class MainForm : Form
+    public partial class Form : System.Windows.Forms.Form
     {
         private readonly ucNhanVien _ucNhanVien = new();
+        private readonly ucBangLuong _ucBangLuong = new();
+        private readonly ucChamCong _ucChamCong = new();
+        private readonly ucTaoDonNghiPhep _ucTaoDonNghiPhep = new();
 
-        public MainForm()
+        public Form()
         {
             InitializeComponent();
 
-            button2.Click += button2_Click;
+            btnQLNhanSu.Click += button2_Click;
+
+            OpenControl(_ucNhanVien);
         }
 
         private void OpenControl(UserControl control)
@@ -38,9 +44,31 @@ namespace Quan_ly_nhan_su
             OpenControl(_ucNhanVien);
         }
 
+
+
         private void label1_Click(object sender, EventArgs e)
         {
             lblLogo_Click(sender, e);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenControl(_ucChamCong);
+        }
+
+        private void pnlDesktop_Paint(object sender, PaintEventArgs e)
+        {
+        }
+
+        private void btnNghiPhep_Click(object sender, EventArgs e)
+        {
+            OpenControl(_ucTaoDonNghiPhep);
+        }
+
+
+        private void btnTienLuong_Click(object sender, EventArgs e)
+        {
+            OpenControl(_ucBangLuong);
         }
     }
 }
