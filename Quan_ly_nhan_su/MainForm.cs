@@ -35,7 +35,7 @@ namespace Quan_ly_nhan_su
             }
             else if (this.quyen == "Admin")
             {
-                btnQLNhanSu.Visible = false;
+                btnQLNhanSu.Visible = true;
                 btnTienLuong.Visible = true;
                 btnChamCong.Visible = true;
                 btnNghiPhep.Visible = true;
@@ -97,12 +97,23 @@ namespace Quan_ly_nhan_su
                 if (frmLogin != null)
                 {
                     frmLogin.Show();
-                } else
+                }
+                else
                 {
                     new frmDangNhap().Show();
                 }
                 this.Close();
             }
+        }
+
+        private void btnNghiPhep_Click_1(object sender, EventArgs e)
+        {
+            pnlDesktop.Controls.Clear();
+            //ucChamCong uc = new ucChamCong();
+            ucTaoDonNghiPhep uc = new ucTaoDonNghiPhep();
+            uc.Dock = DockStyle.Fill;
+            pnlDesktop.Controls.Add(uc);
+            //uc.loadDanhSachNghiPhep();
         }
 
 
