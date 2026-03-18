@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Quan_ly_nhan_su.GUI
@@ -38,6 +40,7 @@ namespace Quan_ly_nhan_su.GUI
         public ucNhanVien()
         {
             InitializeComponent();
+            // ApplyTheme(); // Bỏ code can thiệp màu để nhận chỉnh sửa từ Properties (Designer)
             InitMockData();
             LoadCombobox();
             LoadGridData();
@@ -45,6 +48,50 @@ namespace Quan_ly_nhan_su.GUI
 
             SizeChanged += ucNhanVien_SizeChanged;
             ApplyResponsiveLayout();
+        }
+
+        private void ApplyTheme()
+        {
+            var primary = Color.SteelBlue;
+            var primaryDark = Color.FromArgb(46, 102, 153);
+            var danger = Color.IndianRed;
+            var success = Color.SeaGreen;
+            var neutral = Color.SlateGray;
+
+            grpInput.ForeColor = primaryDark;
+            pnlSearch.BackColor = Color.FromArgb(245, 249, 253);
+
+            btnAdd.FillColor = success;
+            btnEdit.FillColor = primary;
+            btnDelete.FillColor = danger;
+            btnClear.FillColor = neutral;
+            btnExport.FillColor = Color.MediumPurple;
+
+            btnAddDept.FillColor = success;
+            btnEditDept.FillColor = primary;
+            btnDeleteDept.FillColor = danger;
+
+            cbDept.BorderColor = primary;
+            cbGender.BorderColor = primary;
+
+            txtId.BorderColor = primary;
+            txtName.BorderColor = primary;
+            txtPosition.BorderColor = primary;
+            txtPhone.BorderColor = primary;
+            txtEmail.BorderColor = primary;
+            txtAddress.BorderColor = primary;
+            txtSearch.BorderColor = primary;
+
+            dtpDob.BorderColor = primary;
+            dtpDob.FillColor = Color.White;
+            dtpStartDate.BorderColor = primary;
+            dtpStartDate.FillColor = Color.White;
+
+            gridEmployees.ColumnHeadersDefaultCellStyle.BackColor = primary;
+            gridEmployees.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            gridEmployees.EnableHeadersVisualStyles = false;
+            gridEmployees.GridColor = Color.FromArgb(220, 230, 241);
+            gridEmployees.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 251, 255);
         }
 
         private void ucNhanVien_SizeChanged(object? sender, EventArgs e)
@@ -100,14 +147,7 @@ namespace Quan_ly_nhan_su.GUI
 
         private void LoadGridData()
         {
-            var keyword = txtSearch.Text.Trim();
-            var filteredEmployees = _employees.Where(e =>
-                string.IsNullOrWhiteSpace(keyword) ||
-                e.FullName.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                e.Position.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                e.PhoneNumber.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                e.Email.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                e.Address.Contains(keyword, StringComparison.OrdinalIgnoreCase));
+            var filteredEmployees = GetFilteredEmployees();
 
             var displayData = filteredEmployees.Select(e => new
             {
@@ -125,6 +165,18 @@ namespace Quan_ly_nhan_su.GUI
 
             gridEmployees.DataSource = null;
             gridEmployees.DataSource = displayData;
+        }
+
+        private IEnumerable<Employee> GetFilteredEmployees()
+        {
+            var keyword = txtSearch.Text.Trim();
+            return _employees.Where(e =>
+                string.IsNullOrWhiteSpace(keyword) ||
+                e.FullName.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                e.Position.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                e.PhoneNumber.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                e.Email.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                e.Address.Contains(keyword, StringComparison.OrdinalIgnoreCase));
         }
 
         private void ClearInputs()
@@ -270,6 +322,61 @@ namespace Quan_ly_nhan_su.GUI
         private void btnClear_Click(object sender, EventArgs e)
         {
             ClearInputs();
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            var dataToExport = GetFilteredEmployees().OrderBy(x => x.Id).ToList();
+            if (dataToExport.Count == 0)
+            {
+                MessageBox.Show("Không có dữ liệu để xuất.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            using var dialog = new SaveFileDialog
+            {
+                Filter = "CSV files (*.csv)|*.csv",
+                FileName = $"NhanVien_{DateTime.Now:yyyyMMdd_HHmmss}.csv",
+                Title = "Xuất danh sách nhân viên"
+            };
+
+            if (dialog.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
+            var sb = new StringBuilder();
+            sb.AppendLine("MaNV,HoTen,NgaySinh,GioiTinh,ChucVu,SoDienThoai,Email,DiaChi,NgayVaoLam,TrangThai,PhongBan");
+
+            foreach (var eData in dataToExport)
+            {
+                var departmentName = _departments.FirstOrDefault(d => d.Id == eData.DepartmentId)?.Name ?? string.Empty;
+                sb.AppendLine(string.Join(',',
+                    EscapeCsv(eData.Id.ToString()),
+                    EscapeCsv(eData.FullName),
+                    EscapeCsv(eData.DateOfBirth.ToString("dd/MM/yyyy")),
+                    EscapeCsv(eData.Gender),
+                    EscapeCsv(eData.Position),
+                    EscapeCsv(eData.PhoneNumber),
+                    EscapeCsv(eData.Email),
+                    EscapeCsv(eData.Address),
+                    EscapeCsv(eData.StartDate.ToString("dd/MM/yyyy")),
+                    EscapeCsv(eData.IsActive ? "Dang lam" : "Nghi viec"),
+                    EscapeCsv(departmentName)));
+            }
+
+            File.WriteAllText(dialog.FileName, sb.ToString(), new UTF8Encoding(true));
+            MessageBox.Show("Xuất CSV thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private static string EscapeCsv(string value)
+        {
+            if (value.Contains('"'))
+            {
+                value = value.Replace("\"", "\"\"");
+            }
+
+            return value.IndexOfAny(new[] { ',', '"', '\n', '\r' }) >= 0 ? $"\"{value}\"" : value;
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
@@ -596,13 +703,24 @@ namespace Quan_ly_nhan_su.GUI
             lblAddress.SetBounds(leftLabelX, row6Top + 3, labelWidth, lblAddress.Height);
             txtAddress.SetBounds(leftInputX, row6Top, (rightInputX + inputWidth) - leftInputX, inputHeight);
 
-            var totalButtonWidth = (buttonWidth * 4) + (buttonGap * 3);
+            var totalButtonWidth = (buttonWidth * 5) + (buttonGap * 4);
             var buttonStartX = Math.Max(rightInputX + inputWidth - totalButtonWidth, margin);
 
             btnAdd.SetBounds(buttonStartX, buttonTop, buttonWidth, 36);
             btnEdit.SetBounds(btnAdd.Right + buttonGap, buttonTop, buttonWidth, 36);
             btnDelete.SetBounds(btnEdit.Right + buttonGap, buttonTop, buttonWidth, 36);
             btnClear.SetBounds(btnDelete.Right + buttonGap, buttonTop, buttonWidth, 36);
+            btnExport.SetBounds(btnClear.Right + buttonGap, buttonTop, buttonWidth, 36);
+        }
+
+        private void pnlSearch_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void lblSearch_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

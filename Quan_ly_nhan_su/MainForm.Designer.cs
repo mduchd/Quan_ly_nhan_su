@@ -1,6 +1,6 @@
 ﻿namespace Quan_ly_nhan_su
 {
-    partial class Form
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,11 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             pnlSidebar = new Panel();
+            lblVaiTro = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            btnDangXuat = new Guna.UI2.WinForms.Guna2Button();
             btnNghiPhep = new Button();
-            this.btnTienLuong = new Button();
+            btnTienLuong = new Button();
             btnChamCong = new Button();
-            this.btnQLNhanSu = new Button();
+            btnQLNhanSu = new Button();
             lblLogo = new Label();
             pnlDesktop = new Panel();
             pnlSidebar.SuspendLayout();
@@ -41,16 +45,50 @@
             // pnlSidebar
             // 
             pnlSidebar.BackColor = Color.SteelBlue;
+            pnlSidebar.Controls.Add(lblVaiTro);
+            pnlSidebar.Controls.Add(btnDangXuat);
             pnlSidebar.Controls.Add(btnNghiPhep);
-            pnlSidebar.Controls.Add(this.btnTienLuong);
+            pnlSidebar.Controls.Add(btnTienLuong);
             pnlSidebar.Controls.Add(btnChamCong);
-            pnlSidebar.Controls.Add(this.btnQLNhanSu);
+            pnlSidebar.Controls.Add(btnQLNhanSu);
             pnlSidebar.Controls.Add(lblLogo);
             pnlSidebar.Dock = DockStyle.Left;
             pnlSidebar.Location = new Point(0, 0);
             pnlSidebar.Name = "pnlSidebar";
             pnlSidebar.Size = new Size(249, 561);
             pnlSidebar.TabIndex = 0;
+            // 
+            // lblVaiTro
+            // 
+            lblVaiTro.BackColor = Color.Transparent;
+            lblVaiTro.Dock = DockStyle.Bottom;
+            lblVaiTro.ForeColor = Color.White;
+            lblVaiTro.Location = new Point(0, 483);
+            lblVaiTro.Name = "lblVaiTro";
+            lblVaiTro.Size = new Size(249, 22);
+            lblVaiTro.TabIndex = 8;
+            lblVaiTro.Text = "Vai trò";
+            lblVaiTro.TextAlignment = ContentAlignment.TopCenter;
+            lblVaiTro.Click += guna2HtmlLabel1_Click;
+            // 
+            // btnDangXuat
+            // 
+            btnDangXuat.BorderRadius = 15;
+            btnDangXuat.CustomizableEdges = customizableEdges1;
+            btnDangXuat.DisabledState.BorderColor = Color.DarkGray;
+            btnDangXuat.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnDangXuat.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnDangXuat.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnDangXuat.Dock = DockStyle.Bottom;
+            btnDangXuat.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnDangXuat.ForeColor = Color.White;
+            btnDangXuat.Location = new Point(0, 505);
+            btnDangXuat.Name = "btnDangXuat";
+            btnDangXuat.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnDangXuat.Size = new Size(249, 56);
+            btnDangXuat.TabIndex = 7;
+            btnDangXuat.Text = "Đăng xuất";
+            btnDangXuat.Click += btnDangXuat_Click;
             // 
             // btnNghiPhep
             // 
@@ -71,22 +109,20 @@
             // 
             // btnTienLuong
             // 
-
-            this.btnTienLuong.BackColor = Color.Transparent;
-            this.btnTienLuong.Dock = DockStyle.Top;
-            this.btnTienLuong.FlatAppearance.BorderSize = 0;
-            this.btnTienLuong.FlatStyle = FlatStyle.Flat;
-            this.btnTienLuong.ForeColor = Color.White;
-            this.btnTienLuong.Location = new Point(0, 180);
-            this.btnTienLuong.Name = "btnTienLuong";
-            this.btnTienLuong.Padding = new Padding(25, 0, 0, 0);
-            this.btnTienLuong.Size = new Size(249, 50);
-            this.btnTienLuong.TabIndex = 2;
-            this.btnTienLuong.Text = "Tính tiền lương";
-            this.btnTienLuong.TextAlign = ContentAlignment.MiddleLeft;
-            this.btnTienLuong.UseVisualStyleBackColor = false;
-            this.btnTienLuong.Click += this.btnTienLuong_Click;
-
+            btnTienLuong.BackColor = Color.Transparent;
+            btnTienLuong.Dock = DockStyle.Top;
+            btnTienLuong.FlatAppearance.BorderSize = 0;
+            btnTienLuong.FlatStyle = FlatStyle.Flat;
+            btnTienLuong.ForeColor = Color.White;
+            btnTienLuong.Location = new Point(0, 180);
+            btnTienLuong.Name = "btnTienLuong";
+            btnTienLuong.Padding = new Padding(25, 0, 0, 0);
+            btnTienLuong.Size = new Size(249, 50);
+            btnTienLuong.TabIndex = 2;
+            btnTienLuong.Text = "Tính tiền lương";
+            btnTienLuong.TextAlign = ContentAlignment.MiddleLeft;
+            btnTienLuong.UseVisualStyleBackColor = false;
+            btnTienLuong.Click += btnTienLuong_Click;
             // 
             // btnChamCong
             // 
@@ -107,19 +143,19 @@
             // 
             // btnQLNhanSu
             // 
-            this.btnQLNhanSu.BackColor = Color.Transparent;
-            this.btnQLNhanSu.Dock = DockStyle.Top;
-            this.btnQLNhanSu.FlatAppearance.BorderSize = 0;
-            this.btnQLNhanSu.FlatStyle = FlatStyle.Flat;
-            this.btnQLNhanSu.ForeColor = Color.White;
-            this.btnQLNhanSu.Location = new Point(0, 80);
-            this.btnQLNhanSu.Name = "btnQLNhanSu";
-            this.btnQLNhanSu.Padding = new Padding(25, 0, 0, 0);
-            this.btnQLNhanSu.Size = new Size(249, 50);
-            this.btnQLNhanSu.TabIndex = 1;
-            this.btnQLNhanSu.Text = "Quản lý nhân sự";
-            this.btnQLNhanSu.TextAlign = ContentAlignment.MiddleLeft;
-            this.btnQLNhanSu.UseVisualStyleBackColor = false;
+            btnQLNhanSu.BackColor = Color.Transparent;
+            btnQLNhanSu.Dock = DockStyle.Top;
+            btnQLNhanSu.FlatAppearance.BorderSize = 0;
+            btnQLNhanSu.FlatStyle = FlatStyle.Flat;
+            btnQLNhanSu.ForeColor = Color.White;
+            btnQLNhanSu.Location = new Point(0, 80);
+            btnQLNhanSu.Name = "btnQLNhanSu";
+            btnQLNhanSu.Padding = new Padding(25, 0, 0, 0);
+            btnQLNhanSu.Size = new Size(249, 50);
+            btnQLNhanSu.TabIndex = 1;
+            btnQLNhanSu.Text = "Quản lý nhân sự";
+            btnQLNhanSu.TextAlign = ContentAlignment.MiddleLeft;
+            btnQLNhanSu.UseVisualStyleBackColor = false;
             // 
             // lblLogo
             // 
@@ -143,7 +179,7 @@
             pnlDesktop.TabIndex = 1;
             pnlDesktop.Paint += pnlDesktop_Paint;
             // 
-            // Form
+            // MainForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -151,11 +187,12 @@
             Controls.Add(pnlDesktop);
             Controls.Add(pnlSidebar);
             Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Name = "Form";
+            Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "HRM Workspace";
             WindowState = FormWindowState.Maximized;
             pnlSidebar.ResumeLayout(false);
+            pnlSidebar.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -171,5 +208,7 @@
         private Button btnNghiPhep;
         private Button btnTienLuong;
         private Button btnQLNhanSu;
+        private Guna.UI2.WinForms.Guna2Button btnDangXuat;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblVaiTro;
     }
 }
