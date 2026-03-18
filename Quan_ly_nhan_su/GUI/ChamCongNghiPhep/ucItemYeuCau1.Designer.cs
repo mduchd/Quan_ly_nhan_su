@@ -17,205 +17,227 @@
 
         private void InitializeComponent()
         {
-            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.btnTuChoi = new Guna.UI2.WinForms.Guna2Button();
-            this.btnPheDuyet = new Guna.UI2.WinForms.Guna2Button();
-            this.lblLyDo = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.lblThoiGian = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.lblLoaiNghi = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.btnTrangThai = new Guna.UI2.WinForms.Guna2Button();
-            this.lblPhongBan = new System.Windows.Forms.Label();
-            this.lblTenNhanVien = new System.Windows.Forms.Label();
-            this.guna2CirclePictureBox1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
-            this.guna2Panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).BeginInit();
-            this.SuspendLayout();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            btnTuChoi = new Guna.UI2.WinForms.Guna2Button();
+            btnPheDuyet = new Guna.UI2.WinForms.Guna2Button();
+            lblLyDo = new Label();
+            label7 = new Label();
+            lblThoiGian = new Label();
+            label5 = new Label();
+            lblLoaiNghi = new Label();
+            label3 = new Label();
+            btnTrangThai = new Guna.UI2.WinForms.Guna2Button();
+            lblPhongBan = new Label();
+            lblTenNhanVien = new Label();
+            guna2CirclePictureBox1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
+            guna2Panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox1).BeginInit();
+            SuspendLayout();
             // 
             // guna2Panel1
             // 
-            this.guna2Panel1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Panel1.BorderRadius = 15;
-            this.guna2Panel1.Controls.Add(this.btnTuChoi);
-            this.guna2Panel1.Controls.Add(this.btnPheDuyet);
-            this.guna2Panel1.Controls.Add(this.lblLyDo);
-            this.guna2Panel1.Controls.Add(this.label7);
-            this.guna2Panel1.Controls.Add(this.lblThoiGian);
-            this.guna2Panel1.Controls.Add(this.label5);
-            this.guna2Panel1.Controls.Add(this.lblLoaiNghi);
-            this.guna2Panel1.Controls.Add(this.label3);
-            this.guna2Panel1.Controls.Add(this.btnTrangThai);
-            this.guna2Panel1.Controls.Add(this.lblPhongBan);
-            this.guna2Panel1.Controls.Add(this.lblTenNhanVien);
-            this.guna2Panel1.Controls.Add(this.guna2CirclePictureBox1);
-            this.guna2Panel1.FillColor = System.Drawing.Color.White;
-            this.guna2Panel1.Location = new System.Drawing.Point(5, 5);
-            this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.ShadowDecoration.BorderRadius = 15;
-            this.guna2Panel1.ShadowDecoration.Color = System.Drawing.Color.Silver;
-            this.guna2Panel1.ShadowDecoration.Enabled = true;
-            this.guna2Panel1.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(3, 3, 5, 5);
-            this.guna2Panel1.Size = new System.Drawing.Size(1260, 110);
-            this.guna2Panel1.TabIndex = 0;
+            guna2Panel1.BackColor = Color.Transparent;
+            guna2Panel1.BorderRadius = 15;
+            guna2Panel1.Controls.Add(btnTuChoi);
+            guna2Panel1.Controls.Add(btnPheDuyet);
+            guna2Panel1.Controls.Add(lblLyDo);
+            guna2Panel1.Controls.Add(label7);
+            guna2Panel1.Controls.Add(lblThoiGian);
+            guna2Panel1.Controls.Add(label5);
+            guna2Panel1.Controls.Add(lblLoaiNghi);
+            guna2Panel1.Controls.Add(label3);
+            guna2Panel1.Controls.Add(btnTrangThai);
+            guna2Panel1.Controls.Add(lblPhongBan);
+            guna2Panel1.Controls.Add(lblTenNhanVien);
+            guna2Panel1.Controls.Add(guna2CirclePictureBox1);
+            guna2Panel1.CustomizableEdges = customizableEdges8;
+            guna2Panel1.Dock = DockStyle.Top;
+            guna2Panel1.FillColor = Color.White;
+            guna2Panel1.Location = new Point(0, 0);
+            guna2Panel1.Name = "guna2Panel1";
+            guna2Panel1.ShadowDecoration.BorderRadius = 15;
+            guna2Panel1.ShadowDecoration.Color = Color.Silver;
+            guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges9;
+            guna2Panel1.ShadowDecoration.Enabled = true;
+            guna2Panel1.ShadowDecoration.Shadow = new Padding(3, 3, 5, 5);
+            guna2Panel1.Size = new Size(1420, 110);
+            guna2Panel1.TabIndex = 0;
             // 
             // btnTuChoi
             // 
-            this.btnTuChoi.BorderRadius = 6;
-            this.btnTuChoi.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnTuChoi.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnTuChoi.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnTuChoi.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnTuChoi.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(235)))), ((int)(((byte)(238)))));
-            this.btnTuChoi.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnTuChoi.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(47)))), ((int)(((byte)(47)))));
-            this.btnTuChoi.Location = new System.Drawing.Point(1110, 60);
-            this.btnTuChoi.Name = "btnTuChoi";
-            this.btnTuChoi.Size = new System.Drawing.Size(120, 35);
-            this.btnTuChoi.TabIndex = 11;
-            this.btnTuChoi.Text = "⊗ Từ chối";
+            btnTuChoi.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnTuChoi.BorderRadius = 6;
+            btnTuChoi.CustomizableEdges = customizableEdges1;
+            btnTuChoi.DisabledState.BorderColor = Color.DarkGray;
+            btnTuChoi.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnTuChoi.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnTuChoi.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnTuChoi.FillColor = Color.FromArgb(255, 235, 238);
+            btnTuChoi.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            btnTuChoi.ForeColor = Color.FromArgb(211, 47, 47);
+            btnTuChoi.Location = new Point(1255, 59);
+            btnTuChoi.Name = "btnTuChoi";
+            btnTuChoi.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnTuChoi.Size = new Size(120, 35);
+            btnTuChoi.TabIndex = 11;
+            btnTuChoi.Text = "⊗ Từ chối";
             // 
             // btnPheDuyet
             // 
-            this.btnPheDuyet.BorderRadius = 6;
-            this.btnPheDuyet.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnPheDuyet.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnPheDuyet.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnPheDuyet.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnPheDuyet.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(184)))), ((int)(((byte)(122)))));
-            this.btnPheDuyet.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnPheDuyet.ForeColor = System.Drawing.Color.White;
-            this.btnPheDuyet.Location = new System.Drawing.Point(1110, 15);
-            this.btnPheDuyet.Name = "btnPheDuyet";
-            this.btnPheDuyet.Size = new System.Drawing.Size(120, 35);
-            this.btnPheDuyet.TabIndex = 10;
-            this.btnPheDuyet.Text = "✔ Phê duyệt";
+            btnPheDuyet.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnPheDuyet.BorderRadius = 6;
+            btnPheDuyet.CustomizableEdges = customizableEdges3;
+            btnPheDuyet.DisabledState.BorderColor = Color.DarkGray;
+            btnPheDuyet.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnPheDuyet.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnPheDuyet.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnPheDuyet.FillColor = Color.FromArgb(14, 184, 122);
+            btnPheDuyet.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            btnPheDuyet.ForeColor = Color.White;
+            btnPheDuyet.Location = new Point(1255, 18);
+            btnPheDuyet.Name = "btnPheDuyet";
+            btnPheDuyet.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnPheDuyet.Size = new Size(120, 35);
+            btnPheDuyet.TabIndex = 10;
+            btnPheDuyet.Text = "✔ Phê duyệt";
             // 
             // lblLyDo
             // 
-            this.lblLyDo.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            this.lblLyDo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblLyDo.Location = new System.Drawing.Point(740, 40);
-            this.lblLyDo.Name = "lblLyDo";
-            this.lblLyDo.Size = new System.Drawing.Size(340, 45);
-            this.lblLyDo.TabIndex = 9;
-            this.lblLyDo.Text = "\"Giải quyết việc gia đình cá nhân.\"";
+            lblLyDo.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            lblLyDo.Font = new Font("Segoe UI", 9.75F, FontStyle.Italic);
+            lblLyDo.ForeColor = Color.FromArgb(64, 64, 64);
+            lblLyDo.Location = new Point(740, 40);
+            lblLyDo.Name = "lblLyDo";
+            lblLyDo.Size = new Size(500, 45);
+            lblLyDo.TabIndex = 9;
+            lblLyDo.Text = "\"Giải quyết việc gia đình cá nhân.\"";
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label7.ForeColor = System.Drawing.Color.Gray;
-            this.label7.Location = new System.Drawing.Point(740, 20);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(39, 13);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "LÝ DO";
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold);
+            label7.ForeColor = Color.Gray;
+            label7.Location = new Point(740, 20);
+            label7.Name = "label7";
+            label7.Size = new Size(38, 13);
+            label7.TabIndex = 8;
+            label7.Text = "LÝ DO";
             // 
             // lblThoiGian
             // 
-            this.lblThoiGian.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblThoiGian.Location = new System.Drawing.Point(540, 40);
-            this.lblThoiGian.Name = "lblThoiGian";
-            this.lblThoiGian.Size = new System.Drawing.Size(180, 45);
-            this.lblThoiGian.TabIndex = 7;
-            this.lblThoiGian.Text = "20/10 - 22/10 (3 ngày)";
+            lblThoiGian.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            lblThoiGian.Location = new Point(540, 40);
+            lblThoiGian.Name = "lblThoiGian";
+            lblThoiGian.Size = new Size(180, 45);
+            lblThoiGian.TabIndex = 7;
+            lblThoiGian.Text = "20/10 - 22/10 (3 ngày)";
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label5.ForeColor = System.Drawing.Color.Gray;
-            this.label5.Location = new System.Drawing.Point(540, 20);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(65, 13);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "THỜI GIAN";
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold);
+            label5.ForeColor = Color.Gray;
+            label5.Location = new Point(540, 20);
+            label5.Name = "label5";
+            label5.Size = new Size(64, 13);
+            label5.TabIndex = 6;
+            label5.Text = "THỜI GIAN";
             // 
             // lblLoaiNghi
             // 
-            this.lblLoaiNghi.AutoSize = true;
-            this.lblLoaiNghi.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblLoaiNghi.Location = new System.Drawing.Point(360, 40);
-            this.lblLoaiNghi.Name = "lblLoaiNghi";
-            this.lblLoaiNghi.Size = new System.Drawing.Size(102, 19);
-            this.lblLoaiNghi.TabIndex = 5;
-            this.lblLoaiNghi.Text = "Nghỉ phép năm";
+            lblLoaiNghi.AutoSize = true;
+            lblLoaiNghi.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            lblLoaiNghi.Location = new Point(360, 40);
+            lblLoaiNghi.Name = "lblLoaiNghi";
+            lblLoaiNghi.Size = new Size(106, 19);
+            lblLoaiNghi.TabIndex = 5;
+            lblLoaiNghi.Text = "Nghỉ phép năm";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label3.ForeColor = System.Drawing.Color.Gray;
-            this.label3.Location = new System.Drawing.Point(360, 20);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "LOẠI NGHỈ";
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold);
+            label3.ForeColor = Color.Gray;
+            label3.Location = new Point(360, 20);
+            label3.Name = "label3";
+            label3.Size = new Size(63, 13);
+            label3.TabIndex = 4;
+            label3.Text = "LOẠI NGHỈ";
             // 
             // btnTrangThai
             // 
-            this.btnTrangThai.BorderRadius = 4;
-            this.btnTrangThai.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnTrangThai.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnTrangThai.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnTrangThai.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnTrangThai.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(243)))), ((int)(((byte)(205)))));
-            this.btnTrangThai.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnTrangThai.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(160)))), ((int)(((byte)(0)))));
-            this.btnTrangThai.Location = new System.Drawing.Point(90, 65);
-            this.btnTrangThai.Name = "btnTrangThai";
-            this.btnTrangThai.Size = new System.Drawing.Size(95, 22);
-            this.btnTrangThai.TabIndex = 3;
-            this.btnTrangThai.Text = "● CHỜ DUYỆT";
+            btnTrangThai.BorderRadius = 4;
+            btnTrangThai.CustomizableEdges = customizableEdges5;
+            btnTrangThai.DisabledState.BorderColor = Color.DarkGray;
+            btnTrangThai.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnTrangThai.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnTrangThai.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnTrangThai.FillColor = Color.FromArgb(255, 243, 205);
+            btnTrangThai.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold);
+            btnTrangThai.ForeColor = Color.FromArgb(255, 160, 0);
+            btnTrangThai.Location = new Point(90, 65);
+            btnTrangThai.Name = "btnTrangThai";
+            btnTrangThai.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnTrangThai.Size = new Size(95, 22);
+            btnTrangThai.TabIndex = 3;
+            btnTrangThai.Text = "● CHỜ DUYỆT";
             // 
             // lblPhongBan
             // 
-            this.lblPhongBan.AutoSize = true;
-            this.lblPhongBan.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblPhongBan.ForeColor = System.Drawing.Color.DimGray;
-            this.lblPhongBan.Location = new System.Drawing.Point(90, 42);
-            this.lblPhongBan.Name = "lblPhongBan";
-            this.lblPhongBan.Size = new System.Drawing.Size(161, 15);
-            this.lblPhongBan.TabIndex = 2;
-            this.lblPhongBan.Text = "Phòng Kỹ thuật • NV-1024";
+            lblPhongBan.AutoSize = true;
+            lblPhongBan.Font = new Font("Segoe UI", 9F);
+            lblPhongBan.ForeColor = Color.DimGray;
+            lblPhongBan.Location = new Point(90, 42);
+            lblPhongBan.Name = "lblPhongBan";
+            lblPhongBan.Size = new Size(145, 15);
+            lblPhongBan.TabIndex = 2;
+            lblPhongBan.Text = "Phòng Kỹ thuật • NV-1024";
             // 
             // lblTenNhanVien
             // 
-            this.lblTenNhanVien.AutoSize = true;
-            this.lblTenNhanVien.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblTenNhanVien.Location = new System.Drawing.Point(88, 18);
-            this.lblTenNhanVien.Name = "lblTenNhanVien";
-            this.lblTenNhanVien.Size = new System.Drawing.Size(128, 21);
-            this.lblTenNhanVien.TabIndex = 1;
-            this.lblTenNhanVien.Text = "Nguyễn Văn An";
+            lblTenNhanVien.AutoSize = true;
+            lblTenNhanVien.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblTenNhanVien.Location = new Point(88, 18);
+            lblTenNhanVien.Name = "lblTenNhanVien";
+            lblTenNhanVien.Size = new Size(129, 21);
+            lblTenNhanVien.TabIndex = 1;
+            lblTenNhanVien.Text = "Nguyễn Văn An";
             // 
             // guna2CirclePictureBox1
             // 
-            this.guna2CirclePictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2CirclePictureBox1.FillColor = System.Drawing.Color.Silver;
-            this.guna2CirclePictureBox1.ImageRotate = 0F;
-            this.guna2CirclePictureBox1.Location = new System.Drawing.Point(20, 25);
-            this.guna2CirclePictureBox1.Name = "guna2CirclePictureBox1";
-            this.guna2CirclePictureBox1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            this.guna2CirclePictureBox1.Size = new System.Drawing.Size(55, 55);
-            this.guna2CirclePictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2CirclePictureBox1.TabIndex = 0;
-            this.guna2CirclePictureBox1.TabStop = false;
+            guna2CirclePictureBox1.BackColor = Color.Transparent;
+            guna2CirclePictureBox1.FillColor = Color.Silver;
+            guna2CirclePictureBox1.ImageRotate = 0F;
+            guna2CirclePictureBox1.Location = new Point(20, 25);
+            guna2CirclePictureBox1.Name = "guna2CirclePictureBox1";
+            guna2CirclePictureBox1.ShadowDecoration.CustomizableEdges = customizableEdges7;
+            guna2CirclePictureBox1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            guna2CirclePictureBox1.Size = new Size(55, 55);
+            guna2CirclePictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            guna2CirclePictureBox1.TabIndex = 0;
+            guna2CirclePictureBox1.TabStop = false;
             // 
-            // ucItemYeuCau
+            // ucItemYeuCau1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.guna2Panel1);
-            this.Name = "ucItemYeuCau";
-            this.Size = new System.Drawing.Size(1270, 120);
-            this.guna2Panel1.ResumeLayout(false);
-            this.guna2Panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).EndInit();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Transparent;
+            Controls.Add(guna2Panel1);
+            Name = "ucItemYeuCau1";
+            Size = new Size(1420, 120);
+            guna2Panel1.ResumeLayout(false);
+            guna2Panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)guna2CirclePictureBox1).EndInit();
+            ResumeLayout(false);
 
         }
 

@@ -1,4 +1,8 @@
-namespace Quan_ly_nhan_su.GUI
+
+using Quan_ly_nhan_su.GUI;
+
+namespace Quan_ly_nhan_su
+
 {
     internal static class Program
     {
@@ -11,7 +15,7 @@ namespace Quan_ly_nhan_su.GUI
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form());
+            Application.Run(new frmDangNhap());
         }
     }
 }
