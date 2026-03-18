@@ -39,13 +39,6 @@ namespace Quan_ly_nhan_su.GUI.ChamCongNghiPhep
             TaoTheYeuCau("Nguyễn Văn An", "Phòng Kỹ thuật • NV-1024", "Nghỉ phép năm", "20/10 - 22/10 (3 ngày)", "Giải quyết việc gia đình cá nhân.");
             TaoTheYeuCau("Trần Thị Mai", "Phòng Marketing • NV-0982", "Nghỉ ốm", "18/10 (1 ngày)", "Bị sốt xuất huyết, có giấy xác nhận của bác sĩ.");
             TaoTheYeuCau("Lê Hoàng Nam", "Phòng Kinh doanh • NV-1150", "Nghỉ không lương", "25/10 - 26/10 (2 ngày)", "Đi khám sức khỏe định kỳ cho bố mẹ.");
-            TaoTheYeuCau("Lê Hoàng Nam", "Phòng Kinh doanh • NV-1150", "Nghỉ không lương", "25/10 - 26/10 (2 ngày)", "Đi khám sức khỏe định kỳ cho bố mẹ.");
-            TaoTheYeuCau("Lê Hoàng Nam", "Phòng Kinh doanh • NV-1150", "Nghỉ không lương", "25/10 - 26/10 (2 ngày)", "Đi khám sức khỏe định kỳ cho bố mẹ.");
-            TaoTheYeuCau("Lê Hoàng Nam", "Phòng Kinh doanh • NV-1150", "Nghỉ không lương", "25/10 - 26/10 (2 ngày)", "Đi khám sức khỏe định kỳ cho bố mẹ.");
-            TaoTheYeuCau("Lê Hoàng Nam", "Phòng Kinh doanh • NV-1150", "Nghỉ không lương", "25/10 - 26/10 (2 ngày)", "Đi khám sức khỏe định kỳ cho bố mẹ.");
-            TaoTheYeuCau("Lê Hoàng Nam", "Phòng Kinh doanh • NV-1150", "Nghỉ không lương", "25/10 - 26/10 (2 ngày)", "Đi khám sức khỏe định kỳ cho bố mẹ.");
-            TaoTheYeuCau("Lê Hoàng Nam", "Phòng Kinh doanh • NV-1150", "Nghỉ không lương", "25/10 - 26/10 (2 ngày)", "Đi khám sức khỏe định kỳ cho bố mẹ.");
-            TaoTheYeuCau("Lê Hoàng Nam", "Phòng Kinh doanh • NV-1150", "Nghỉ không lương", "25/10 - 26/10 (2 ngày)", "Đi khám sức khỏe định kỳ cho bố mẹ.");
             flpDanhSach.ResumeLayout();
 
 

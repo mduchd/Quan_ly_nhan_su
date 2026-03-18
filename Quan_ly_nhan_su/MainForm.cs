@@ -54,6 +54,11 @@ namespace Quan_ly_nhan_su
 
         private void button1_Click(object sender, EventArgs e)
         {
+            pnlDesktop.Controls.Clear();
+            ucChamCong uc = new ucChamCong();
+            uc.Dock = DockStyle.Fill;
+            pnlDesktop.Controls.Add(uc);
+
 
         }
 

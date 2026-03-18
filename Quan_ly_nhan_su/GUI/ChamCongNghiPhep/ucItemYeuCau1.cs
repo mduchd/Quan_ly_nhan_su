@@ -18,5 +18,15 @@ namespace Quan_ly_nhan_su.GUI.ChamCongNghiPhep
             lblThoiGian.Text = thoiGian;
             lblLyDo.Text = "\"" + lyDo + "\"";
         }
+
+        private void btnPheDuyet_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

@@ -40,6 +40,8 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             label1 = new Label();
             label2 = new Label();
             btnXuatBaoCao = new Guna.UI2.WinForms.Guna2Button();
@@ -52,6 +54,7 @@
             label4 = new Label();
             label3 = new Label();
             flpDanhSach = new FlowLayoutPanel();
+            tbTimKiem = new Guna.UI2.WinForms.Guna2TextBox();
             guna2Panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -88,11 +91,11 @@
             btnXuatBaoCao.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             btnXuatBaoCao.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnXuatBaoCao.ForeColor = Color.White;
-            btnXuatBaoCao.Location = new Point(1296, 65);
+            btnXuatBaoCao.Location = new Point(1310, 77);
             btnXuatBaoCao.Margin = new Padding(3, 4, 3, 4);
             btnXuatBaoCao.Name = "btnXuatBaoCao";
             btnXuatBaoCao.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            btnXuatBaoCao.Size = new Size(178, 55);
+            btnXuatBaoCao.Size = new Size(164, 36);
             btnXuatBaoCao.TabIndex = 2;
             btnXuatBaoCao.Text = "Xuất báo cáo";
             // 
@@ -244,10 +247,32 @@
             flpDanhSach.TabIndex = 4;
             flpDanhSach.Paint += flpDanhSach_Paint;
             // 
-            // ucChamCong
+            // tbTimKiem
+            // 
+            tbTimKiem.BorderRadius = 10;
+            tbTimKiem.CustomizableEdges = customizableEdges13;
+            tbTimKiem.DefaultText = "";
+            tbTimKiem.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
+            tbTimKiem.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
+            tbTimKiem.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
+            tbTimKiem.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
+            tbTimKiem.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            tbTimKiem.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tbTimKiem.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
+            tbTimKiem.Location = new Point(563, 77);
+            tbTimKiem.Margin = new Padding(3, 4, 3, 4);
+            tbTimKiem.Name = "tbTimKiem";
+            tbTimKiem.PlaceholderText = "Tìm kiếm nhân viên...";
+            tbTimKiem.SelectedText = "";
+            tbTimKiem.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            tbTimKiem.Size = new Size(599, 36);
+            tbTimKiem.TabIndex = 5;
+            // 
+            // ucXuLyNghiPhep
             // 
             AutoScaleDimensions = new SizeF(7F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(tbTimKiem);
             Controls.Add(flpDanhSach);
             Controls.Add(guna2Panel1);
             Controls.Add(btnXuatBaoCao);
@@ -255,7 +280,7 @@
             Controls.Add(label1);
             Font = new Font("Segoe UI Light", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(3, 4, 3, 4);
-            Name = "ucChamCong";
+            Name = "ucXuLyNghiPhep";
             Size = new Size(1520, 1201);
             Load += ucChamCong_Load;
             guna2Panel1.ResumeLayout(false);
@@ -278,5 +303,6 @@
         private Guna.UI2.WinForms.Guna2ComboBox cbKhoangNgay;
         private Guna.UI2.WinForms.Guna2Button btnLamMoi;
         private FlowLayoutPanel flpDanhSach;
+        private Guna.UI2.WinForms.Guna2TextBox tbTimKiem;
     }
 }
