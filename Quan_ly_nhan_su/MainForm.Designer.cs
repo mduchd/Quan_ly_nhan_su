@@ -138,6 +138,7 @@
             btnQLNhanSu.Size = new Size(225, 56);
             btnQLNhanSu.TabIndex = 10;
             btnQLNhanSu.Text = "Quản lý nhân sự";
+            btnQLNhanSu.Click += btnQLNhanSu_Click_1;
             // 
             // guna2Panel1
             // 
@@ -157,7 +158,7 @@
             lblVaiTro.ForeColor = Color.White;
             lblVaiTro.Location = new Point(85, 18);
             lblVaiTro.Name = "lblVaiTro";
-            lblVaiTro.Size = new Size(53, 22);
+            lblVaiTro.Size = new Size(43, 17);
             lblVaiTro.TabIndex = 8;
             lblVaiTro.Text = "Vai Trò: ";
             // 
@@ -191,7 +192,6 @@
             lblLogo.TabIndex = 3;
             lblLogo.Text = "HRM System";
             lblLogo.TextAlign = ContentAlignment.MiddleCenter;
-            lblLogo.Click += label1_Click;
             // 
             // pnlDesktop
             // 
@@ -204,7 +204,7 @@
             // 
             // MainForm
             // 
-            AutoScaleDimensions = new SizeF(9F, 21F);
+            AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(984, 561);
             Controls.Add(pnlDesktop);
