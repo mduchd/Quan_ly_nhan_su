@@ -125,6 +125,7 @@
             lblLyDo.Size = new Size(571, 60);
             lblLyDo.TabIndex = 9;
             lblLyDo.Text = "\"Giải quyết việc gia đình cá nhân.\"";
+            lblLyDo.Click += lblLyDo_Click;
             // 
             // label7
             // 
@@ -182,6 +183,7 @@
             // 
             btnTrangThai.BorderRadius = 4;
             btnTrangThai.CustomizableEdges = customizableEdges5;
+            btnTrangThai.DefaultAutoSize = true;
             btnTrangThai.DisabledState.BorderColor = Color.DarkGray;
             btnTrangThai.DisabledState.CustomBorderColor = Color.DarkGray;
             btnTrangThai.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -193,9 +195,10 @@
             btnTrangThai.Margin = new Padding(3, 4, 3, 4);
             btnTrangThai.Name = "btnTrangThai";
             btnTrangThai.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            btnTrangThai.Size = new Size(109, 29);
+            btnTrangThai.Size = new Size(103, 26);
             btnTrangThai.TabIndex = 3;
             btnTrangThai.Text = "● CHỜ DUYỆT";
+            btnTrangThai.Click += btnTrangThai_Click;
             // 
             // lblPhongBan
             // 
@@ -217,6 +220,7 @@
             lblTenNhanVien.Size = new Size(129, 21);
             lblTenNhanVien.TabIndex = 1;
             lblTenNhanVien.Text = "Nguyễn Văn An";
+            lblTenNhanVien.Click += lblTenNhanVien_Click;
             // 
             // guna2CirclePictureBox1
             // 

@@ -130,7 +130,7 @@ namespace Quan_ly_nhan_su.GUI.ChamCongNghiPhep
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Kết nối thất bại: " + ex.Message, "Lỗi kết nối", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("Kết nối thất bại: " + ex.Message, "Lỗi kết nối", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

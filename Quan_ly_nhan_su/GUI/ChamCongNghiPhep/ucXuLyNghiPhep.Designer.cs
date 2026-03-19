@@ -68,6 +68,7 @@
             label1.Size = new Size(323, 37);
             label1.TabIndex = 0;
             label1.Text = "Xử lý yêu cầu nghỉ phép";
+            label1.Click += label1_Click;
             // 
             // label2
             // 
@@ -139,6 +140,7 @@
             btnLamMoi.Size = new Size(143, 64);
             btnLamMoi.TabIndex = 7;
             btnLamMoi.Text = "Làm mới";
+            btnLamMoi.Click += btnLamMoi_Click;
             // 
             // cbKhoangNgay
             // 
@@ -172,7 +174,7 @@
             cbTrangThai.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             cbTrangThai.ForeColor = Color.DarkSlateGray;
             cbTrangThai.ItemHeight = 30;
-            cbTrangThai.Items.AddRange(new object[] { "Chờ duyệt", "Đã phê duyệt", "Đã từ chối" });
+            cbTrangThai.Items.AddRange(new object[] { "Tất cả trạng thái", "Chờ duyệt", "Đã phê duyệt", "Đã từ chối" });
             cbTrangThai.Location = new Point(624, 42);
             cbTrangThai.Name = "cbTrangThai";
             cbTrangThai.ShadowDecoration.CustomizableEdges = customizableEdges8;
@@ -192,7 +194,7 @@
             cbPhongBan.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             cbPhongBan.ForeColor = Color.DarkSlateGray;
             cbPhongBan.ItemHeight = 30;
-            cbPhongBan.Items.AddRange(new object[] { "Tât cả phòng ban", "Phòng kinh doanh", "Phòng Marketing", "Phòng kỹ thuật", "" });
+            cbPhongBan.Items.AddRange(new object[] { "Tất cả phòng ban", "Phòng kinh doanh", "Phòng Marketing", "Phòng kỹ thuật" });
             cbPhongBan.Location = new Point(57, 42);
             cbPhongBan.Name = "cbPhongBan";
             cbPhongBan.ShadowDecoration.CustomizableEdges = customizableEdges10;
@@ -267,6 +269,8 @@
             tbTimKiem.ShadowDecoration.CustomizableEdges = customizableEdges14;
             tbTimKiem.Size = new Size(599, 36);
             tbTimKiem.TabIndex = 5;
+            tbTimKiem.TextChanged += tbTimKiem_TextChanged;
+            tbTimKiem.KeyDown += tbTimKiem_KeyDown;
             // 
             // ucXuLyNghiPhep
             // 
