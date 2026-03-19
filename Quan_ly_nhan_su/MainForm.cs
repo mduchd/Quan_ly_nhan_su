@@ -5,23 +5,43 @@ using Quan_ly_nhan_su.GUI.ChamCongNghiPhep;
 
 using Quan_ly_nhan_su.GUI; 
 
-
 namespace Quan_ly_nhan_su
 {
     public partial class MainForm : System.Windows.Forms.Form
     {
         private string quyen;
+        private readonly ucNhanVien _ucNhanVien = new();
+
         public MainForm(string quyen)
         {
             InitializeComponent();
+
             this.quyen = quyen;
             ThietLapPhanQuyen();
-            ucBangLuong bangLuong = new ucBangLuong();
-            bangLuong.Dock = DockStyle.Fill;
-            this.Controls.Add(bangLuong);
-            this.Text = "Phần mềm Quản lý Nhân sự - Phân hệ Tiền Lương";
-            this.Size = new System.Drawing.Size(850, 500);
-            this.StartPosition = FormStartPosition.CenterScreen;
+        }
+
+        private void OpenControl(UserControl control)
+        {
+            if (control.Parent == pnlDesktop)
+            {
+                control.BringToFront();
+                return;
+            }
+
+            control.Dock = DockStyle.Fill;
+            pnlDesktop.Controls.Add(control);
+            control.BringToFront();
+        }
+
+        private void button2_Click(object? sender, EventArgs e)
+        {
+            OpenControl(_ucNhanVien);
+        }
+
+        private void lblLogo_Click(object? sender, EventArgs e)
+        {
+            OpenControl(_ucNhanVien);
+
         }
 
         public void ThietLapPhanQuyen()
@@ -35,7 +55,7 @@ namespace Quan_ly_nhan_su
             }
             else if (this.quyen == "Admin")
             {
-                btnQLNhanSu.Visible = false;
+                btnQLNhanSu.Visible = true;
                 btnTienLuong.Visible = true;
                 btnChamCong.Visible = true;
                 btnNghiPhep.Visible = true;
@@ -45,12 +65,6 @@ namespace Quan_ly_nhan_su
         }
 
 
-
-        private void label1_Click(object sender, EventArgs e)
-
-        {
-
-        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -72,13 +86,13 @@ namespace Quan_ly_nhan_su
 
             pnlDesktop.SuspendLayout();
             pnlDesktop.Controls.Clear();
-            if(this.quyen == "Admin")
+            if (this.quyen == "Admin")
             {
                 ucXuLyNghiPhep uc = new ucXuLyNghiPhep();
                 uc.Dock = DockStyle.Fill;
                 pnlDesktop.Controls.Add(uc);
             }
-            else if(this.quyen == "User")
+            else if (this.quyen == "User")
             {
                 ucTaoDonNghiPhep uc = new ucTaoDonNghiPhep();
                 uc.Dock = DockStyle.Fill;
@@ -127,14 +141,46 @@ namespace Quan_ly_nhan_su
             }
         }
 
+
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
         }
 
 
+        private void btnNghiPhep_Click_1(object sender, EventArgs e)
+        {
+            pnlDesktop.Controls.Clear();
+            //ucChamCong uc = new ucChamCong();
+            ucTaoDonNghiPhep uc = new ucTaoDonNghiPhep();
+            uc.Dock = DockStyle.Fill;
+            pnlDesktop.Controls.Add(uc);
+            //uc.loadDanhSachNghiPhep();
+        }
 
-        // Add event handlers or methods here as needed
+        private void btnTienLuong_Click_1(object sender, EventArgs e)
+        {
+            pnlDesktop.Controls.Clear();
+            ucBangLuong uc = new ucBangLuong();
+            uc.Dock = DockStyle.Fill;
+            pnlDesktop.Controls.Add(uc);
+        }
 
+
+        private void btnQLNhanSu_Click_1(object sender, EventArgs e)
+        {
+            pnlDesktop.Controls.Clear();
+            ucNhanVien uc = new ucNhanVien();
+            uc.Dock = DockStyle.Fill;
+            pnlDesktop.Controls.Add(uc);
+        }
+
+        private void btnChamCong_Click(object sender, EventArgs e)
+        {
+            pnlDesktop.Controls.Clear();
+            ucChamCong uc = new ucChamCong();
+            uc.Dock = DockStyle.Fill;
+            pnlDesktop.Controls.Add(uc);
+        }
     }
 }

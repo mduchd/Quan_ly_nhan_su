@@ -13,7 +13,7 @@ namespace Quan_ly_nhan_su.GUI
         public ucChamCong()
         {
             InitializeComponent();
-            
+
 
 
         }
@@ -40,7 +40,7 @@ namespace Quan_ly_nhan_su.GUI
 
         }
 
-        
+
         private void LoadDanhSachChamCong()
         {
             flpDanhSachChamCong.SuspendLayout();
@@ -68,6 +68,11 @@ namespace Quan_ly_nhan_su.GUI
         }
 
         private void ucChamCong_Load_1(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void ucChamCong_Load(object sender, EventArgs e)
         {
             LoadDanhSachChamCong();
             flpDanhSachChamCong.SizeChanged += (s, ev) =>
