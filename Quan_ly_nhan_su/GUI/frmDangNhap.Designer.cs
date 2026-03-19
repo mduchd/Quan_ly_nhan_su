@@ -89,7 +89,9 @@
             label3.AutoSize = true;
             label3.Location = new Point(463, 139);
             label3.Name = "label3";
+
             label3.Size = new Size(71, 20);
+
             label3.TabIndex = 2;
             label3.Text = "Tài khoản";
             label3.Click += label3_Click;
@@ -148,6 +150,7 @@
             // 
             // txtMatKhau
             // 
+
             txtMatKhau.BorderColor = Color.Black;
             txtMatKhau.BorderRadius = 15;
             txtMatKhau.CustomizableEdges = customizableEdges7;
@@ -185,6 +188,7 @@
             guna2PictureBox1.TabIndex = 2;
             guna2PictureBox1.TabStop = false;
             guna2PictureBox1.Click += guna2PictureBox1_Click;
+
             // 
             // frmDangNhap
             // 

@@ -65,6 +65,58 @@ namespace Quan_ly_nhan_su
         }
 
 
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            pnlDesktop.Controls.Clear();
+            ucChamCong uc = new ucChamCong();
+            uc.Dock = DockStyle.Fill;
+            pnlDesktop.Controls.Add(uc);
+
+
+        }
+
+        private void pnlDesktop_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void btnNghiPhep_Click(object sender, EventArgs e)
+        {
+
+            pnlDesktop.SuspendLayout();
+            pnlDesktop.Controls.Clear();
+            if (this.quyen == "Admin")
+            {
+                ucXuLyNghiPhep uc = new ucXuLyNghiPhep();
+                uc.Dock = DockStyle.Fill;
+                pnlDesktop.Controls.Add(uc);
+            }
+            else if (this.quyen == "User")
+            {
+                ucTaoDonNghiPhep uc = new ucTaoDonNghiPhep();
+                uc.Dock = DockStyle.Fill;
+                pnlDesktop.Controls.Add(uc);
+            }
+            //ucChamCong uc = new ucChamCong();
+            //ucItemYeuCau uc = new ucItemYeuCau();
+            //ucTaoDonNghiPhep uc = new ucTaoDonNghiPhep();
+            //uc.Dock = DockStyle.Fill;
+            //pnlDesktop.Controls.Add(uc);
+            //uc.loadDanhSachNghiPhep();
+            pnlDesktop.ResumeLayout();
+        }
+
+
+        private void btnTienLuong_Click(object sender, EventArgs e)
+        {
+            pnlDesktop.Controls.Clear();
+            ucBangLuong uc = new ucBangLuong();
+            uc.Dock = DockStyle.Fill;
+            pnlDesktop.Controls.Add(uc);
+
+        }
+
         private void guna2HtmlLabel1_Click(object sender, EventArgs e)
         {
 
@@ -89,13 +141,12 @@ namespace Quan_ly_nhan_su
             }
         }
 
-        private void btnQLNhanSu_Click(object sender, EventArgs e)
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            pnlDesktop.Controls.Clear();
-            ucNhanVien uc = new ucNhanVien();
-            uc.Dock = DockStyle.Fill;
-            pnlDesktop.Controls.Add(uc);
+            Application.Exit();
         }
+
 
         private void btnNghiPhep_Click_1(object sender, EventArgs e)
         {
@@ -115,18 +166,19 @@ namespace Quan_ly_nhan_su
             pnlDesktop.Controls.Add(uc);
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void pnlDesktop_Paint(object sender, PaintEventArgs e)
-        {
-        }
 
         private void btnQLNhanSu_Click_1(object sender, EventArgs e)
         {
             pnlDesktop.Controls.Clear();
             ucNhanVien uc = new ucNhanVien();
+            uc.Dock = DockStyle.Fill;
+            pnlDesktop.Controls.Add(uc);
+        }
+
+        private void btnChamCong_Click(object sender, EventArgs e)
+        {
+            pnlDesktop.Controls.Clear();
+            ucChamCong uc = new ucChamCong();
             uc.Dock = DockStyle.Fill;
             pnlDesktop.Controls.Add(uc);
         }

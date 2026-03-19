@@ -1,10 +1,14 @@
-﻿using System;
+﻿using Quan_ly_nhan_su.DTO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Data.SqlClient;
+
+using Quan_ly_nhan_su.BUS;
 
 namespace Quan_ly_nhan_su.GUI.ChamCongNghiPhep
 {
@@ -20,7 +24,7 @@ namespace Quan_ly_nhan_su.GUI.ChamCongNghiPhep
             // lblThangNam.Text = $"Tháng {thangHienTai}, {namHienTai}"; 
 
             // Gọi hàm render lịch
-            
+
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -45,14 +49,14 @@ namespace Quan_ly_nhan_su.GUI.ChamCongNghiPhep
 
         // Xóa dữ liệu cũ trong bảng (nếu có) trước khi tạo tháng mới
         // Sự kiện chạy ngay khi UserControl vừa được mở lên
-       
+
 
         // Hàm xử lý logic đổ nút bấm vào bảng
-       
+
 
         private void ucTaoDonNghiPhep_Load(object sender, EventArgs e)
         {
-           
+
             // Lấy tháng và năm hiện tại để hiển thị
             int thang = DateTime.Now.Month;
             int nam = DateTime.Now.Year;
@@ -64,6 +68,80 @@ namespace Quan_ly_nhan_su.GUI.ChamCongNghiPhep
             //VeLichThuan(thang, nam);
 
         }
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+
+        }
+        private ChamCongBUS chamCongBUS = new ChamCongBUS();
+
+        private void btngnGui_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ChamCongDTO yeuCauMoi = new ChamCongDTO();
+                yeuCauMoi.TenNhanVien = "Nguyễn Văn An";
+                yeuCauMoi.PhongBan = "Phòng Kinh Doanh";
+                yeuCauMoi.LoaiNghi = cbLoaiNghi.Text;
+                yeuCauMoi.LyDo = tbLyDo.Text;
+                yeuCauMoi.TuNgay = cbTuNgay.Value;
+                yeuCauMoi.DenNgay = cbDenNgay.Value;
+                string ketQua = chamCongBUS.TaoYeuCauNghiPhep(yeuCauMoi);
+
+                if (ketQua == "Thành công")
+                {
+                    MessageBox.Show("Đã gửi yêu cầu nghỉ phép thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    tbLyDo.Clear();
+                }
+                else
+                {
+                    MessageBox.Show($"Gửi yêu cầu nghỉ phép thất bại: {ketQua}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Đã xảy ra lỗi khi gửi yêu cầu nghỉ phép. Vui lòng thử lại sau.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void guna2Button1_Click(object sender, EventArgs e)
+        {
+            string connectionString = @"Data Source=NgocDuy; Initial CataLog=Ql_Nhansu; Integrated Security=True";
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.Open();
+                    string ketQua = $"Đang kết nối với \n Server : {conn.DataSource} \n Database: {conn.Database}";
+                    ketQua += "Các cột nó nhìn thấy trong bảng YeuCauNghiPhep là: \n";
+                    string query = "Select Column_name from Infomation_schema.columns where table_name = 'YeuCauNghiPhep'";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                ketQua += reader["Column_name"].ToString() + "\n";
+                            }
+                        }
+                    }
+                    MessageBox.Show(ketQua, "Thông tin kết nối", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Kết nối thất bại: " + ex.Message, "Lỗi kết nối", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+
         //private void VeLichThuan(int month, int year)
         //{
         //    for (int i = tableLayoutPanel2.Controls.Count - 1; i >= 0; i--)

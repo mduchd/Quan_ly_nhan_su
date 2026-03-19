@@ -121,6 +121,7 @@
             btnChamCong.Size = new Size(225, 56);
             btnChamCong.TabIndex = 11;
             btnChamCong.Text = "Chấm công";
+            btnChamCong.Click += btnChamCong_Click;
             // 
             // btnQLNhanSu
             // 
@@ -214,6 +215,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "HRM Workspace";
             WindowState = FormWindowState.Maximized;
+            FormClosed += MainForm_FormClosed;
             pnlSidebar.ResumeLayout(false);
             guna2Panel1.ResumeLayout(false);
             guna2Panel1.PerformLayout();

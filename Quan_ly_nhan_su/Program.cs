@@ -1,6 +1,8 @@
+
 using Quan_ly_nhan_su.GUI;
 
 namespace Quan_ly_nhan_su
+
 {
     internal static class Program
     {
