@@ -10,7 +10,7 @@ namespace Quan_ly_nhan_su.GUI
 {
     public partial class frmChamCong : Form
     {
-     
+
         public frmChamCong()
         {
             InitializeComponent();
@@ -23,8 +23,8 @@ namespace Quan_ly_nhan_su.GUI
         private void AssignClickEventToAll(Control parentControl, EventHandler clickEvent)
         {
             parentControl.Click += clickEvent;
-           
-          
+
+
             foreach (Control child in parentControl.Controls)
             {
                 AssignClickEventToAll(child, clickEvent);
@@ -78,8 +78,8 @@ namespace Quan_ly_nhan_su.GUI
             }
         }
 
-       
-        
+
+
 
         private void frmChamCong_Load(object sender, EventArgs e)
         {
@@ -100,8 +100,12 @@ namespace Quan_ly_nhan_su.GUI
 
         private void timerClock_Tick(object sender, EventArgs e)
         {
+            DateTime now = DateTime.Now;
             lbClock.Text = DateTime.Now.ToString("HH:mm:ss");
 
+            string[] day = { "Chủ nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy" };
+            string thu = day[(int)now.DayOfWeek];
+            lbDate.Text = $"{thu}, {now.Day} tháng {now.Month}, {now.Year}";
         }
 
         private void lbClock_Click(object sender, EventArgs e)
@@ -121,20 +125,33 @@ namespace Quan_ly_nhan_su.GUI
 
         private void pnCheckIn_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(txtNhapMaNV.Text.Trim()))
+           
+            {
+                MessageBox.Show("Vui lòng nhập mã nhân viên trước khi Check-in!");
+                return;
+            }
             lbGioVao.Text = DateTime.Now.ToString("HH:mm");
             pnCheckIn.FillColor = Color.Gray;
             icCheckIn.BackColor = Color.Gray;
             lbCheckIn.BackColor = Color.Gray;
             lbCheckIn.ForeColor = Color.White;
             pnCheckIn.Enabled = false;
+            txtNhapMaNV.Clear();
             MessageBox.Show("Bạn đã Check-in thành công!");
+            
         }
 
         private void pnCheckOut_Click(object sender, EventArgs e)
         {
-            if(lbCheckIn.Enabled == true)
+            if (pnCheckIn.Enabled == true)
             {
                 MessageBox.Show("Bạn chưa Check-in. Vui lòng Check-in trước khi Check-out!");
+                return;
+            }
+            else if (string.IsNullOrEmpty(txtNhapMaNV.Text.Trim()))
+            {
+                MessageBox.Show("Vui lòng nhập mã nhân viên trước khi Check-out!");
                 return;
             }
             lbGioRa.Text = DateTime.Now.ToString("HH:mm");
@@ -146,11 +163,40 @@ namespace Quan_ly_nhan_su.GUI
             lbCheckOut.ForeColor = Color.White;
             pnCheckOut.Enabled = false;
             MessageBox.Show("Bạn đã Check-out thành công!");
+            txtNhapMaNV.Clear();
         }
 
         private void lbTongGio_Click(object sender, EventArgs e)
         {
-            
+
         }
+
+        private void txtNhapMaNV_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true; // tắt âm thanh "ding" khi nhấn Enter
+                string MaNV = txtNhapMaNV.Text.Trim();
+
+                if (string.IsNullOrEmpty(MaNV))
+                {
+                    MessageBox.Show("Vui lòng nhập mã nhân viên!");
+                    return;
+                }
+                else
+                {
+                    pnThongTinNV.Visible = true;
+                    pnThongTinNV.BringToFront();
+                }
+
+                
+
+
+
+            }
+        }
+
+        
     }
 }
