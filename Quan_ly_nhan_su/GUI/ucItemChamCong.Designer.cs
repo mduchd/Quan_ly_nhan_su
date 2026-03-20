@@ -33,11 +33,11 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
-            lblDmy = new Label();
-            lblThoiGian = new Label();
-            lblNgay = new Label();
             lblTongThoiGian = new Label();
+            lblThoiGian = new Label();
+            lblDmy = new Label();
+            guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
+            lblNgay = new Label();
             guna2Panel1.SuspendLayout();
             guna2Panel2.SuspendLayout();
             SuspendLayout();
@@ -54,11 +54,45 @@
             guna2Panel1.Dock = DockStyle.Top;
             guna2Panel1.FillColor = Color.White;
             guna2Panel1.Location = new Point(0, 0);
+            guna2Panel1.Margin = new Padding(0);
             guna2Panel1.Name = "guna2Panel1";
             guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges4;
             guna2Panel1.Size = new Size(1578, 123);
             guna2Panel1.TabIndex = 0;
             guna2Panel1.Paint += guna2Panel1_Paint;
+            // 
+            // lblTongThoiGian
+            // 
+            lblTongThoiGian.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblTongThoiGian.AutoSize = true;
+            lblTongThoiGian.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTongThoiGian.ForeColor = Color.MediumSeaGreen;
+            lblTongThoiGian.Location = new Point(1469, 53);
+            lblTongThoiGian.Name = "lblTongThoiGian";
+            lblTongThoiGian.Size = new Size(78, 25);
+            lblTongThoiGian.TabIndex = 3;
+            lblTongThoiGian.Text = "8h 10m";
+            // 
+            // lblThoiGian
+            // 
+            lblThoiGian.AutoSize = true;
+            lblThoiGian.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblThoiGian.ForeColor = Color.Gray;
+            lblThoiGian.Location = new Point(138, 58);
+            lblThoiGian.Name = "lblThoiGian";
+            lblThoiGian.Size = new Size(103, 20);
+            lblThoiGian.TabIndex = 2;
+            lblThoiGian.Text = "07:55 - 17:05";
+            // 
+            // lblDmy
+            // 
+            lblDmy.AutoSize = true;
+            lblDmy.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblDmy.Location = new Point(138, 29);
+            lblDmy.Name = "lblDmy";
+            lblDmy.Size = new Size(170, 21);
+            lblDmy.TabIndex = 1;
+            lblDmy.Text = "Thứ Hai, 23 Tháng 10";
             // 
             // guna2Panel2
             // 
@@ -72,27 +106,6 @@
             guna2Panel2.Size = new Size(60, 60);
             guna2Panel2.TabIndex = 0;
             // 
-            // lblDmy
-            // 
-            lblDmy.AutoSize = true;
-            lblDmy.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblDmy.Location = new Point(138, 29);
-            lblDmy.Name = "lblDmy";
-            lblDmy.Size = new Size(170, 21);
-            lblDmy.TabIndex = 1;
-            lblDmy.Text = "Thứ Hai, 23 Tháng 10";
-            // 
-            // lblThoiGian
-            // 
-            lblThoiGian.AutoSize = true;
-            lblThoiGian.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblThoiGian.ForeColor = Color.Gray;
-            lblThoiGian.Location = new Point(138, 58);
-            lblThoiGian.Name = "lblThoiGian";
-            lblThoiGian.Size = new Size(103, 20);
-            lblThoiGian.TabIndex = 2;
-            lblThoiGian.Text = "07:55 - 17:05";
-            // 
             // lblNgay
             // 
             lblNgay.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -103,18 +116,6 @@
             lblNgay.Size = new Size(36, 28);
             lblNgay.TabIndex = 0;
             lblNgay.Text = "23";
-            // 
-            // lblTongThoiGian
-            // 
-            lblTongThoiGian.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            lblTongThoiGian.AutoSize = true;
-            lblTongThoiGian.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTongThoiGian.ForeColor = Color.MediumSeaGreen;
-            lblTongThoiGian.Location = new Point(1469, 53);
-            lblTongThoiGian.Name = "lblTongThoiGian";
-            lblTongThoiGian.Size = new Size(78, 25);
-            lblTongThoiGian.TabIndex = 3;
-            lblTongThoiGian.Text = "8h 10m";
             // 
             // ucItemChamCong
             // 
