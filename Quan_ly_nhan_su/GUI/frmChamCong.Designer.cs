@@ -1,6 +1,6 @@
 ﻿namespace Quan_ly_nhan_su.GUI
 {
-    partial class ucChamCong
+    partial class frmChamCong
     {
         /// <summary> 
         /// Required designer variable.
@@ -77,9 +77,9 @@
             // label1
             // 
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(688, 24);
+            label1.Location = new Point(786, 32);
             label1.Name = "label1";
-            label1.Size = new Size(127, 22);
+            label1.Size = new Size(145, 29);
             label1.TabIndex = 0;
             label1.Text = "Chấm Công";
             // 
@@ -91,10 +91,9 @@
             iconButton1.IconColor = Color.Gray;
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.IconSize = 40;
-            iconButton1.Location = new Point(1379, 16);
-            iconButton1.Margin = new Padding(3, 2, 3, 2);
+            iconButton1.Location = new Point(1576, 21);
             iconButton1.Name = "iconButton1";
-            iconButton1.Size = new Size(39, 31);
+            iconButton1.Size = new Size(45, 41);
             iconButton1.TabIndex = 1;
             iconButton1.UseVisualStyleBackColor = false;
             // 
@@ -102,18 +101,18 @@
             // 
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.DarkGray;
-            label2.Location = new Point(649, 76);
+            label2.Location = new Point(742, 101);
             label2.Name = "label2";
-            label2.Size = new Size(200, 16);
+            label2.Size = new Size(229, 21);
             label2.TabIndex = 2;
             label2.Text = "Thứ Tư, 18 Tháng 3, 2026";
             // 
             // label3
             // 
             label3.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(696, 102);
+            label3.Location = new Point(795, 136);
             label3.Name = "label3";
-            label3.Size = new Size(98, 35);
+            label3.Size = new Size(112, 47);
             label3.TabIndex = 3;
             label3.Text = "08:45";
             // 
@@ -128,11 +127,10 @@
             guna2Panel1.Controls.Add(label4);
             guna2Panel1.CustomizableEdges = customizableEdges3;
             guna2Panel1.FillColor = Color.Honeydew;
-            guna2Panel1.Location = new Point(640, 140);
-            guna2Panel1.Margin = new Padding(3, 2, 3, 2);
+            guna2Panel1.Location = new Point(731, 187);
             guna2Panel1.Name = "guna2Panel1";
             guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            guna2Panel1.Size = new Size(207, 33);
+            guna2Panel1.Size = new Size(237, 44);
             guna2Panel1.TabIndex = 4;
             // 
             // guna2Button1
@@ -147,11 +145,10 @@
             guna2Button1.FillColor = Color.MediumSeaGreen;
             guna2Button1.Font = new Font("Segoe UI", 9F);
             guna2Button1.ForeColor = Color.White;
-            guna2Button1.Location = new Point(23, 14);
-            guna2Button1.Margin = new Padding(3, 2, 3, 2);
+            guna2Button1.Location = new Point(26, 19);
             guna2Button1.Name = "guna2Button1";
             guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            guna2Button1.Size = new Size(10, 8);
+            guna2Button1.Size = new Size(11, 11);
             guna2Button1.TabIndex = 5;
             guna2Button1.TextAlign = HorizontalAlignment.Left;
             // 
@@ -161,7 +158,7 @@
             label4.BackColor = Color.Honeydew;
             label4.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.ForeColor = Color.MediumSeaGreen;
-            label4.Location = new Point(38, 8);
+            label4.Location = new Point(43, 11);
             label4.Name = "label4";
             label4.Size = new Size(166, 20);
             label4.TabIndex = 0;
@@ -177,11 +174,10 @@
             guna2Panel2.Controls.Add(label7);
             guna2Panel2.CustomizableEdges = customizableEdges5;
             guna2Panel2.FillColor = Color.FromArgb(255, 128, 0);
-            guna2Panel2.Location = new Point(759, 189);
-            guna2Panel2.Margin = new Padding(3, 2, 3, 2);
+            guna2Panel2.Location = new Point(867, 252);
             guna2Panel2.Name = "guna2Panel2";
             guna2Panel2.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            guna2Panel2.Size = new Size(660, 75);
+            guna2Panel2.Size = new Size(754, 100);
             guna2Panel2.TabIndex = 6;
             // 
             // iconPictureBox2
@@ -190,11 +186,10 @@
             iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.SignOut;
             iconPictureBox2.IconColor = Color.White;
             iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox2.IconSize = 30;
-            iconPictureBox2.Location = new Point(298, 13);
-            iconPictureBox2.Margin = new Padding(3, 2, 3, 2);
+            iconPictureBox2.IconSize = 40;
+            iconPictureBox2.Location = new Point(341, 17);
             iconPictureBox2.Name = "iconPictureBox2";
-            iconPictureBox2.Size = new Size(42, 30);
+            iconPictureBox2.Size = new Size(48, 40);
             iconPictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             iconPictureBox2.TabIndex = 9;
             iconPictureBox2.TabStop = false;
@@ -205,7 +200,7 @@
             label7.BackColor = Color.FromArgb(255, 128, 0);
             label7.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label7.ForeColor = Color.White;
-            label7.Location = new Point(276, 45);
+            label7.Location = new Point(315, 60);
             label7.Name = "label7";
             label7.Size = new Size(103, 25);
             label7.TabIndex = 1;
@@ -219,11 +214,10 @@
             guna2Panel3.Controls.Add(label5);
             guna2Panel3.CustomizableEdges = customizableEdges7;
             guna2Panel3.FillColor = Color.MediumSeaGreen;
-            guna2Panel3.Location = new Point(16, 189);
-            guna2Panel3.Margin = new Padding(3, 2, 3, 2);
+            guna2Panel3.Location = new Point(18, 252);
             guna2Panel3.Name = "guna2Panel3";
             guna2Panel3.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            guna2Panel3.Size = new Size(700, 75);
+            guna2Panel3.Size = new Size(800, 100);
             guna2Panel3.TabIndex = 7;
             // 
             // iconPictureBox1
@@ -232,11 +226,10 @@
             iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.SignIn;
             iconPictureBox1.IconColor = Color.White;
             iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox1.IconSize = 30;
-            iconPictureBox1.Location = new Point(269, 13);
-            iconPictureBox1.Margin = new Padding(3, 2, 3, 2);
+            iconPictureBox1.IconSize = 40;
+            iconPictureBox1.Location = new Point(335, 17);
             iconPictureBox1.Name = "iconPictureBox1";
-            iconPictureBox1.Size = new Size(42, 30);
+            iconPictureBox1.Size = new Size(48, 40);
             iconPictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             iconPictureBox1.TabIndex = 8;
             iconPictureBox1.TabStop = false;
@@ -247,7 +240,7 @@
             label5.BackColor = Color.MediumSeaGreen;
             label5.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = Color.White;
-            label5.Location = new Point(247, 45);
+            label5.Location = new Point(310, 60);
             label5.Name = "label5";
             label5.Size = new Size(89, 25);
             label5.TabIndex = 0;
@@ -270,11 +263,10 @@
             guna2Panel4.Controls.Add(label6);
             guna2Panel4.CustomizableEdges = customizableEdges9;
             guna2Panel4.FillColor = Color.White;
-            guna2Panel4.Location = new Point(16, 283);
-            guna2Panel4.Margin = new Padding(3, 2, 3, 2);
+            guna2Panel4.Location = new Point(18, 377);
             guna2Panel4.Name = "guna2Panel4";
             guna2Panel4.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            guna2Panel4.Size = new Size(1403, 68);
+            guna2Panel4.Size = new Size(1603, 91);
             guna2Panel4.TabIndex = 8;
             // 
             // label13
@@ -283,7 +275,7 @@
             label13.BackColor = Color.White;
             label13.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label13.ForeColor = Color.LightSkyBlue;
-            label13.Location = new Point(1088, 44);
+            label13.Location = new Point(1243, 59);
             label13.Name = "label13";
             label13.Size = new Size(70, 21);
             label13.TabIndex = 7;
@@ -295,7 +287,7 @@
             label12.BackColor = Color.White;
             label12.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label12.ForeColor = Color.Gray;
-            label12.Location = new Point(698, 44);
+            label12.Location = new Point(798, 59);
             label12.Name = "label12";
             label12.Size = new Size(45, 20);
             label12.TabIndex = 6;
@@ -306,7 +298,7 @@
             label11.AutoSize = true;
             label11.BackColor = Color.White;
             label11.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label11.Location = new Point(247, 44);
+            label11.Location = new Point(282, 59);
             label11.Name = "label11";
             label11.Size = new Size(53, 20);
             label11.TabIndex = 5;
@@ -318,10 +310,9 @@
             iconButton2.IconColor = SystemColors.MenuHighlight;
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 20;
-            iconButton2.Location = new Point(5, 4);
-            iconButton2.Margin = new Padding(3, 2, 3, 2);
+            iconButton2.Location = new Point(6, 5);
             iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(27, 22);
+            iconButton2.Size = new Size(31, 29);
             iconButton2.TabIndex = 4;
             iconButton2.UseVisualStyleBackColor = true;
             // 
@@ -331,7 +322,7 @@
             label10.BackColor = Color.White;
             label10.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             label10.ForeColor = Color.Silver;
-            label10.Location = new Point(1088, 23);
+            label10.Location = new Point(1243, 31);
             label10.Name = "label10";
             label10.Size = new Size(72, 17);
             label10.TabIndex = 3;
@@ -343,7 +334,7 @@
             label9.BackColor = Color.White;
             label9.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             label9.ForeColor = Color.Silver;
-            label9.Location = new Point(698, 23);
+            label9.Location = new Point(798, 31);
             label9.Name = "label9";
             label9.Size = new Size(52, 17);
             label9.TabIndex = 2;
@@ -355,7 +346,7 @@
             label8.BackColor = Color.White;
             label8.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             label8.ForeColor = Color.Silver;
-            label8.Location = new Point(247, 23);
+            label8.Location = new Point(282, 31);
             label8.Name = "label8";
             label8.Size = new Size(62, 17);
             label8.TabIndex = 1;
@@ -366,7 +357,7 @@
             label6.AutoSize = true;
             label6.BackColor = Color.White;
             label6.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(38, 8);
+            label6.Location = new Point(43, 11);
             label6.Name = "label6";
             label6.Size = new Size(129, 20);
             label6.TabIndex = 0;
@@ -376,7 +367,7 @@
             // 
             label14.AutoSize = true;
             label14.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label14.Location = new Point(16, 362);
+            label14.Location = new Point(18, 483);
             label14.Name = "label14";
             label14.Size = new Size(183, 21);
             label14.TabIndex = 9;
@@ -388,7 +379,7 @@
             label15.AutoSize = true;
             label15.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label15.ForeColor = Color.DodgerBlue;
-            label15.Location = new Point(1342, 362);
+            label15.Location = new Point(1534, 483);
             label15.Name = "label15";
             label15.Size = new Size(87, 21);
             label15.TabIndex = 10;
@@ -398,10 +389,9 @@
             // 
             flpDanhSachChamCong.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             flpDanhSachChamCong.AutoScroll = true;
-            flpDanhSachChamCong.Location = new Point(21, 398);
-            flpDanhSachChamCong.Margin = new Padding(3, 2, 3, 2);
+            flpDanhSachChamCong.Location = new Point(24, 531);
             flpDanhSachChamCong.Name = "flpDanhSachChamCong";
-            flpDanhSachChamCong.Size = new Size(1397, 461);
+            flpDanhSachChamCong.Size = new Size(1597, 615);
             flpDanhSachChamCong.TabIndex = 11;
             // 
             // guna2Panel5
@@ -410,17 +400,17 @@
             guna2Panel5.CustomizableEdges = customizableEdges11;
             guna2Panel5.FillColor = Color.FromArgb(224, 224, 224);
             guna2Panel5.ForeColor = Color.Cyan;
-            guna2Panel5.Location = new Point(16, 59);
-            guna2Panel5.Margin = new Padding(3, 2, 3, 2);
+            guna2Panel5.Location = new Point(18, 79);
             guna2Panel5.Name = "guna2Panel5";
             guna2Panel5.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            guna2Panel5.Size = new Size(1403, 2);
+            guna2Panel5.Size = new Size(1603, 3);
             guna2Panel5.TabIndex = 12;
             // 
-            // ucChamCong
+            // frmChamCong
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1630, 1061);
             Controls.Add(guna2Panel5);
             Controls.Add(flpDanhSachChamCong);
             Controls.Add(label15);
@@ -433,10 +423,8 @@
             Controls.Add(label2);
             Controls.Add(iconButton1);
             Controls.Add(label1);
-            Margin = new Padding(3, 2, 3, 2);
-            Name = "ucChamCong";
-            Size = new Size(1442, 900);
-            Load += ucChamCong_Load;
+            Name = "frmChamCong";
+            Load += frmChamCong_Load;
             guna2Panel1.ResumeLayout(false);
             guna2Panel1.PerformLayout();
             guna2Panel2.ResumeLayout(false);

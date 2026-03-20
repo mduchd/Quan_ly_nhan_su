@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace Quan_ly_nhan_su.GUI
 {
-    public partial class ucChamCong : UserControl
+    public partial class frmChamCong : Form
     {
-        public ucChamCong()
+        public frmChamCong()
         {
             InitializeComponent();
 
@@ -57,7 +57,6 @@ namespace Quan_ly_nhan_su.GUI
             item.Width = flpDanhSachChamCong.ClientSize.Width - SystemInformation.VerticalScrollBarWidth - 5;
             flpDanhSachChamCong.Controls.Add(item);
         }
-
         private void flpDanhSachChamCong_Paint(object sender, PaintEventArgs e)
         {
             foreach (Control ctrl in flpDanhSachChamCong.Controls)
@@ -69,10 +68,24 @@ namespace Quan_ly_nhan_su.GUI
 
         private void ucChamCong_Load_1(object sender, EventArgs e)
         {
-            
+
         }
 
         private void ucChamCong_Load(object sender, EventArgs e)
+        {
+            LoadDanhSachChamCong();
+            flpDanhSachChamCong.SizeChanged += (s, ev) =>
+            {
+                flpDanhSachChamCong.SuspendLayout();
+                foreach (Control item in flpDanhSachChamCong.Controls)
+                {
+                    item.Width = flpDanhSachChamCong.ClientSize.Width - SystemInformation.VerticalScrollBarWidth - 5;
+                }
+                flpDanhSachChamCong.ResumeLayout();
+            };
+        }
+
+        private void frmChamCong_Load(object sender, EventArgs e)
         {
             LoadDanhSachChamCong();
             flpDanhSachChamCong.SizeChanged += (s, ev) =>
