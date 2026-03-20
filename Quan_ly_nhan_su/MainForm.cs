@@ -1,7 +1,7 @@
 
 using System;
 using System.Windows.Forms;
-using Quan_ly_nhan_su.GUI.ChamCongNghiPhep;
+using Quan_ly_nhan_su.GUI;
 
 using Quan_ly_nhan_su.GUI; 
 
@@ -68,10 +68,7 @@ namespace Quan_ly_nhan_su
 
         private void button1_Click(object sender, EventArgs e)
         {
-            pnlDesktop.Controls.Clear();
-            ucChamCong uc = new ucChamCong();
-            uc.Dock = DockStyle.Fill;
-            pnlDesktop.Controls.Add(uc);
+           
 
 
         }
@@ -84,27 +81,7 @@ namespace Quan_ly_nhan_su
         private void btnNghiPhep_Click(object sender, EventArgs e)
         {
 
-            pnlDesktop.SuspendLayout();
-            pnlDesktop.Controls.Clear();
-            if (this.quyen == "Admin")
-            {
-                ucXuLyNghiPhep uc = new ucXuLyNghiPhep();
-                uc.Dock = DockStyle.Fill;
-                pnlDesktop.Controls.Add(uc);
-            }
-            else if (this.quyen == "User")
-            {
-                ucTaoDonNghiPhep uc = new ucTaoDonNghiPhep();
-                uc.Dock = DockStyle.Fill;
-                pnlDesktop.Controls.Add(uc);
-            }
-            //ucChamCong uc = new ucChamCong();
-            //ucItemYeuCau uc = new ucItemYeuCau();
-            //ucTaoDonNghiPhep uc = new ucTaoDonNghiPhep();
-            //uc.Dock = DockStyle.Fill;
-            //pnlDesktop.Controls.Add(uc);
-            //uc.loadDanhSachNghiPhep();
-            pnlDesktop.ResumeLayout();
+            
         }
 
 
@@ -150,11 +127,7 @@ namespace Quan_ly_nhan_su
 
         private void btnNghiPhep_Click_1(object sender, EventArgs e)
         {
-            pnlDesktop.Controls.Clear();
-            //ucChamCong uc = new ucChamCong();
-            ucTaoDonNghiPhep uc = new ucTaoDonNghiPhep();
-            uc.Dock = DockStyle.Fill;
-            pnlDesktop.Controls.Add(uc);
+       
             //uc.loadDanhSachNghiPhep();
         }
 
@@ -177,10 +150,7 @@ namespace Quan_ly_nhan_su
 
         private void btnChamCong_Click(object sender, EventArgs e)
         {
-            pnlDesktop.Controls.Clear();
-            ucChamCong uc = new ucChamCong();
-            uc.Dock = DockStyle.Fill;
-            pnlDesktop.Controls.Add(uc);
+           
         }
     }
 }
