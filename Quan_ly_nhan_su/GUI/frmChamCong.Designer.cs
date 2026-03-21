@@ -41,6 +41,8 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             label1 = new Label();
             iconButton1 = new FontAwesome.Sharp.IconButton();
             lbDate = new Label();
@@ -75,6 +77,7 @@
             label4 = new Label();
             label3 = new Label();
             label2 = new Label();
+            btnBack = new Guna.UI2.WinForms.Guna2Button();
             pnCheckOut.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)icCheckOut).BeginInit();
             pnCheckIn.SuspendLayout();
@@ -526,11 +529,32 @@
             label2.TabIndex = 0;
             label2.Text = "Họ Tên: ";
             // 
+            // btnBack
+            // 
+            btnBack.BorderColor = Color.FromArgb(224, 224, 224);
+            btnBack.BorderRadius = 10;
+            btnBack.BorderThickness = 2;
+            btnBack.CustomizableEdges = customizableEdges13;
+            btnBack.DisabledState.BorderColor = Color.DarkGray;
+            btnBack.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnBack.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnBack.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnBack.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBack.ForeColor = Color.White;
+            btnBack.Location = new Point(18, 19);
+            btnBack.Name = "btnBack";
+            btnBack.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            btnBack.Size = new Size(117, 45);
+            btnBack.TabIndex = 16;
+            btnBack.Text = "Back";
+            btnBack.Click += btnBack_Click;
+            // 
             // frmChamCong
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1714, 1061);
+            Controls.Add(btnBack);
             Controls.Add(pnThongTinNV);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(txtNhapMaNV);
@@ -596,5 +620,6 @@
         private Label label12;
         private Label label11;
         private Label label7;
+        private Guna.UI2.WinForms.Guna2Button btnBack;
     }
 }

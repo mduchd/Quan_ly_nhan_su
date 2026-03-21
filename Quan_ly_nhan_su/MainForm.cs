@@ -9,15 +9,15 @@ namespace Quan_ly_nhan_su
 {
     public partial class MainForm : System.Windows.Forms.Form
     {
-        private string quyen;
+        
         private readonly ucNhanVien _ucNhanVien = new();
 
-        public MainForm(string quyen)
+        public MainForm()
         {
             InitializeComponent();
 
-            this.quyen = quyen;
-            ThietLapPhanQuyen();
+          
+        
         }
 
         private void OpenControl(UserControl control)
@@ -44,25 +44,7 @@ namespace Quan_ly_nhan_su
 
         }
 
-        public void ThietLapPhanQuyen()
-        {
-            if (this.quyen == "User")
-            {
-                btnQLNhanSu.Visible = false;
-                btnTienLuong.Visible = false;
-
-                lblVaiTro.Text = "Vai trò: Nhân viên";
-            }
-            else if (this.quyen == "Admin")
-            {
-                btnQLNhanSu.Visible = true;
-                btnTienLuong.Visible = true;
-                btnChamCong.Visible = true;
-                btnNghiPhep.Visible = true;
-
-                lblVaiTro.Text = "Vai trò: Quản lý";
-            }
-        }
+     
 
 
 
@@ -150,7 +132,10 @@ namespace Quan_ly_nhan_su
 
         private void btnChamCong_Click(object sender, EventArgs e)
         {
-           
+            pnlDesktop.Controls.Clear();
+            ucQuanLyCong uc = new ucQuanLyCong();
+            uc.Dock = DockStyle.Fill;
+            pnlDesktop.Controls.Add(uc);
         }
     }
 }

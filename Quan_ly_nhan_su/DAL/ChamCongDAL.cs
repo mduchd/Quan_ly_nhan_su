@@ -11,14 +11,37 @@ namespace Quan_ly_nhan_su.DAL
 {
     internal class ChamCongDAL
     {
-        private string connectString = @"Data Source=NgocDuy; Initial Catalog=QL_Nhansu; Integrated Security= true";
-        public ChamCongDAL() { }
+
+        // Thay dòng cũ bằng dòng này:
+        private string connectionString = @"Data Source=.; Initial Catalog=QL_Nhansu; Integrated Security=True";
+        public DataTable ExecuteQuery(string query)
+        {
+            DataTable data = new DataTable();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand command = new SqlCommand(query, conn);
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+                    adapter.Fill(data);
+                    // conn.Close(); // Dùng 'using' thì không cần Close thủ công, nó tự đóng rồi
+                }
+            }
+            catch (Exception ex)
+            {
+                // Hiển thị lỗi để biết tại sao nút không chạy
+                System.Windows.Forms.MessageBox.Show("Lỗi thực thi truy vấn: " + ex.Message);
+            }
+            return data;
+        }
+
 
         public bool CapNhatTrangThaiCheckIn(string maNV, int trangThaiMoi)
         {
             bool ketqua = false;
 
-            using (SqlConnection conn = new SqlConnection(connectString)) {
+            using (SqlConnection conn = new SqlConnection(connectionString)) {
                 try
                 {
                     conn.Open();
@@ -48,7 +71,7 @@ namespace Quan_ly_nhan_su.DAL
         public bool CapNhatTrangThaiCheckOut(string maNV)
         {
             bool ketQua = false;
-            using (SqlConnection conn = new SqlConnection(connectString))
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 try
                 {
@@ -75,7 +98,7 @@ namespace Quan_ly_nhan_su.DAL
         public int KiemTraTrangThai(string maNV)
         {
             int trangthai = -1;
-            using (SqlConnection conn = new SqlConnection(connectString))
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 try
                 {
@@ -103,7 +126,7 @@ namespace Quan_ly_nhan_su.DAL
     public ChamCongDTO LayThongTinChamCong(string maNV)
         {
             ChamCongDTO nv = null;
-            using (SqlConnection conn = new SqlConnection(connectString))
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 try
                 {

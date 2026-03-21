@@ -35,10 +35,11 @@ namespace Quan_ly_nhan_su.GUI
             string quyen = bus.DangNhap(taikhoan, matkhau);
             if (quyen != null)
             {
-                MainForm mainForm = new MainForm(quyen);
+                MainForm mainForm = new MainForm();
                 mainForm.Show();
                 this.Hide();
-            } else
+            }
+            else
             {
                 MessageBox.Show("Tài khoản hoặc mật khẩu không đúng!", "Lỗi đăng nhập", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtMatKhau.Clear();
@@ -57,6 +58,14 @@ namespace Quan_ly_nhan_su.GUI
         {
 
 
+        }
+
+        private void btnMoMayChamCong_Click(object sender, EventArgs e)
+        {
+            frmChamCong chamCongForm = new frmChamCong();
+            chamCongForm.Show();
+
+            this.Hide();
         }
     }
 }

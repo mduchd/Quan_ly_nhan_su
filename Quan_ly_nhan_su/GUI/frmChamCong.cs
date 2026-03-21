@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Quan_ly_nhan_su.DTO;
 
+
 namespace Quan_ly_nhan_su.GUI
 {
     public partial class frmChamCong : Form
@@ -134,17 +135,17 @@ namespace Quan_ly_nhan_su.GUI
                 MessageBox.Show("Vui lòng nhập mã nhân viên trước khi Check-in!");
                 return;
             }
-            
-            
+
+
             ChamCongDAL dal = new ChamCongDAL();
             int trangThaiHienTai = dal.KiemTraTrangThai(maNhanVien);
 
-            if(trangThaiHienTai == -1)
+            if (trangThaiHienTai == -1)
             {
                 MessageBox.Show("Mã nhân viên này không có trong hệ thống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if(trangThaiHienTai == 1)
+            if (trangThaiHienTai == 1)
             {
                 MessageBox.Show("Bạn đã Check-in rồi", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 khoaNutCheckIn();
@@ -154,10 +155,10 @@ namespace Quan_ly_nhan_su.GUI
             if (isSuccess)
             {
                 MessageBox.Show(maNhanVien + " đã Check-in thành công!");
-                lbGioVao.Text = DateTime.Now.ToString("HH:mm"); 
+                lbGioVao.Text = DateTime.Now.ToString("HH:mm");
                 khoaNutCheckIn();
                 txtNhapMaNV.Clear();
-                
+
             }
             else
             {
@@ -197,12 +198,12 @@ namespace Quan_ly_nhan_su.GUI
             }
             ChamCongDAL dal = new ChamCongDAL();
             int trangThaiHienTai = dal.KiemTraTrangThai(maNhanVien);
-            if(trangThaiHienTai == -1)
+            if (trangThaiHienTai == -1)
             {
                 MessageBox.Show("Mã nhân viên này không có trong hệ thống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if(trangThaiHienTai == 0)
+            if (trangThaiHienTai == 0)
             {
                 MessageBox.Show("Bạn chưa Check-In. Vui lòng Check-In trước khi Check-Out", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -213,7 +214,7 @@ namespace Quan_ly_nhan_su.GUI
             {
                 MessageBox.Show(maNhanVien + " đã Check-out thành công!");
                 ChamCongDTO thongtin = dal.LayThongTinChamCong(maNhanVien);
-                if(thongtin != null && thongtin.GioVao != null)
+                if (thongtin != null && thongtin.GioVao != null)
                 {
                     lbGioVao.Text = thongtin.GioVao.Value.ToString("hh\\:mm");
                     lbGioRa.Text = DateTime.Now.ToString("HH:mm");
@@ -225,9 +226,9 @@ namespace Quan_ly_nhan_su.GUI
 
                     // Hiển thị lên giao diện
                     lbTongGio.Text = $"{soGio}h {soPhut:D2}m";
-           
+
                 }
-                
+
                 khoaNutCheckIn();
                 txtNhapMaNV.Clear();
             }
@@ -235,8 +236,8 @@ namespace Quan_ly_nhan_su.GUI
             {
                 MessageBox.Show("Check-out thất bại. Vui lòng thử lại!");
             }
-            
-            
+
+
 
         }
 
@@ -260,18 +261,18 @@ namespace Quan_ly_nhan_su.GUI
                 }
                 ChamCongDAL dal = new ChamCongDAL();
                 int trangThai = dal.KiemTraTrangThai(MaNV);
-                if(trangThai == 1) 
+                if (trangThai == 1)
                 {
                     khoaNutCheckIn();
                     ChamCongDTO thongtin = dal.LayThongTinChamCong(MaNV);
-                    if(thongtin != null && thongtin.GioVao != null)
+                    if (thongtin != null && thongtin.GioVao != null)
                     {
                         lbGioVao.Text = thongtin.GioVao.Value.ToString("hh\\:mm");
                         lbGioRa.Text = "--:--";
                         lbTongGio.Text = "0.00h";
                     }
                 }
-                else if(trangThai == 0) 
+                else if (trangThai == 0)
                 {
                     upDateColor();
                     lbGioVao.Text = "--:--";
@@ -289,6 +290,13 @@ namespace Quan_ly_nhan_su.GUI
         private void pnCheckOut_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            frmDangNhap f = new frmDangNhap();
+            f.Show();
+            this.Close();
         }
     }
 }
