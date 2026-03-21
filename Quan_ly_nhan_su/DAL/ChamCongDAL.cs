@@ -10,17 +10,26 @@ namespace Quan_ly_nhan_su.DAL
 {
     internal class ChamCongDAL
     {
-        private string connectionString = @"Data Source=NgocDuy; Initial Catalog=QL_Nhansu; Integrated Security=True";
+        // Thay dòng cũ bằng dòng này:
+        private string connectionString = @"Data Source=.; Initial Catalog=QL_Nhansu; Integrated Security=True";
         public DataTable ExecuteQuery(string query)
         {
-            DataTable data = new DataTable(); 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            DataTable data = new DataTable();
+            try
             {
-                conn.Open();
-                SqlCommand command = new SqlCommand(query, conn);
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                adapter.Fill(data);
-                conn.Close();
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand command = new SqlCommand(query, conn);
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+                    adapter.Fill(data);
+                    // conn.Close(); // Dùng 'using' thì không cần Close thủ công, nó tự đóng rồi
+                }
+            }
+            catch (Exception ex)
+            {
+                // Hiển thị lỗi để biết tại sao nút không chạy
+                System.Windows.Forms.MessageBox.Show("Lỗi thực thi truy vấn: " + ex.Message);
             }
             return data;
         }

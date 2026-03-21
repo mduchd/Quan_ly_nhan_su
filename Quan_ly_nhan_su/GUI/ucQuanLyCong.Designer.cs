@@ -111,6 +111,7 @@
             // 
             // btnRefresh
             // 
+            btnRefresh.BorderRadius = 10;
             btnRefresh.CustomizableEdges = customizableEdges1;
             btnRefresh.DisabledState.BorderColor = Color.DarkGray;
             btnRefresh.DisabledState.CustomBorderColor = Color.DarkGray;
@@ -118,33 +119,36 @@
             btnRefresh.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             btnRefresh.Font = new Font("Segoe UI", 9F);
             btnRefresh.ForeColor = Color.White;
-            btnRefresh.Location = new Point(674, 98);
+            btnRefresh.Location = new Point(479, 99);
             btnRefresh.Name = "btnRefresh";
             btnRefresh.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            btnRefresh.Size = new Size(180, 45);
+            btnRefresh.Size = new Size(111, 34);
             btnRefresh.TabIndex = 7;
             btnRefresh.Text = "Làm mới";
             btnRefresh.Click += btnRefresh_Click;
             // 
             // btnXuatExcel
             // 
+            btnXuatExcel.BorderRadius = 10;
             btnXuatExcel.CustomizableEdges = customizableEdges3;
             btnXuatExcel.DisabledState.BorderColor = Color.DarkGray;
             btnXuatExcel.DisabledState.CustomBorderColor = Color.DarkGray;
             btnXuatExcel.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
             btnXuatExcel.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnXuatExcel.FillColor = Color.ForestGreen;
             btnXuatExcel.Font = new Font("Segoe UI", 9F);
             btnXuatExcel.ForeColor = Color.White;
-            btnXuatExcel.Location = new Point(392, 98);
+            btnXuatExcel.Location = new Point(733, 99);
             btnXuatExcel.Name = "btnXuatExcel";
             btnXuatExcel.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            btnXuatExcel.Size = new Size(180, 45);
+            btnXuatExcel.Size = new Size(111, 33);
             btnXuatExcel.TabIndex = 6;
             btnXuatExcel.Text = "Xuẩt Excel";
             btnXuatExcel.Click += btnXuatExcel_Click;
             // 
             // btnLoc
             // 
+            btnLoc.BorderRadius = 10;
             btnLoc.CustomizableEdges = customizableEdges5;
             btnLoc.DisabledState.BorderColor = Color.DarkGray;
             btnLoc.DisabledState.CustomBorderColor = Color.DarkGray;
@@ -152,16 +156,17 @@
             btnLoc.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             btnLoc.Font = new Font("Segoe UI", 9F);
             btnLoc.ForeColor = Color.White;
-            btnLoc.Location = new Point(108, 98);
+            btnLoc.Location = new Point(344, 99);
             btnLoc.Name = "btnLoc";
             btnLoc.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            btnLoc.Size = new Size(180, 45);
+            btnLoc.Size = new Size(111, 34);
             btnLoc.TabIndex = 5;
             btnLoc.Text = "Lọc";
             btnLoc.Click += btnLoc_Click;
             // 
             // dtpDenNgay
             // 
+            dtpDenNgay.BorderRadius = 5;
             dtpDenNgay.Checked = true;
             dtpDenNgay.CustomizableEdges = customizableEdges7;
             dtpDenNgay.Font = new Font("Segoe UI", 9F);
@@ -177,6 +182,7 @@
             // 
             // dtpTuNgay
             // 
+            dtpTuNgay.BorderRadius = 5;
             dtpTuNgay.Checked = true;
             dtpTuNgay.CustomizableEdges = customizableEdges9;
             dtpTuNgay.Font = new Font("Segoe UI", 9F);
@@ -192,6 +198,7 @@
             // 
             // txtTimKiem
             // 
+            txtTimKiem.BorderRadius = 10;
             txtTimKiem.CustomizableEdges = customizableEdges11;
             txtTimKiem.DefaultText = "";
             txtTimKiem.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
@@ -201,31 +208,33 @@
             txtTimKiem.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             txtTimKiem.Font = new Font("Segoe UI", 9F);
             txtTimKiem.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            txtTimKiem.Location = new Point(38, 53);
+            txtTimKiem.Location = new Point(38, 54);
             txtTimKiem.Name = "txtTimKiem";
             txtTimKiem.PlaceholderText = "";
             txtTimKiem.SelectedText = "";
             txtTimKiem.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            txtTimKiem.Size = new Size(250, 27);
+            txtTimKiem.Size = new Size(250, 39);
             txtTimKiem.TabIndex = 2;
             // 
             // guna2HtmlLabel2
             // 
             guna2HtmlLabel2.BackColor = Color.Transparent;
-            guna2HtmlLabel2.Location = new Point(57, 32);
+            guna2HtmlLabel2.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            guna2HtmlLabel2.Location = new Point(38, 30);
             guna2HtmlLabel2.Margin = new Padding(3, 2, 3, 2);
             guna2HtmlLabel2.Name = "guna2HtmlLabel2";
-            guna2HtmlLabel2.Size = new Size(122, 17);
+            guna2HtmlLabel2.Size = new Size(137, 19);
             guna2HtmlLabel2.TabIndex = 1;
             guna2HtmlLabel2.Text = "Theo dõi lịch sử ra vào";
             // 
             // guna2HtmlLabel1
             // 
             guna2HtmlLabel1.BackColor = Color.Transparent;
+            guna2HtmlLabel1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             guna2HtmlLabel1.Location = new Point(38, 8);
             guna2HtmlLabel1.Margin = new Padding(3, 2, 3, 2);
             guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            guna2HtmlLabel1.Size = new Size(144, 17);
+            guna2HtmlLabel1.Size = new Size(234, 27);
             guna2HtmlLabel1.TabIndex = 0;
             guna2HtmlLabel1.Text = "Quản lý lịch sử chấm công";
             // 
