@@ -7,19 +7,13 @@ using Quan_ly_nhan_su.DTO;
 using Quan_ly_nhan_su.BUS;
 using Quan_ly_nhan_su.DAL;
 using ClosedXML.Excel;
+using Guna.UI2.WinForms;
 
 namespace Quan_ly_nhan_su.GUI
 {
     public partial class ucBangLuong : UserControl
     {
-        private Label lblTieuDe;
-        private DataGridView dgvBangLuong;
-        private TextBox txtTimKiem;
-        private Button btnLamMoi;
-        private Button btnXuatExcel;
-        private Label lblTongQuyLuong;
-
-
+      
         BangLuongBUS bus = new BangLuongBUS();
         BangLuongDAL dal = new BangLuongDAL();
 
@@ -30,57 +24,92 @@ namespace Quan_ly_nhan_su.GUI
             InitUI();
             LoadBangLuong();
         }
+        // --- 1. KHAI BÁO LẠI CÁC BIẾN BẰNG GUNA CONTROL ---
+        private Label lblTieuDe;
+        private Guna2TextBox txtTimKiem;
+        private Guna2Button btnLamMoi;
+        private Guna2Button btnXuatExcel;
+        private Guna2DataGridView dgvBangLuong;
+        private Label lblTongQuyLuong;
+        private Label lblThangNam;
+        private Guna2DateTimePicker dtpThangNam;
+
+        // --- 2. HÀM INIT CẬP NHẬT GIAO DIỆN MỚI ---
         private void InitUI()
         {
+            this.BackColor = Color.FromArgb(242, 245, 250); // Màu nền xám xanh nhạt cực sang
             this.Font = new Font("Segoe UI", 10, FontStyle.Regular);
-            lblTieuDe = new Label()
-            {
-                Text = "BẢNG TÍNH LƯƠNG NHÂN VIÊN",
-                Location = new Point(20, 20),
-                AutoSize = true,
-                Font = new Font("Segoe UI", 16, FontStyle.Bold),
-                ForeColor = Color.FromArgb(0, 51, 102)
-            };
 
-            txtTimKiem = new TextBox()
+            lblTieuDe = new Label() { Text = "BẢNG TÍNH LƯƠNG NHÂN VIÊN", Location = new Point(20, 20), AutoSize = true, Font = new Font("Segoe UI", 16, FontStyle.Bold), ForeColor = Color.FromArgb(0, 51, 102) };
+
+            // Guna2TextBox: Bo góc, có sẵn chữ mờ (Placeholder)
+            txtTimKiem = new Guna2TextBox()
             {
                 Location = new Point(20, 70),
-                Width = 350,
-                Font = new Font("Segoe UI", 11, FontStyle.Regular)
+                Size = new Size(350, 36),
+                BorderRadius = 8, // Bo góc mềm mại
+                PlaceholderText = "Nhập mã hoặc tên nhân viên để tìm...", // Chữ mờ hướng dẫn
+                Font = new Font("Segoe UI", 10, FontStyle.Regular)
             };
             txtTimKiem.TextChanged += TxtTimKiem_TextChanged;
 
-            btnLamMoi = new Button()
+            // Guna2Button: Bo góc, đổi màu mượt mà
+            btnLamMoi = new Guna2Button()
             {
-                Text = "Refresh",
-                Location = new Point(380, 68),
-                Size = new Size(100, 30),
-                BackColor = Color.LightGray,
-                FlatStyle = FlatStyle.Flat,
+                Text = "Làm mới",
+                Location = new Point(380, 70),
+                Size = new Size(100, 36),
+                BorderRadius = 8,
+                FillColor = Color.FromArgb(189, 195, 199),
+                ForeColor = Color.Black,
                 Cursor = Cursors.Hand
             };
-            btnLamMoi.FlatAppearance.BorderSize = 0;
-            btnLamMoi.Click += (s, e) =>
+            btnLamMoi.Click += (s, e) => { txtTimKiem.Text = ""; };
+
+            btnXuatExcel = new Guna2Button()
             {
-                txtTimKiem.Text = "";
+                Text = "Xuất Excel",
+                Location = new Point(490, 70),
+                Size = new Size(100, 36),
+                BorderRadius = 8,
+                FillColor = Color.FromArgb(46, 204, 113), // Xanh lá mượt
+                ForeColor = Color.White,
+                Cursor = Cursors.Hand
             };
-            dgvBangLuong = new DataGridView()
+            btnXuatExcel.Click += BtnXuatExcel_Click;
+
+            lblThangNam = new Label() { Text = "Chọn tháng:", Location = new Point(590, 78), AutoSize = true, Font = new Font("Segoe UI", 10, FontStyle.Italic) };
+
+            // Guna2DateTimePicker: Chỉnh viền và góc y hệt textbox
+            dtpThangNam = new Guna2DateTimePicker()
+            {
+                Location = new Point(695, 70),
+                Size = new Size(110, 36),
+                BorderRadius = 8,
+                Format = DateTimePickerFormat.Custom,
+                CustomFormat = "MM/yyyy",
+                ShowUpDown = false,
+                FillColor = Color.White,
+                BorderColor = Color.FromArgb(213, 218, 223),
+                BorderThickness = 1
+            };
+            dtpThangNam.ValueChanged += (s, e) => LoadBangLuong(txtTimKiem.Text);
+
+            // Guna2DataGridView: Tự động có Theme siêu đẹp, không cần tự chỉnh màu từng dòng
+            dgvBangLuong = new Guna2DataGridView()
             {
                 Location = new Point(20, 130),
-                Size = new Size(760, 300),
+                Size = new Size(785, 300),
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
                 AllowUserToAddRows = false,
                 ReadOnly = true,
                 SelectionMode = DataGridViewSelectionMode.FullRowSelect,
-                BackgroundColor = Color.White,
-                BorderStyle = BorderStyle.None,
-                RowTemplate =
-                {
-                    Height = 35
-                },
-                ColumnHeadersHeight = 40,
-                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right
+                ThemeStyle = { AlternatingRowsStyle = { BackColor = Color.White }, RowsStyle = { Height = 40 } },
+                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
+                CellBorderStyle = DataGridViewCellBorderStyle.Single,
+                GridColor = Color.Black 
             };
+
             lblTongQuyLuong = new Label()
             {
                 Location = new Point(20, 445),
@@ -89,28 +118,23 @@ namespace Quan_ly_nhan_su.GUI
                 ForeColor = Color.DarkRed,
                 Anchor = AnchorStyles.Bottom | AnchorStyles.Left,
             };
-            btnXuatExcel = new Button()
-            {
-                Text = "Xuất Excel",
-                Location = new Point(490, 68),
-                Size = new Size(100, 30),
-                BackColor = Color.LightGreen,
-                FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand
-            };
-            btnXuatExcel.FlatAppearance.BorderSize = 0;
-            btnXuatExcel.Click += BtnXuatExcel_Click;
 
             this.Controls.Add(lblTieuDe);
             this.Controls.Add(txtTimKiem);
             this.Controls.Add(btnLamMoi);
+            this.Controls.Add(btnXuatExcel);
+            this.Controls.Add(lblThangNam);
+            this.Controls.Add(dtpThangNam);
             this.Controls.Add(dgvBangLuong);
             this.Controls.Add(lblTongQuyLuong);
-            this.Controls.Add(btnXuatExcel);
         }
         private void LoadBangLuong(string tuKhoa = "")
         {
-            dsGoc = dal.GetDanhSachBangLuong(tuKhoa);
+            string thangDuocChon = dtpThangNam.Value.ToString("MM/yyyy");
+
+            // 2. Truyền cả Từ khóa VÀ Tháng năm xuống tầng DAL để lọc
+            dsGoc = dal.GetDanhSachBangLuong(tuKhoa, thangDuocChon);
+
             foreach (var nv in dsGoc)
             {
                 nv.TongLuong = bus.TinhTongLuong(nv);

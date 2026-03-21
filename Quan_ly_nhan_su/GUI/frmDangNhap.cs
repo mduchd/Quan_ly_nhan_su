@@ -39,11 +39,33 @@ namespace Quan_ly_nhan_su.GUI
                 mainForm.Show();
                 this.Hide();
             }
+            else
+            {
+                MessageBox.Show("Tài khoản hoặc mật khẩu không đúng!", "Lỗi đăng nhập", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtMatKhau.Clear();
+                txtMatKhau.Focus();
+            }
+
+            if (string.IsNullOrEmpty(taikhoan) || string.IsNullOrEmpty("matkhau"))
+            {
+                MessageBox.Show("Vui lòng nhập đầy đủ tài khoản và mật khẩu!", "Lỗi đăng nhập", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTaiKhoan.Focus();
+                return;
+            }
         }
 
         private void guna2PictureBox1_Click(object sender, EventArgs e)
         {
 
+
+        }
+
+        private void btnMoMayChamCong_Click(object sender, EventArgs e)
+        {
+            frmChamCong chamCongForm = new frmChamCong();
+            chamCongForm.Show();
+
+            this.Hide();
         }
     }
 }

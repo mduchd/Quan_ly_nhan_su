@@ -1,23 +1,20 @@
 using System;
 using System.Windows.Forms;
 using Quan_ly_nhan_su.GUI;
-using Quan_ly_nhan_su.GUI.ChamCongNghiPhep;
-
 namespace Quan_ly_nhan_su
 {
     public partial class MainForm : System.Windows.Forms.Form
     {
+        private string quyen;
         private readonly ucNhanVien _ucNhanVien = new();
         private readonly ucBangLuong _ucBangLuong = new();
-        private readonly ucChamCong _ucChamCong = new();
-        private readonly ucTaoDonNghiPhep _ucTaoDonNghiPhep = new();
+        private readonly ucQuanLyCong _ucQuanLyCong = new();
 
-        public MainForm()
+        public MainForm(string quyen)
         {
             InitializeComponent();
-
-            btnQLNhanSu.Click += button2_Click;
-
+            this.quyen = quyen;
+            ThietLapPhanQuyen();
             OpenControl(_ucNhanVien);
         }
 
@@ -34,78 +31,43 @@ namespace Quan_ly_nhan_su
             control.BringToFront();
         }
 
-        private void button2_Click(object? sender, EventArgs e)
-        {
-            OpenControl(_ucNhanVien);
-        }
-
-        private void lblLogo_Click(object? sender, EventArgs e)
-        {
-            OpenControl(_ucNhanVien);
-        }
-        private string quyen;
-        public MainForm(string quyen)
-        {
-            InitializeComponent();
-            this.quyen = quyen;
-            ThietLapPhanQuyen();
-            ucBangLuong bangLuong = new ucBangLuong();
-            bangLuong.Dock = DockStyle.Fill;
-            this.Controls.Add(bangLuong);
-            this.Text = "Phần mềm Quản lý Nhân sự - Phân hệ Tiền Lương";
-            this.Size = new System.Drawing.Size(850, 500);
-            this.StartPosition = FormStartPosition.CenterScreen;
-        }
-
         public void ThietLapPhanQuyen()
         {
             if (this.quyen == "User")
             {
                 btnQLNhanSu.Visible = false;
                 btnTienLuong.Visible = false;
+                btnChamCong.Visible = false;
 
                 lblVaiTro.Text = "Vai trò: Nhân viên";
             }
             else if (this.quyen == "Admin")
             {
-                btnQLNhanSu.Visible = false;
+                btnQLNhanSu.Visible = true;
                 btnTienLuong.Visible = true;
                 btnChamCong.Visible = true;
-                btnNghiPhep.Visible = true;
 
                 lblVaiTro.Text = "Vai trò: Quản lý";
             }
-        }
-
-
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-            lblLogo_Click(sender, e);
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            OpenControl(_ucChamCong);
         }
 
         private void pnlDesktop_Paint(object sender, PaintEventArgs e)
         {
         }
 
-        private void btnNghiPhep_Click(object sender, EventArgs e)
-        {
-            OpenControl(_ucTaoDonNghiPhep);
-        }
-
-
-        private void btnTienLuong_Click(object sender, EventArgs e)
+        private void btnTienLuong_Click_1(object sender, EventArgs e)
         {
             OpenControl(_ucBangLuong);
         }
-        private void guna2HtmlLabel1_Click(object sender, EventArgs e)
-        {
 
+        private void btnQLNhanSu_Click_1(object sender, EventArgs e)
+        {
+            OpenControl(_ucNhanVien);
+        }
+
+        private void btnChamCong_Click(object sender, EventArgs e)
+        {
+            OpenControl(_ucQuanLyCong);
         }
 
         private void btnDangXuat_Click(object sender, EventArgs e)
@@ -118,7 +80,8 @@ namespace Quan_ly_nhan_su
                 if (frmLogin != null)
                 {
                     frmLogin.Show();
-                } else
+                }
+                else
                 {
                     new frmDangNhap().Show();
                 }
@@ -126,9 +89,11 @@ namespace Quan_ly_nhan_su
             }
         }
 
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
 
-
-        // Add event handlers or methods here as needed
 
     }
 }

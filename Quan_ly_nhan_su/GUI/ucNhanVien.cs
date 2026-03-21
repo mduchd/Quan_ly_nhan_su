@@ -450,7 +450,6 @@ namespace Quan_ly_nhan_su.GUI
 
             var phoneNumberToCheck = phoneNumber;
             var emailToCheck = email;
-
             var duplicated = _employees.FirstOrDefault(x =>
                 x.Id != editingEmployeeId &&
                 (x.PhoneNumber.Equals(phoneNumberToCheck, StringComparison.OrdinalIgnoreCase)
