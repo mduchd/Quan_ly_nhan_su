@@ -572,7 +572,6 @@
             lblSearch.Size = new Size(70, 20);
             lblSearch.TabIndex = 0;
             lblSearch.Text = "Tìm kiếm";
-            lblSearch.Click += lblSearch_Click;
             // 
             // pnlSearch
             // 
@@ -583,7 +582,6 @@
             pnlSearch.Name = "pnlSearch";
             pnlSearch.Size = new Size(1804, 52);
             pnlSearch.TabIndex = 2;
-            pnlSearch.Paint += pnlSearch_Paint;
             // 
             // gridEmployees
             // 
