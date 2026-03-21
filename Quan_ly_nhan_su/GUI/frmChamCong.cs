@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Quan_ly_nhan_su.DAL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Quan_ly_nhan_su.DTO;
 
 namespace Quan_ly_nhan_su.GUI
 {
@@ -125,45 +127,117 @@ namespace Quan_ly_nhan_su.GUI
 
         private void pnCheckIn_Click(object sender, EventArgs e)
         {
+            string maNhanVien = txtNhapMaNV.Text.Trim();
             if (string.IsNullOrEmpty(txtNhapMaNV.Text.Trim()))
-           
+
             {
                 MessageBox.Show("Vui lòng nhập mã nhân viên trước khi Check-in!");
                 return;
             }
-            lbGioVao.Text = DateTime.Now.ToString("HH:mm");
+            
+            
+            ChamCongDAL dal = new ChamCongDAL();
+            int trangThaiHienTai = dal.KiemTraTrangThai(maNhanVien);
+
+            if(trangThaiHienTai == -1)
+            {
+                MessageBox.Show("Mã nhân viên này không có trong hệ thống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if(trangThaiHienTai == 1)
+            {
+                MessageBox.Show("Bạn đã Check-in rồi", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                khoaNutCheckIn();
+                return;
+            }
+            bool isSuccess = dal.CapNhatTrangThaiCheckIn(maNhanVien, 1);
+            if (isSuccess)
+            {
+                MessageBox.Show(maNhanVien + " đã Check-in thành công!");
+                lbGioVao.Text = DateTime.Now.ToString("HH:mm"); 
+                khoaNutCheckIn();
+                txtNhapMaNV.Clear();
+                
+            }
+            else
+            {
+                MessageBox.Show("Check-in thất bại. Vui lòng thử lại!");
+                return;
+            }
+        }
+        private void khoaNutCheckIn()
+        {
             pnCheckIn.FillColor = Color.Gray;
             icCheckIn.BackColor = Color.Gray;
             lbCheckIn.BackColor = Color.Gray;
             lbCheckIn.ForeColor = Color.White;
             pnCheckIn.Enabled = false;
-            txtNhapMaNV.Clear();
-            MessageBox.Show("Bạn đã Check-in thành công!");
-            
+        }
+        private void upDateColor()
+        {
+            pnCheckIn.FillColor = Color.MediumSeaGreen;
+            icCheckIn.BackColor = Color.MediumSeaGreen;
+            lbCheckIn.BackColor = Color.MediumSeaGreen;
+            lbCheckIn.ForeColor = Color.White;
+            pnCheckOut.FillColor = Color.FromArgb(255, 128, 0);
+            icCheckOut.BackColor = Color.FromArgb(255, 128, 0);
+            lbCheckOut.BackColor = Color.FromArgb(255, 128, 0);
+            lbCheckOut.ForeColor = Color.White;
+            pnCheckIn.Enabled = true;
+            pnCheckOut.Enabled = true;
         }
 
         private void pnCheckOut_Click(object sender, EventArgs e)
         {
-            if (pnCheckIn.Enabled == true)
+            string maNhanVien = txtNhapMaNV.Text.Trim();
+            if (string.IsNullOrEmpty(maNhanVien))
             {
-                MessageBox.Show("Bạn chưa Check-in. Vui lòng Check-in trước khi Check-out!");
+                MessageBox.Show("Vui lòng nhập mã nhân viên trước khi Check-Out");
                 return;
             }
-            else if (string.IsNullOrEmpty(txtNhapMaNV.Text.Trim()))
+            ChamCongDAL dal = new ChamCongDAL();
+            int trangThaiHienTai = dal.KiemTraTrangThai(maNhanVien);
+            if(trangThaiHienTai == -1)
             {
-                MessageBox.Show("Vui lòng nhập mã nhân viên trước khi Check-out!");
+                MessageBox.Show("Mã nhân viên này không có trong hệ thống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            lbGioRa.Text = DateTime.Now.ToString("HH:mm");
-            lbTongGio.Text = (DateTime.Parse(lbGioRa.Text) - DateTime.Parse(lbGioVao.Text)).TotalHours.ToString("0.00") + "h";
-            pnCheckOut.FillColor = Color.Gray;
-            pnCheckOut.FillColor = Color.Gray;
-            icCheckOut.BackColor = Color.Gray;
-            lbCheckOut.BackColor = Color.Gray;
-            lbCheckOut.ForeColor = Color.White;
-            pnCheckOut.Enabled = false;
-            MessageBox.Show("Bạn đã Check-out thành công!");
-            txtNhapMaNV.Clear();
+            if(trangThaiHienTai == 0)
+            {
+                MessageBox.Show("Bạn chưa Check-In. Vui lòng Check-In trước khi Check-Out", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+
+            }
+            bool isSuccess = dal.CapNhatTrangThaiCheckOut(maNhanVien);
+            if (isSuccess)
+            {
+                MessageBox.Show(maNhanVien + " đã Check-out thành công!");
+                ChamCongDTO thongtin = dal.LayThongTinChamCong(maNhanVien);
+                if(thongtin != null && thongtin.GioVao != null)
+                {
+                    lbGioVao.Text = thongtin.GioVao.Value.ToString("hh\\:mm");
+                    lbGioRa.Text = DateTime.Now.ToString("HH:mm");
+                    TimeSpan gioRa = DateTime.Now.TimeOfDay;
+                    TimeSpan gioVao = thongtin.GioVao.Value;
+                    TimeSpan tongThoiGian = gioRa - gioVao;
+                    int soGio = tongThoiGian.Hours;
+                    int soPhut = tongThoiGian.Minutes;
+
+                    // Hiển thị lên giao diện
+                    lbTongGio.Text = $"{soGio}h {soPhut:D2}m";
+           
+                }
+                
+                khoaNutCheckIn();
+                txtNhapMaNV.Clear();
+            }
+            else
+            {
+                MessageBox.Show("Check-out thất bại. Vui lòng thử lại!");
+            }
+            
+            
+
         }
 
         private void lbTongGio_Click(object sender, EventArgs e)
@@ -184,19 +258,37 @@ namespace Quan_ly_nhan_su.GUI
                     MessageBox.Show("Vui lòng nhập mã nhân viên!");
                     return;
                 }
+                ChamCongDAL dal = new ChamCongDAL();
+                int trangThai = dal.KiemTraTrangThai(MaNV);
+                if(trangThai == 1) 
+                {
+                    khoaNutCheckIn();
+                    ChamCongDTO thongtin = dal.LayThongTinChamCong(MaNV);
+                    if(thongtin != null && thongtin.GioVao != null)
+                    {
+                        lbGioVao.Text = thongtin.GioVao.Value.ToString("hh\\:mm");
+                        lbGioRa.Text = "--:--";
+                        lbTongGio.Text = "0.00h";
+                    }
+                }
+                else if(trangThai == 0) 
+                {
+                    upDateColor();
+                    lbGioVao.Text = "--:--";
+                    lbGioRa.Text = "--:--";
+                    lbTongGio.Text = "0.00h";
+                }
                 else
                 {
                     pnThongTinNV.Visible = true;
                     pnThongTinNV.BringToFront();
                 }
-
-                
-
-
-
             }
         }
 
-        
+        private void pnCheckOut_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

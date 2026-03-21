@@ -146,6 +146,7 @@
             pnCheckOut.Size = new Size(808, 94);
             pnCheckOut.TabIndex = 6;
             pnCheckOut.Click += pnCheckOut_Click;
+            pnCheckOut.Paint += pnCheckOut_Paint;
             // 
             // icCheckOut
             // 
