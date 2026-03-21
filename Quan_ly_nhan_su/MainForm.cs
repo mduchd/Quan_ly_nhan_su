@@ -58,7 +58,6 @@ namespace Quan_ly_nhan_su
                 btnQLNhanSu.Visible = true;
                 btnTienLuong.Visible = true;
                 btnChamCong.Visible = true;
-                btnNghiPhep.Visible = true;
 
                 lblVaiTro.Text = "Vai trò: Quản lý";
             }
@@ -150,7 +149,10 @@ namespace Quan_ly_nhan_su
 
         private void btnChamCong_Click(object sender, EventArgs e)
         {
-           
+            pnlDesktop.Controls.Clear();
+            ucQuanLyCong uc = new ucQuanLyCong();
+            uc.Dock = DockStyle.Fill;
+            pnlDesktop.Controls.Add(uc);
         }
     }
 }

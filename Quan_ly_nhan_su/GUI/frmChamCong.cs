@@ -10,14 +10,26 @@ namespace Quan_ly_nhan_su.GUI
 {
     public partial class frmChamCong : Form
     {
+
         public frmChamCong()
         {
             InitializeComponent();
-
+            timerClock.Interval = 1000;
+            timerClock.Tick += new EventHandler(timerClock_Tick);
+            timerClock.Start();
 
 
         }
+        private void AssignClickEventToAll(Control parentControl, EventHandler clickEvent)
+        {
+            parentControl.Click += clickEvent;
 
+
+            foreach (Control child in parentControl.Controls)
+            {
+                AssignClickEventToAll(child, clickEvent);
+            }
+        }
 
 
         private void guna2Button1_Click(object sender, EventArgs e)
@@ -66,27 +78,14 @@ namespace Quan_ly_nhan_su.GUI
             }
         }
 
-        private void ucChamCong_Load_1(object sender, EventArgs e)
-        {
 
-        }
 
-        private void ucChamCong_Load(object sender, EventArgs e)
-        {
-            LoadDanhSachChamCong();
-            flpDanhSachChamCong.SizeChanged += (s, ev) =>
-            {
-                flpDanhSachChamCong.SuspendLayout();
-                foreach (Control item in flpDanhSachChamCong.Controls)
-                {
-                    item.Width = flpDanhSachChamCong.ClientSize.Width - SystemInformation.VerticalScrollBarWidth - 5;
-                }
-                flpDanhSachChamCong.ResumeLayout();
-            };
-        }
 
         private void frmChamCong_Load(object sender, EventArgs e)
         {
+            AssignClickEventToAll(pnCheckIn, pnCheckIn_Click);
+            AssignClickEventToAll(pnCheckOut, pnCheckOut_Click);
+
             LoadDanhSachChamCong();
             flpDanhSachChamCong.SizeChanged += (s, ev) =>
             {
@@ -98,5 +97,106 @@ namespace Quan_ly_nhan_su.GUI
                 flpDanhSachChamCong.ResumeLayout();
             };
         }
+
+        private void timerClock_Tick(object sender, EventArgs e)
+        {
+            DateTime now = DateTime.Now;
+            lbClock.Text = DateTime.Now.ToString("HH:mm:ss");
+
+            string[] day = { "Chủ nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy" };
+            string thu = day[(int)now.DayOfWeek];
+            lbDate.Text = $"{thu}, {now.Day} tháng {now.Month}, {now.Year}";
+        }
+
+        private void lbClock_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2Panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void pnCheckIn_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtNhapMaNV.Text.Trim()))
+           
+            {
+                MessageBox.Show("Vui lòng nhập mã nhân viên trước khi Check-in!");
+                return;
+            }
+            lbGioVao.Text = DateTime.Now.ToString("HH:mm");
+            pnCheckIn.FillColor = Color.Gray;
+            icCheckIn.BackColor = Color.Gray;
+            lbCheckIn.BackColor = Color.Gray;
+            lbCheckIn.ForeColor = Color.White;
+            pnCheckIn.Enabled = false;
+            txtNhapMaNV.Clear();
+            MessageBox.Show("Bạn đã Check-in thành công!");
+            
+        }
+
+        private void pnCheckOut_Click(object sender, EventArgs e)
+        {
+            if (pnCheckIn.Enabled == true)
+            {
+                MessageBox.Show("Bạn chưa Check-in. Vui lòng Check-in trước khi Check-out!");
+                return;
+            }
+            else if (string.IsNullOrEmpty(txtNhapMaNV.Text.Trim()))
+            {
+                MessageBox.Show("Vui lòng nhập mã nhân viên trước khi Check-out!");
+                return;
+            }
+            lbGioRa.Text = DateTime.Now.ToString("HH:mm");
+            lbTongGio.Text = (DateTime.Parse(lbGioRa.Text) - DateTime.Parse(lbGioVao.Text)).TotalHours.ToString("0.00") + "h";
+            pnCheckOut.FillColor = Color.Gray;
+            pnCheckOut.FillColor = Color.Gray;
+            icCheckOut.BackColor = Color.Gray;
+            lbCheckOut.BackColor = Color.Gray;
+            lbCheckOut.ForeColor = Color.White;
+            pnCheckOut.Enabled = false;
+            MessageBox.Show("Bạn đã Check-out thành công!");
+            txtNhapMaNV.Clear();
+        }
+
+        private void lbTongGio_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtNhapMaNV_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true; // tắt âm thanh "ding" khi nhấn Enter
+                string MaNV = txtNhapMaNV.Text.Trim();
+
+                if (string.IsNullOrEmpty(MaNV))
+                {
+                    MessageBox.Show("Vui lòng nhập mã nhân viên!");
+                    return;
+                }
+                else
+                {
+                    pnThongTinNV.Visible = true;
+                    pnThongTinNV.BringToFront();
+                }
+
+                
+
+
+
+            }
+        }
+
+        
     }
 }
