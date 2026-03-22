@@ -86,6 +86,9 @@ namespace Quan_ly_nhan_su.GUI
                 SoDienThoai = e.SoDienThoai,
                 Email = e.Email,
                 NgayVaoLam = e.NgayVaoLam.ToString("dd/MM/yyyy"),
+                NgayChamCong = e.NgayChamCong?.ToString("dd/MM/yyyy") ?? string.Empty,
+                GioVao = e.GioVao?.ToString(@"hh\:mm") ?? string.Empty,
+                GioRa = e.GioRa?.ToString(@"hh\:mm") ?? string.Empty,
                 TrangThai = e.TrangThai ? "Đang làm" : "Nghỉ việc",
                 PhongBan = e.PhongBan
             }).OrderBy(x => x.MaNV).ToList();
@@ -111,6 +114,9 @@ namespace Quan_ly_nhan_su.GUI
             gridEmployees.Columns["ChucVu"].HeaderText = "Chức Vụ";
             gridEmployees.Columns["SoDienThoai"].HeaderText = "SĐT";
             gridEmployees.Columns["NgayVaoLam"].HeaderText = "Ngày Vào Làm";
+            gridEmployees.Columns["NgayChamCong"].HeaderText = "Ngày Chấm Công";
+            gridEmployees.Columns["GioVao"].HeaderText = "Giờ Vào";
+            gridEmployees.Columns["GioRa"].HeaderText = "Giờ Ra";
             gridEmployees.Columns["TrangThai"].HeaderText = "Trạng Thái";
             gridEmployees.Columns["PhongBan"].HeaderText = "Phòng Ban";
         }
@@ -205,6 +211,14 @@ namespace Quan_ly_nhan_su.GUI
             }
 
             nhanVien.MaNV = maNV;
+            var current = _employees.FirstOrDefault(x => x.MaNV.Equals(maNV, StringComparison.OrdinalIgnoreCase));
+            if (current != null)
+            {
+                nhanVien.NgayChamCong = current.NgayChamCong;
+                nhanVien.GioVao = current.GioVao;
+                nhanVien.GioRa = current.GioRa;
+            }
+
             if (!_nhanVienBUS.CapNhatNhanVien(nhanVien))
             {
                 MessageBox.Show("Không thể cập nhật nhân viên.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -457,17 +471,22 @@ namespace Quan_ly_nhan_su.GUI
                 return;
             }
 
+            deptName = deptName.Trim();
+
             if (_departments.Any(d => d.Equals(deptName, StringComparison.OrdinalIgnoreCase)))
             {
                 MessageBox.Show("Tên phòng ban đã tồn tại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            _departments.Add(deptName.Trim());
-            _departments = _departments.OrderBy(x => x).ToList();
-            cbDept.DataSource = null;
-            cbDept.DataSource = _departments;
-            cbDept.SelectedItem = deptName.Trim();
+            if (!_nhanVienBUS.ThemPhongBan(deptName))
+            {
+                MessageBox.Show("Không thể thêm phòng ban.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            LoadCombobox();
+            cbDept.SelectedItem = deptName;
         }
 
         private void btnEditDept_Click(object sender, EventArgs e)
@@ -489,7 +508,12 @@ namespace Quan_ly_nhan_su.GUI
                 return;
             }
 
-            _nhanVienBUS.DoiTenPhongBan(selectedDepartment, deptName.Trim());
+            if (!_nhanVienBUS.DoiTenPhongBan(selectedDepartment, deptName.Trim()))
+            {
+                MessageBox.Show("Không thể cập nhật phòng ban.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             LoadCombobox();
             cbDept.SelectedItem = deptName.Trim();
             LoadGridData();
@@ -502,7 +526,7 @@ namespace Quan_ly_nhan_su.GUI
                 return;
             }
 
-            if (_employees.Any(e1 => e1.PhongBan.Equals(selectedDepartment, StringComparison.OrdinalIgnoreCase)))
+            if (_nhanVienBUS.KiemTraPhongBanDangDuocSuDung(selectedDepartment))
             {
                 MessageBox.Show("Không thể xóa phòng ban đang có nhân viên.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -514,9 +538,13 @@ namespace Quan_ly_nhan_su.GUI
                 return;
             }
 
-            _departments.RemoveAll(d => d.Equals(selectedDepartment, StringComparison.OrdinalIgnoreCase));
-            cbDept.DataSource = null;
-            cbDept.DataSource = _departments;
+            if (!_nhanVienBUS.XoaPhongBan(selectedDepartment))
+            {
+                MessageBox.Show("Không thể xóa phòng ban.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            LoadCombobox();
         }
 
         private static string PromptText(string message, string title, string defaultValue = "")

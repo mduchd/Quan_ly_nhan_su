@@ -16,5 +16,8 @@ namespace Quan_ly_nhan_su.DTO
         public bool TrangThai { get; set; } = true;
         public string PhongBan { get; set; } = string.Empty;
         public decimal LuongCung { get; set; }
+        public DateTime? NgayChamCong { get; set; }
+        public TimeSpan? GioVao { get; set; }
+        public TimeSpan? GioRa { get; set; }
     }
 }

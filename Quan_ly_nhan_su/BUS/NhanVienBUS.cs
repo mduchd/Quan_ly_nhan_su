@@ -53,5 +53,20 @@ namespace Quan_ly_nhan_su.BUS
         {
             return _nhanVienDAL.DoiTenPhongBan(tenCu, tenMoi);
         }
+
+        public bool ThemPhongBan(string tenPhongBan)
+        {
+            return _nhanVienDAL.ThemPhongBan(tenPhongBan);
+        }
+
+        public bool XoaPhongBan(string tenPhongBan)
+        {
+            return _nhanVienDAL.XoaPhongBan(tenPhongBan);
+        }
+
+        public bool KiemTraPhongBanDangDuocSuDung(string tenPhongBan)
+        {
+            return _nhanVienDAL.KiemTraPhongBanDangDuocSuDung(tenPhongBan);
+        }
     }
 }
