@@ -1,4 +1,4 @@
-﻿namespace Quan_ly_nhan_su.GUI
+namespace Quan_ly_nhan_su.GUI
 {
     partial class frmDangNhap
     {
@@ -188,6 +188,7 @@
             txtMatKhau.ShadowDecoration.CustomizableEdges = customizableEdges8;
             txtMatKhau.Size = new Size(339, 34);
             txtMatKhau.TabIndex = 9;
+            txtMatKhau.UseSystemPasswordChar = true;
             // 
             // btnMoMayChamCong
             // 

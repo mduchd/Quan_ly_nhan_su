@@ -375,7 +375,7 @@ namespace Quan_ly_nhan_su.DAL
                 }
             }
 
-            const string fallbackNameQuery = @"
+            const string fallbackNameQuery = @"`
                 SELECT TOP 1 c.name
                 FROM sys.tables t
                 INNER JOIN sys.columns c ON t.object_id = c.object_id

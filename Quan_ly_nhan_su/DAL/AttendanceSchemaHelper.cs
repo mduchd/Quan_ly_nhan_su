@@ -14,7 +14,7 @@ namespace Quan_ly_nhan_su.DAL
 
         public static string? ResolveDetailedAttendanceTable(SqlConnection conn, SqlTransaction? tran = null)
         {
-            foreach (var tableName in new[] { "CHAM_CONG", "ChamCong" })
+            foreach (var tableName in new[] { "ChiTietChamCong", "CHAM_CONG", "ChamCong" })
             {
                 if (!TableExists(conn, tableName, tran))
                 {
