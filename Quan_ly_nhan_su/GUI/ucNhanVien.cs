@@ -614,7 +614,7 @@ namespace Quan_ly_nhan_su.GUI
             const int row4Top = 165;
             const int row5Top = 209;
             const int row6Top = 253;
-            const int buttonTop = 294;
+            const int buttonTop = 280;
             const int buttonWidth = 110;
             const int buttonGap = 12;
             const int columnGap = 32;
