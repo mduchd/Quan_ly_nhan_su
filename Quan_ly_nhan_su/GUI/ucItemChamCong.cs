@@ -33,17 +33,26 @@ namespace Quan_ly_nhan_su.GUI
         {
             
         }
-        public void LichSuNgay(int ngay, int thang, int nam, string thu, TimeSpan giovao, TimeSpan giora)
+        public void LichSuNgay(int ngay, int thang, int nam, string thu, TimeSpan giovao, TimeSpan? giora)
         {
             
             
             lblNgay.Text = ngay.ToString();
             lblDmy.Text = $"{thu}, {ngay} tháng {thang}";
-            lblThoiGian.Text = $"{giovao.ToString(@"hh\:mm")} - {giora.ToString(@"hh\:mm")}";
-            TimeSpan tongGio = giora - giovao;
-            int sogio = tongGio.Hours;
-            int sophut = tongGio.Minutes;
-            lblTongThoiGian.Text = $"{sogio}h {sophut:D2}m";
+            if (giora.HasValue)
+            {
+                lblThoiGian.Text = $"{giovao.ToString(@"hh\:mm")} - {giora.Value.ToString(@"hh\:mm")}";
+                TimeSpan tongGio = giora.Value - giovao;
+                int sogio = tongGio.Hours;
+                int sophut = tongGio.Minutes;
+                lblTongThoiGian.Text = $"{sogio}h {sophut:D2}m";
+            }
+            else
+            {
+                lblThoiGian.Text = $"{giovao.ToString(@"hh\:mm")} - --:--";
+                lblTongThoiGian.Text = "Đang làm...";
+            }
+            
 
         }
     }

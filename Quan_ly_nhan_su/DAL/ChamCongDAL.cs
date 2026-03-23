@@ -7,13 +7,13 @@ using Quan_ly_nhan_su.DTO;
 using System.Drawing.Text;
 
 
-// truy xất DB 
+
 namespace Quan_ly_nhan_su.DAL
 {
     internal class ChamCongDAL
     {
 
-        // Thay dòng cũ bằng dòng này:
+
 
         public DataTable ExecuteQuery(string query)
         {
@@ -179,7 +179,7 @@ namespace Quan_ly_nhan_su.DAL
             string DiaChi = "";
        
                 
-            using(SqlConnection conn = new SqlConnection(connectionString))
+            using(SqlConnection conn = DbContext.GetSqlConnection())
             {
                 using(SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -202,7 +202,7 @@ namespace Quan_ly_nhan_su.DAL
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Lối" + ex.Message);
+                        throw new Exception("Lỗi lấy thông tin nhân viên : " + ex.Message);
                     }
                 }
                 return (tenNV, SDT, DiaChi);
@@ -212,7 +212,7 @@ namespace Quan_ly_nhan_su.DAL
         {
             DataTable dt = new DataTable();
             string query = "Select NgayChamCong, GioVao, GioRa from ChiTietChamCong where MaNV = @MaNV order by NgayChamCong DESC, GioVao DESC";
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = DbContext.GetSqlConnection())
             {
                 using(SqlCommand  cmd = new SqlCommand(query, conn))
                 {
@@ -225,7 +225,7 @@ namespace Quan_ly_nhan_su.DAL
                     }
                     catch(Exception ex)
                     {
-                        MessageBox.Show("Lỗi lấy lịch sử: " + ex.Message);
+                        throw new Exception("Lỗi lấy lịch sử : " + ex.Message);
                     }
                 }
             }

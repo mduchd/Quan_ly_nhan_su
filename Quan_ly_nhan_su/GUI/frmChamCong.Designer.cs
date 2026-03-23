@@ -133,7 +133,6 @@
             pnCheckOut.Size = new Size(808, 94);
             pnCheckOut.TabIndex = 6;
             pnCheckOut.Click += pnCheckOut_Click;
-            pnCheckOut.Paint += pnCheckOut_Paint;
             // 
             // icCheckOut
             // 
@@ -239,7 +238,6 @@
             lbTongGio.Size = new Size(38, 21);
             lbTongGio.TabIndex = 7;
             lbTongGio.Text = "--:--";
-            lbTongGio.Click += lbTongGio_Click;
             // 
             // lbGioRa
             // 
@@ -330,9 +328,9 @@
             label14.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label14.Location = new Point(18, 483);
             label14.Name = "label14";
-            label14.Size = new Size(183, 21);
+            label14.Size = new Size(151, 21);
             label14.TabIndex = 9;
-            label14.Text = "Lịch sử 3 ngày gần đây";
+            label14.Text = "Lịch sử chấm công";
             // 
             // flpDanhSachChamCong
             // 
@@ -379,6 +377,7 @@
             txtNhapMaNV.Size = new Size(321, 60);
             txtNhapMaNV.TabIndex = 13;
             txtNhapMaNV.TextAlign = HorizontalAlignment.Center;
+            txtNhapMaNV.TextChanged += txtNhapMaNV_TextChanged;
             txtNhapMaNV.KeyDown += txtNhapMaNV_KeyDown;
             // 
             // timerClock
