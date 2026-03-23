@@ -28,15 +28,32 @@ namespace Quan_ly_nhan_su.DAL
                 FROM NhanVien
                 WHERE (@TuKhoa = '' OR MaNV LIKE @LikeTuKhoa OR TenNV LIKE @LikeTuKhoa OR SoDienThoai LIKE @LikeTuKhoa OR Email LIKE @LikeTuKhoa)";
 
-            const string dataQuery = @"
-                SELECT MaNV, TenNV, NgaySinh, GioiTinh, ChucVu, SoDienThoai, Email, DiaChi, NgayVaoLam, TrangThai, PhongBan, LuongCung, NgayChamCong, GioVao, GioRa
+            using var conn = DbContext.GetSqlConnection();
+            conn.Open();
+
+            var ngayChamCongColumn = AttendanceSchemaHelper.ResolveColumn(conn, "NhanVien", null, "NgayChamCong", "Ngay", "ngay", "NgayCong");
+            var gioVaoColumn = AttendanceSchemaHelper.ResolveColumn(conn, "NhanVien", null, "GioVao", "gioVao", "CheckIn");
+            var gioRaColumn = AttendanceSchemaHelper.ResolveColumn(conn, "NhanVien", null, "GioRa", "gioRa", "CheckOut");
+
+            var ngayChamCongExpression = string.IsNullOrWhiteSpace(ngayChamCongColumn)
+                ? "CAST(NULL AS date)"
+                : $"[{ngayChamCongColumn}]";
+            var gioVaoExpression = string.IsNullOrWhiteSpace(gioVaoColumn)
+                ? "CAST(NULL AS time)"
+                : $"[{gioVaoColumn}]";
+            var gioRaExpression = string.IsNullOrWhiteSpace(gioRaColumn)
+                ? "CAST(NULL AS time)"
+                : $"[{gioRaColumn}]";
+
+            var dataQuery = $@"
+                SELECT MaNV, TenNV, NgaySinh, GioiTinh, ChucVu, SoDienThoai, Email, DiaChi, NgayVaoLam, TrangThai, PhongBan, LuongCung,
+                       {ngayChamCongExpression} AS NgayChamCong,
+                       {gioVaoExpression} AS GioVao,
+                       {gioRaExpression} AS GioRa
                 FROM NhanVien
                 WHERE (@TuKhoa = '' OR MaNV LIKE @LikeTuKhoa OR TenNV LIKE @LikeTuKhoa OR SoDienThoai LIKE @LikeTuKhoa OR Email LIKE @LikeTuKhoa)
                 ORDER BY MaNV
                 OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY";
-
-            using var conn = DbContext.GetSqlConnection();
-            conn.Open();
 
             var keyword = tuKhoa.Trim();
 

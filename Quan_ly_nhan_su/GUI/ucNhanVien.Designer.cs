@@ -547,36 +547,6 @@ namespace Quan_ly_nhan_su.GUI
             lblId.TabIndex = 0;
             lblId.Text = "Mã NV";
             // 
-<<<<<<< HEAD
-=======
-            // gridEmployees
-            // 
-            gridEmployees.AllowUserToAddRows = false;
-            gridEmployees.AllowUserToDeleteRows = false;
-            gridEmployees.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            gridEmployees.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            gridEmployees.Dock = DockStyle.Fill;
-            gridEmployees.Location = new Point(0, 392);
-            gridEmployees.MultiSelect = false;
-            gridEmployees.Name = "gridEmployees";
-            gridEmployees.ReadOnly = true;
-            gridEmployees.RowHeadersWidth = 51;
-            gridEmployees.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            gridEmployees.Size = new Size(1804, 321);
-            gridEmployees.TabIndex = 1;
-            gridEmployees.SelectionChanged += gridEmployees_SelectionChanged;
-            // 
-            // pnlSearch
-            // 
-            pnlSearch.Controls.Add(txtSearch);
-            pnlSearch.Controls.Add(lblSearch);
-            pnlSearch.Dock = DockStyle.Top;
-            pnlSearch.Location = new Point(0, 380);
-            pnlSearch.Name = "pnlSearch";
-            pnlSearch.Size = new Size(1804, 52);
-            pnlSearch.TabIndex = 2;
-            // 
->>>>>>> d26ba5df7ff7f0fdc50b5959ad37b4224078c120
             // txtSearch
             // 
             txtSearch.BorderRadius = 8;

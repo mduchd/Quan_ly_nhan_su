@@ -6,7 +6,6 @@ namespace Quan_ly_nhan_su.DAL
 {
     internal class QuanLyCongDAL
     {
-<<<<<<< HEAD
         public DataTable LayDanhSachLichSuCong(string tuKhoa, DateTime? tuNgay, DateTime? denNgay)
         {
             var dt = new DataTable();
@@ -17,30 +16,6 @@ namespace Quan_ly_nhan_su.DAL
             try
             {
                 if (TryFillFromDetailedAttendance(conn, dt, tuKhoa, tuNgay, denNgay))
-=======
-
-
-        public DataTable LayDanhSachLichSuCong(string tuKhoa, DateTime? tuNgay, DateTime? denNgay)
-        {
-            DataTable dt = new DataTable();
-            using (SqlConnection conn = DbContext.GetSqlConnection())
-            {
-                // Sửa lại cú pháp chuỗi @"..." và bổ sung tính TongGio
-                string query = @"
-                        SELECT c.maNV, n.hoTen, c.ngay, c.gioVao, c.gioRa, 
-                        CASE 
-                            WHEN c.gioVao IS NOT NULL AND c.gioRa IS NOT NULL 
-                            THEN CAST(DATEDIFF(MINUTE, c.gioVao, c.gioRa) / 60 AS VARCHAR) + 'h ' + 
-                                 CAST(DATEDIFF(MINUTE, c.gioVao, c.gioRa) % 60 AS VARCHAR) + 'm'
-                            ELSE '--'
-                        END AS TongGio,
-                        c.trangThai
-                        FROM ChamCong c
-                        INNER JOIN NhanVien n ON c.MaNV = n.MaNV
-                        WHERE 1 = 1";
-
-                if (!string.IsNullOrEmpty(tuKhoa))
->>>>>>> d26ba5df7ff7f0fdc50b5959ad37b4224078c120
                 {
                     return dt;
                 }

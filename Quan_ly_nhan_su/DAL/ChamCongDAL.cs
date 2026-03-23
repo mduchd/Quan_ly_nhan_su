@@ -1,24 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-<<<<<<< HEAD
 using System.Globalization;
 using Microsoft.Data.SqlClient;
 using Quan_ly_nhan_su.DTO;
-=======
-using System.Text;
-using Microsoft.Data.SqlClient;
-using Quan_ly_nhan_su.DTO;
-using System.Drawing.Text;
-
-
->>>>>>> d26ba5df7ff7f0fdc50b5959ad37b4224078c120
 
 namespace Quan_ly_nhan_su.DAL
 {
     internal class ChamCongDAL
     {
-<<<<<<< HEAD
         private readonly QuanLyCongDAL _quanLyCongDAL = new();
 
         public bool ThemYeuCau(ChamCongDTO yeuCau)
@@ -37,72 +27,6 @@ namespace Quan_ly_nhan_su.DAL
             cmd.Parameters.Add("@LyDo", SqlDbType.NVarChar, 500).Value = yeuCau.LyDo;
 
             try
-=======
-
-
-
-        public DataTable ExecuteQuery(string query)
-        {
-            DataTable data = new DataTable();
-            try
-            {
-                using (SqlConnection conn = DbContext.GetSqlConnection())
-                {
-                    conn.Open();
-                    SqlCommand command = new SqlCommand(query, conn);
-                    SqlDataAdapter adapter = new SqlDataAdapter(command);
-                    adapter.Fill(data);
-                    // conn.Close(); // Dùng 'using' thì không cần Close thủ công, nó tự đóng rồi
-                }
-            }
-            catch (Exception ex)
-            {
-                // Hiển thị lỗi để biết tại sao nút không chạy
-                throw new Exception("Lỗi thực thi truy vấn: " + ex.Message);
-            }
-            return data;
-        }
-
-
-        public bool CapNhatTrangThaiCheckIn(string maNV, int trangThaiMoi)
-        {
-            bool ketqua = false;
-
-            using (SqlConnection conn = DbContext.GetSqlConnection()) {
-                try
-                {
-                    conn.Open();
-                    DateTime now = DateTime.Now;
-                    string query = "insert into ChiTietChamCong(MaNV, NgayChamCong, GioVao) values (@MaNV, @NgayChamCong, @GioVao)";
-                    using (SqlCommand cmd = new SqlCommand(query, conn)) {
-                        cmd.Parameters.AddWithValue("@MaNV", maNV);
-                        cmd.Parameters.AddWithValue("@NgayChamCong", now.Date);
-                        cmd.Parameters.AddWithValue("@GioVao", now.TimeOfDay);
-                        cmd.ExecuteNonQuery();
-                    }
-                    string queryUpdate = "Update NhanVien set Trangthai= @Trangthai where MaNV = @MaNV";
-                    using(SqlCommand cmdUpdate = new SqlCommand(queryUpdate, conn))
-                    {
-                        cmdUpdate.Parameters.AddWithValue("@Trangthai", trangThaiMoi);
-                        cmdUpdate.Parameters.AddWithValue("@MaNV", maNV);
-                        if(cmdUpdate.ExecuteNonQuery() > 0)
-                        {
-                            ketqua = true;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Chi tiết lỗi : " + ex.Message);
-                }
-            }
-            return ketqua;
-        }
-        public bool CapNhatTrangThaiCheckOut(string maNV, double tongGio)
-        {
-            bool ketQua = false;
-            using (SqlConnection conn = DbContext.GetSqlConnection())
->>>>>>> d26ba5df7ff7f0fdc50b5959ad37b4224078c120
             {
                 conn.Open();
                 return cmd.ExecuteNonQuery() > 0;
@@ -130,9 +54,9 @@ namespace Quan_ly_nhan_su.DAL
             var employeeAddressColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, null, "DiaChi", "DiaChiThuongTru");
             var employeeDepartmentColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, null, "PhongBan", "TenPhongBan");
             var employeePositionColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, null, "ChucVu");
-            var employeeDateColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, null, "NgayChamCong");
-            var employeeCheckInColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, null, "GioVao", "gioVao");
-            var employeeCheckOutColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, null, "GioRa", "gioRa");
+            var employeeDateColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, null, "NgayChamCong", "Ngay", "ngay", "NgayCong");
+            var employeeCheckInColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, null, "GioVao", "gioVao", "CheckIn");
+            var employeeCheckOutColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, null, "GioRa", "gioRa", "CheckOut");
 
             if (string.IsNullOrWhiteSpace(employeeIdColumn) || string.IsNullOrWhiteSpace(employeeNameColumn))
             {
@@ -194,7 +118,6 @@ namespace Quan_ly_nhan_su.DAL
                 var ma = row["maNV"]?.ToString();
                 if (!string.Equals(ma, maNV, StringComparison.OrdinalIgnoreCase))
                 {
-<<<<<<< HEAD
                     continue;
                 }
 
@@ -356,6 +279,7 @@ namespace Quan_ly_nhan_su.DAL
             var employeeIdColumn = AttendanceSchemaHelper.ResolveColumn(conn, detailedTable, tran, "MaNV", "maNV");
             var dateColumn = AttendanceSchemaHelper.ResolveColumn(conn, detailedTable, tran, "Ngay", "ngay", "NgayChamCong");
             var checkInColumn = AttendanceSchemaHelper.ResolveColumn(conn, detailedTable, tran, "GioVao", "gioVao", "CheckIn");
+            var statusColumn = AttendanceSchemaHelper.ResolveColumn(conn, detailedTable, tran, "TrangThai", "trangThai", "Status");
 
             if (string.IsNullOrWhiteSpace(employeeIdColumn) || string.IsNullOrWhiteSpace(dateColumn) || string.IsNullOrWhiteSpace(checkInColumn))
             {
@@ -387,9 +311,15 @@ namespace Quan_ly_nhan_su.DAL
 
             if (daCoBanGhiHomNay)
             {
+                var setClause = $"[{checkInColumn}] = @GioVao";
+                if (!string.IsNullOrWhiteSpace(statusColumn))
+                {
+                    setClause += $", [{statusColumn}] = @TrangThai";
+                }
+
                 var updateQuery = $@"
                     UPDATE [{detailedTable}]
-                    SET [{checkInColumn}] = @GioVao
+                    SET {setClause}
                     WHERE [{employeeIdColumn}] = @MaNV
                       AND CAST([{dateColumn}] AS date) = @Ngay";
 
@@ -397,24 +327,47 @@ namespace Quan_ly_nhan_su.DAL
                 updateCmd.Parameters.Add("@MaNV", SqlDbType.NVarChar, 20).Value = maNV;
                 updateCmd.Parameters.Add("@Ngay", SqlDbType.Date).Value = thoiDiem.Date;
                 AddColumnValue(updateCmd, "@GioVao", detailedTable, checkInColumn, conn, tran, thoiDiem, isDateOnly: false, isTimeOnly: true);
+                if (!string.IsNullOrWhiteSpace(statusColumn))
+                {
+                    AddAttendanceStatusValue(updateCmd, "@TrangThai", detailedTable, statusColumn, conn, tran, checkedOut: false);
+                }
+
                 _ = updateCmd.ExecuteNonQuery();
                 return true;
             }
 
             var providedColumns = new List<string> { employeeIdColumn, dateColumn, checkInColumn };
+            if (!string.IsNullOrWhiteSpace(statusColumn))
+            {
+                providedColumns.Add(statusColumn);
+            }
+
             if (!AttendanceSchemaHelper.CanInsertWithColumns(conn, detailedTable, providedColumns, tran))
             {
                 return true;
             }
 
+            var insertColumns = new List<string> { $"[{employeeIdColumn}]", $"[{dateColumn}]", $"[{checkInColumn}]" };
+            var insertValues = new List<string> { "@MaNV", "@Ngay", "@GioVao" };
+            if (!string.IsNullOrWhiteSpace(statusColumn))
+            {
+                insertColumns.Add($"[{statusColumn}]");
+                insertValues.Add("@TrangThai");
+            }
+
             var insertQuery = $@"
-                INSERT INTO [{detailedTable}]([{employeeIdColumn}], [{dateColumn}], [{checkInColumn}])
-                VALUES (@MaNV, @Ngay, @GioVao)";
+                INSERT INTO [{detailedTable}]({string.Join(", ", insertColumns)})
+                VALUES ({string.Join(", ", insertValues)})";
 
             using var insertCmd = new SqlCommand(insertQuery, conn, tran);
             insertCmd.Parameters.Add("@MaNV", SqlDbType.NVarChar, 20).Value = maNV;
             AddColumnValue(insertCmd, "@Ngay", detailedTable, dateColumn, conn, tran, thoiDiem, isDateOnly: true, isTimeOnly: false);
             AddColumnValue(insertCmd, "@GioVao", detailedTable, checkInColumn, conn, tran, thoiDiem, isDateOnly: false, isTimeOnly: true);
+            if (!string.IsNullOrWhiteSpace(statusColumn))
+            {
+                AddAttendanceStatusValue(insertCmd, "@TrangThai", detailedTable, statusColumn, conn, tran, checkedOut: false);
+            }
+
             _ = insertCmd.ExecuteNonQuery();
             return true;
         }
@@ -429,6 +382,7 @@ namespace Quan_ly_nhan_su.DAL
             var dateColumn = AttendanceSchemaHelper.ResolveColumn(conn, detailedTable, tran, "Ngay", "ngay", "NgayChamCong");
             var checkInColumn = AttendanceSchemaHelper.ResolveColumn(conn, detailedTable, tran, "GioVao", "gioVao", "CheckIn");
             var checkOutColumn = AttendanceSchemaHelper.ResolveColumn(conn, detailedTable, tran, "GioRa", "gioRa", "CheckOut");
+            var statusColumn = AttendanceSchemaHelper.ResolveColumn(conn, detailedTable, tran, "TrangThai", "trangThai", "Status");
 
             if (string.IsNullOrWhiteSpace(employeeIdColumn) ||
                 string.IsNullOrWhiteSpace(dateColumn) ||
@@ -476,9 +430,15 @@ namespace Quan_ly_nhan_su.DAL
                 return false;
             }
 
+            var setClause = $"[{checkOutColumn}] = @GioRa";
+            if (!string.IsNullOrWhiteSpace(statusColumn))
+            {
+                setClause += $", [{statusColumn}] = @TrangThai";
+            }
+
             var updateQuery = $@"
                 UPDATE [{detailedTable}]
-                SET [{checkOutColumn}] = @GioRa
+                SET {setClause}
                 WHERE [{employeeIdColumn}] = @MaNV
                   AND CAST([{dateColumn}] AS date) = @Ngay";
 
@@ -486,15 +446,42 @@ namespace Quan_ly_nhan_su.DAL
             updateCmd.Parameters.Add("@MaNV", SqlDbType.NVarChar, 20).Value = maNV;
             updateCmd.Parameters.Add("@Ngay", SqlDbType.Date).Value = thoiDiem.Date;
             AddColumnValue(updateCmd, "@GioRa", detailedTable, checkOutColumn, conn, tran, thoiDiem, isDateOnly: false, isTimeOnly: true);
+            if (!string.IsNullOrWhiteSpace(statusColumn))
+            {
+                AddAttendanceStatusValue(updateCmd, "@TrangThai", detailedTable, statusColumn, conn, tran, checkedOut: true);
+            }
+
             _ = updateCmd.ExecuteNonQuery();
             return true;
         }
 
+        private static void AddAttendanceStatusValue(SqlCommand cmd, string parameterName, string tableName, string columnName, SqlConnection conn, SqlTransaction tran, bool checkedOut)
+        {
+            var dataTypeName = (AttendanceSchemaHelper.GetColumnDataType(conn, tableName, columnName, tran) ?? string.Empty).ToLowerInvariant();
+
+            switch (dataTypeName)
+            {
+                case "bit":
+                    cmd.Parameters.Add(parameterName, SqlDbType.Bit).Value = checkedOut;
+                    break;
+                case "int":
+                case "bigint":
+                case "smallint":
+                case "tinyint":
+                    cmd.Parameters.Add(parameterName, SqlDbType.Int).Value = checkedOut ? 2 : 1;
+                    break;
+                default:
+                    cmd.Parameters.Add(parameterName, SqlDbType.NVarChar, 100).Value = checkedOut ? "Đã check-out" : "Đang làm";
+                    break;
+            }
+        }
+
         private static void UpdateEmployeeAttendanceSnapshot(SqlConnection conn, SqlTransaction tran, string employeeTable, string employeeIdColumn, string maNV, DateTime gioVao, DateTime? gioRa, bool clearCheckOut = false)
         {
-            var dateColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, tran, "NgayChamCong");
-            var checkInColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, tran, "GioVao", "gioVao");
-            var checkOutColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, tran, "GioRa", "gioRa");
+            var dateColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, tran, "NgayChamCong", "Ngay", "ngay", "NgayCong");
+            var checkInColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, tran, "GioVao", "gioVao", "CheckIn");
+            var checkOutColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, tran, "GioRa", "gioRa", "CheckOut");
+            var statusColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, tran, "TrangThaiChamCong", "TrangThaiCC", "TrangThai", "trangThai");
 
             var setClauses = new List<string>();
             using var cmd = new SqlCommand
@@ -532,6 +519,12 @@ namespace Quan_ly_nhan_su.DAL
                 }
             }
 
+            if (!string.IsNullOrWhiteSpace(statusColumn))
+            {
+                setClauses.Add($"[{statusColumn}] = @TrangThai");
+                AddEmployeeStatusValue(cmd, "@TrangThai", employeeTable, statusColumn, conn, tran, checkedOut: gioRa.HasValue);
+            }
+
             if (setClauses.Count == 0)
             {
                 return;
@@ -543,6 +536,27 @@ namespace Quan_ly_nhan_su.DAL
                 WHERE [{employeeIdColumn}] = @MaNV";
             cmd.Parameters.Add("@MaNV", SqlDbType.NVarChar, 20).Value = maNV;
             _ = cmd.ExecuteNonQuery();
+        }
+
+        private static void AddEmployeeStatusValue(SqlCommand cmd, string parameterName, string tableName, string columnName, SqlConnection conn, SqlTransaction tran, bool checkedOut)
+        {
+            var dataTypeName = (AttendanceSchemaHelper.GetColumnDataType(conn, tableName, columnName, tran) ?? string.Empty).ToLowerInvariant();
+
+            switch (dataTypeName)
+            {
+                case "bit":
+                    cmd.Parameters.Add(parameterName, SqlDbType.Bit).Value = true;
+                    break;
+                case "int":
+                case "bigint":
+                case "smallint":
+                case "tinyint":
+                    cmd.Parameters.Add(parameterName, SqlDbType.Int).Value = checkedOut ? 2 : 1;
+                    break;
+                default:
+                    cmd.Parameters.Add(parameterName, SqlDbType.NVarChar, 100).Value = checkedOut ? "Đã check-out" : "Đang làm";
+                    break;
+            }
         }
 
         private static void UpdateMonthlyWorkedDays(SqlConnection conn, SqlTransaction tran, string maNV, DateTime thoiDiem)
@@ -609,9 +623,9 @@ namespace Quan_ly_nhan_su.DAL
 
         private static EmployeeAttendanceState LoadEmployeeAttendanceState(SqlConnection conn, SqlTransaction tran, string employeeTable, string employeeIdColumn, string maNV)
         {
-            var dateColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, tran, "NgayChamCong");
-            var checkInColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, tran, "GioVao", "gioVao");
-            var checkOutColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, tran, "GioRa", "gioRa");
+            var dateColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, tran, "NgayChamCong", "Ngay", "ngay", "NgayCong");
+            var checkInColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, tran, "GioVao", "gioVao", "CheckIn");
+            var checkOutColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, tran, "GioRa", "gioRa", "CheckOut");
 
             if (string.IsNullOrWhiteSpace(dateColumn) && string.IsNullOrWhiteSpace(checkInColumn) && string.IsNullOrWhiteSpace(checkOutColumn))
             {
@@ -755,159 +769,6 @@ namespace Quan_ly_nhan_su.DAL
             public DateTime? NgayChamCong { get; init; }
             public TimeSpan? GioVao { get; init; }
             public TimeSpan? GioRa { get; init; }
-=======
-                    conn.Open();
-                    DateTime now = DateTime.Now;
-                    string queryUpdateHistory = @"Update ChiTietChamCong set  GioRa = @GioRa,  TongGio = @TongGio Where MaNV = @MaNV And NgayChamCong = @Ngay and GioRa Is null";
-                    using (SqlCommand cmd1 = new SqlCommand(queryUpdateHistory, conn))
-                    {
-                        cmd1.Parameters.AddWithValue("@GioRa", DateTime.Now.TimeOfDay);
-                        cmd1.Parameters.AddWithValue("@MaNV", maNV);
-                        cmd1.Parameters.AddWithValue("@TongGio", tongGio);
-                        cmd1.Parameters.AddWithValue("@Ngay", now.Date);
-                        cmd1.ExecuteNonQuery();
-                        
-                    }
-                    string queryUpdateStatus = "Update NhanVien Set Trangthai = 0 where MaNV = @MaNV";
-                    using(SqlCommand cmd2 = new SqlCommand(queryUpdateStatus, conn))
-                    {
-                        cmd2.Parameters.AddWithValue("@MaNV", maNV);
-                        if(cmd2.ExecuteNonQuery() > 0)
-                        {
-                            ketQua = true;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Chi tiết lỗi : " + ex.Message);
-                }
-            }
-            return ketQua;
-        }
-        public int KiemTraTrangThai(string maNV)
-        {
-            int trangthai = -1;
-            using (SqlConnection conn = DbContext.GetSqlConnection())
-            {
-                try
-                {
-                    conn.Open();
-                    string query = "Select Trangthai from NhanVien where MaNV = @MaNV";
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@MaNV", maNV);
-                        object result = cmd.ExecuteScalar();
-                        if (result != null && result != DBNull.Value)
-                        {
-                            trangthai = Convert.ToInt32(result);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Lỗi khi kiểm tra trangh thái : " + ex.Message);
-                }
-            }
-            return trangthai;
-
-        }
-      
-        public ChamCongDTO LayThongTinChamCong(string maNV)
-        {
-            ChamCongDTO nv = null;
-            using (SqlConnection conn = DbContext.GetSqlConnection())
-            {
-                try
-                {
-                    conn.Open();
-                    string query = "Select MaNV, GioVao from ChiTietChamCong where MaNV = @MaNV AND NgayChamCong = @Ngay AND GioRa IS NULL";
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@Ngay", DateTime.Now.Date);
-                        cmd.Parameters.AddWithValue("@MaNV", maNV);
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                nv = new ChamCongDTO();
-                                nv.MaNV = reader["MaNV"].ToString();
-                                if (reader["GioVao"] != DBNull.Value)
-                                {
-                                    nv.GioVao = (TimeSpan)reader["GioVao"];
-                                }
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Chi tiết lỗi : " + ex.Message);
-                }
-            }
-            return nv;
-        }
-
-        public (string tenNV, string SDT, string DiaChi) LayThongTinNhanVien(string maNhanVien)
-        {
-            string query = "Select TenNV, SoDienThoai, DiaChi from NhanVien where MaNV = @MaNV";
-            string tenNV = "";
-            string SDT = "";
-            string DiaChi = "";
-       
-                
-            using(SqlConnection conn = DbContext.GetSqlConnection())
-            {
-                using(SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@MaNV", maNhanVien);
-                    try
-                    {
-                        conn.Open();
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                               
-                                tenNV = reader["TenNV"].ToString();
-                                SDT = reader["SoDienThoai"].ToString();
-                                DiaChi = reader["DiaChi"].ToString();
-                               
-
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new Exception("Lỗi lấy thông tin nhân viên : " + ex.Message);
-                    }
-                }
-                return (tenNV, SDT, DiaChi);
-            }
-        }
-        public DataTable LayLichSuChamCong(string maNV)
-        {
-            DataTable dt = new DataTable();
-            string query = "Select NgayChamCong, GioVao, GioRa from ChiTietChamCong where MaNV = @MaNV order by NgayChamCong DESC, GioVao DESC";
-            using (SqlConnection conn = DbContext.GetSqlConnection())
-            {
-                using(SqlCommand  cmd = new SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@MaNV", maNV);
-                    try
-                    {
-                        conn.Open();
-                        SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                        adapter.Fill(dt);
-                    }
-                    catch(Exception ex)
-                    {
-                        throw new Exception("Lỗi lấy lịch sử : " + ex.Message);
-                    }
-                }
-            }
-            return dt;
->>>>>>> d26ba5df7ff7f0fdc50b5959ad37b4224078c120
         }
     }
 }
