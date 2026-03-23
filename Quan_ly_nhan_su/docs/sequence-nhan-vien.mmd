@@ -1,0 +1,50 @@
+sequenceDiagram
+    autonumber
+    actor U as User
+    participant UI as ucNhanVien (GUI)
+    participant BUS as NhanVienBUS
+    participant DAL as NhanVienDAL
+    participant PB as PhongBan Table
+    participant NV as NhanVien Table
+
+    Note over U,NV: Quan ly phong ban tren bang PhongBan + dong bo NhanVien
+
+    U->>UI: Them phong ban
+    UI->>BUS: ThemPhongBan(tenPhongBan)
+    BUS->>DAL: ThemPhongBan(tenPhongBan)
+    DAL->>PB: INSERT INTO PhongBan(...)
+    PB-->>DAL: so dong anh huong
+    DAL-->>BUS: true/false
+    BUS-->>UI: true/false
+    UI-->>U: Thong bao ket qua
+
+    U->>UI: Doi ten phong ban
+    UI->>BUS: DoiTenPhongBan(tenCu, tenMoi)
+    BUS->>DAL: DoiTenPhongBan(tenCu, tenMoi)
+    DAL->>PB: UPDATE PhongBan SET Ten = tenMoi WHERE Ten = tenCu
+    PB-->>DAL: so dong anh huong
+    DAL->>NV: UPDATE NhanVien SET PhongBan = tenMoi WHERE PhongBan = tenCu
+    NV-->>DAL: so dong anh huong
+    DAL-->>BUS: true/false
+    BUS-->>UI: true/false
+    UI-->>U: Thong bao ket qua
+
+    U->>UI: Xoa phong ban
+    UI->>BUS: KiemTraPhongBanDangDuocSuDung(tenPhongBan)
+    BUS->>DAL: KiemTraPhongBanDangDuocSuDung(tenPhongBan)
+    DAL->>NV: SELECT COUNT(1) FROM NhanVien WHERE PhongBan = tenPhongBan
+    NV-->>DAL: so luong nhan vien
+    DAL-->>BUS: dang su dung?
+    BUS-->>UI: true/false
+
+    alt Dang co nhan vien
+        UI-->>U: Khong the xoa phong ban dang su dung
+    else Khong co nhan vien
+        UI->>BUS: XoaPhongBan(tenPhongBan)
+        BUS->>DAL: XoaPhongBan(tenPhongBan)
+        DAL->>PB: DELETE FROM PhongBan WHERE Ten = tenPhongBan
+        PB-->>DAL: so dong anh huong
+        DAL-->>BUS: true/false
+        BUS-->>UI: true/false
+        UI-->>U: Thong bao ket qua
+    end

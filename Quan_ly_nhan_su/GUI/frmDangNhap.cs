@@ -29,28 +29,34 @@ namespace Quan_ly_nhan_su.GUI
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
             TaiKhoanBUS bus = new TaiKhoanBUS();
-            string taikhoan = txtTaiKhoan.Text;
+            string taikhoan = txtTaiKhoan.Text.Trim();
             string matkhau = txtMatKhau.Text;
 
-            bool isSuccess = bus.DangNhap(taikhoan, matkhau);
-            if (isSuccess)
-            {
-                MainForm mainForm = new MainForm();
-                mainForm.Show();
-                this.Hide();
-            }
-            else
-            {
-                MessageBox.Show("Tài khoản hoặc mật khẩu không đúng!", "Lỗi đăng nhập", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtMatKhau.Clear();
-                txtMatKhau.Focus();
-            }
-
-            if (string.IsNullOrEmpty(taikhoan) || string.IsNullOrEmpty("matkhau"))
+            if (string.IsNullOrWhiteSpace(taikhoan) || string.IsNullOrWhiteSpace(matkhau))
             {
                 MessageBox.Show("Vui lòng nhập đầy đủ tài khoản và mật khẩu!", "Lỗi đăng nhập", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtTaiKhoan.Focus();
                 return;
+            }
+
+            try
+            {
+                string quyen = bus.DangNhap(taikhoan, matkhau);
+                if (!string.IsNullOrWhiteSpace(quyen))
+                {
+                    MainForm mainForm = new MainForm(quyen);
+                    mainForm.Show();
+                    this.Hide();
+                    return;
+                }
+
+                MessageBox.Show("Tài khoản hoặc mật khẩu không đúng!", "Lỗi đăng nhập", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtMatKhau.Clear();
+                txtMatKhau.Focus();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Không thể kết nối cơ sở dữ liệu: " + ex.Message, "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

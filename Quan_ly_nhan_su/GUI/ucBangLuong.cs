@@ -130,16 +130,22 @@ namespace Quan_ly_nhan_su.GUI
         }
         private void LoadBangLuong(string tuKhoa = "")
         {
-            string thangDuocChon = dtpThangNam.Value.ToString("MM/yyyy");
-
-            // 2. Truyền cả Từ khóa VÀ Tháng năm xuống tầng DAL để lọc
-            dsGoc = dal.GetDanhSachBangLuong(tuKhoa, thangDuocChon);
-
-            foreach (var nv in dsGoc)
+            try
             {
-                nv.TongLuong = bus.TinhTongLuong(nv);
+                string thangDuocChon = dtpThangNam.Value.ToString("MM/yyyy");
+                dsGoc = dal.GetDanhSachBangLuong(tuKhoa, thangDuocChon);
+
+                foreach (var nv in dsGoc)
+                {
+                    nv.TongLuong = bus.TinhTongLuong(nv);
+                }
+
+                HienThiLenBang(dsGoc);
             }
-            HienThiLenBang(dsGoc);
+            catch (Exception ex)
+            {
+                MessageBox.Show("Không thể tải dữ liệu bảng lương: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private void HienThiLenBang(List<BangLuongDTO> danhSach) { 
             dgvBangLuong.DataSource = null;
