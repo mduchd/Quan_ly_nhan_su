@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Windows.Forms;
 using Quan_ly_nhan_su.BUS; // Gọi tầng BUS lên
+using ClosedXML.Excel;
 
 namespace Quan_ly_nhan_su.GUI
 {
@@ -95,7 +96,70 @@ namespace Quan_ly_nhan_su.GUI
                 MessageBox.Show("Không có dữ liệu để xuất!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            MessageBox.Show("Chức năng xuất Excel đang được phát triển!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            try
+            {
+                SaveFileDialog saveDialog = new SaveFileDialog();
+                saveDialog.Filter = "Excel Files (*.xlsx)|*.xlsx";
+                saveDialog.FileName = $"LichSuChamCong_{DateTime.Now:ddMMyyyy}.xlsx";
+
+                if (saveDialog.ShowDialog() == DialogResult.OK)
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    using (XLWorkbook workbook = new XLWorkbook())
+                    {
+                        var worksheet = workbook.Worksheets.Add("Lịch Sử Chấm Công");
+
+                        // 1. Tạo Tiêu đề (Header)
+                        for (int i = 0; i < dgvDanhSachCong.Columns.Count; i++)
+                        {
+                            var cell = worksheet.Cell(1, i + 1);
+                            cell.Value = dgvDanhSachCong.Columns[i].HeaderText;
+                            cell.Style.Font.Bold = true;
+                            cell.Style.Fill.BackgroundColor = XLColor.BabyBlue;
+                            cell.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                            cell.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                        }
+
+                        // 2. Đổ dữ liệu từ Grid vào Excel
+                        for (int i = 0; i < dgvDanhSachCong.Rows.Count; i++)
+                        {
+                            for (int j = 0; j < dgvDanhSachCong.Columns.Count; j++)
+                            {
+                                var value = dgvDanhSachCong.Rows[i].Cells[j].Value;
+                                var cell = worksheet.Cell(i + 2, j + 1);
+
+                                if (value != null)
+                                {
+                                    // Chuyển đổi giá trị sang kiểu dữ liệu Excel phù hợp (Số, Ngày, Giờ)
+                                    cell.Value = XLCellValue.FromObject(value);
+                                    
+                                    // Nếu là cột Ngày, định dạng dd/MM/yyyy
+                                    if (dgvDanhSachCong.Columns[j].Name.ToLower().Contains("ngay"))
+                                    {
+                                        cell.Style.DateFormat.Format = "dd/MM/yyyy";
+                                    }
+                                }
+                                cell.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                            }
+                        }
+
+                        // 3. Tự động giãn cột và lưu
+                        worksheet.Columns().AdjustToContents();
+                        workbook.SaveAs(saveDialog.FileName);
+                    }
+
+                    MessageBox.Show("Xuất lịch sử chấm công ra Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi xuất Excel: " + ex.Message, "Báo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
         }
     }
 }
