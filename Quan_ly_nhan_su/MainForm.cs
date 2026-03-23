@@ -1,11 +1,13 @@
 using System;
 using System.Windows.Forms;
 using Quan_ly_nhan_su.GUI;
+
 namespace Quan_ly_nhan_su
 {
-    public partial class MainForm : System.Windows.Forms.Form
+    public partial class MainForm : Form
     {
-        private string quyen;
+        private readonly string _quyen;
+        private bool _isLoggingOut;
         private readonly ucNhanVien _ucNhanVien = new();
         private readonly ucBangLuong _ucBangLuong = new();
         private readonly ucQuanLyCong _ucQuanLyCong = new();
@@ -13,7 +15,7 @@ namespace Quan_ly_nhan_su
         public MainForm(string quyen)
         {
             InitializeComponent();
-            this.quyen = quyen;
+            _quyen = quyen;
             ThietLapPhanQuyen();
             OpenControl(_ucNhanVien);
         }
@@ -33,20 +35,18 @@ namespace Quan_ly_nhan_su
 
         public void ThietLapPhanQuyen()
         {
-            if (this.quyen == "User")
+            if (_quyen == "User")
             {
                 btnQLNhanSu.Visible = false;
                 btnTienLuong.Visible = false;
                 btnChamCong.Visible = false;
-
                 lblVaiTro.Text = "Vai trò: Nhân viên";
             }
-            else if (this.quyen == "Admin")
+            else if (_quyen == "Admin")
             {
                 btnQLNhanSu.Visible = true;
                 btnTienLuong.Visible = true;
                 btnChamCong.Visible = true;
-
                 lblVaiTro.Text = "Vai trò: Quản lý";
             }
         }
@@ -72,28 +72,38 @@ namespace Quan_ly_nhan_su
 
         private void btnDangXuat_Click(object sender, EventArgs e)
         {
-            DialogResult rs = MessageBox.Show("Bạn có chắc chắn muốn đăng xuất không ?", "Xác nhận đăng xuất", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult rs = MessageBox.Show(
+                "Bạn có chắc chắn muốn đăng xuất không?",
+                "Xác nhận đăng xuất",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
 
-            if (rs == DialogResult.Yes)
+            if (rs != DialogResult.Yes)
             {
-                Form frmLogin = Application.OpenForms["frmDangNhap"];
-                if (frmLogin != null)
-                {
-                    frmLogin.Show();
-                }
-                else
-                {
-                    new frmDangNhap().Show();
-                }
-                this.Close();
+                return;
             }
+
+            _isLoggingOut = true;
+
+            Form? frmLogin = Application.OpenForms["frmDangNhap"];
+            if (frmLogin != null)
+            {
+                frmLogin.Show();
+            }
+            else
+            {
+                new frmDangNhap().Show();
+            }
+
+            Close();
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+            if (!_isLoggingOut)
+            {
+                Application.Exit();
+            }
         }
-
-
     }
 }

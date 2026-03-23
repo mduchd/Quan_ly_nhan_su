@@ -214,6 +214,7 @@ namespace Quan_ly_nhan_su.GUI
             var current = _employees.FirstOrDefault(x => x.MaNV.Equals(maNV, StringComparison.OrdinalIgnoreCase));
             if (current != null)
             {
+                nhanVien.LuongCung = current.LuongCung;
                 nhanVien.NgayChamCong = current.NgayChamCong;
                 nhanVien.GioVao = current.GioVao;
                 nhanVien.GioRa = current.GioRa;

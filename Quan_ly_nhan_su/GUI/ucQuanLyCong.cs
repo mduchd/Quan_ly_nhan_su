@@ -8,15 +8,16 @@ namespace Quan_ly_nhan_su.GUI
     public partial class ucQuanLyCong : UserControl
     {
         // 1. Khai báo tầng BUS của bạn
-        private QuanLyCongBUS bus = new QuanLyCongBUS();
+        private readonly QuanLyCongBUS bus = new();
 
         public ucQuanLyCong()
         {
             InitializeComponent();
+            Load += ucQuanLyCong_Load;
         }
 
         // 2. Hàm Load mặc định (Chạy khi vừa mở Form)
-        private void ucQuanLyCong_Load(object sender, EventArgs e)
+        private void ucQuanLyCong_Load(object? sender, EventArgs e)
         {
             // Mặc định chọn từ ngày mùng 1 đến ngày cuối tháng
             DateTime now = DateTime.Now;
@@ -44,20 +45,26 @@ namespace Quan_ly_nhan_su.GUI
                 // Trang điểm lại tên cột cho đẹp
                 if (dgvDanhSachCong.Columns.Count > 0)
                 {
-                    dgvDanhSachCong.Columns["maNV"].HeaderText = "Mã NV";
-                    dgvDanhSachCong.Columns["hoTen"].HeaderText = "Họ Tên";
-                    dgvDanhSachCong.Columns["ngay"].HeaderText = "Ngày";
-                    dgvDanhSachCong.Columns["ngay"].DefaultCellStyle.Format = "dd/MM/yyyy";
-                    dgvDanhSachCong.Columns["gioVao"].HeaderText = "Giờ Vào";
-                    dgvDanhSachCong.Columns["gioRa"].HeaderText = "Giờ Ra";
-
-                    // Kiểm tra xem SQL có trả về cột TongGio không thì mới đổi tên (tránh lỗi nếu DAL chưa cập nhật TongGio)
-                    if (dgvDanhSachCong.Columns.Contains("TongGio"))
+                    SetColumnHeader("maNV", "Mã NV");
+                    SetColumnHeader("hoTen", "Họ Tên");
+                    SetColumnHeader("ngay", "Ngày");
+                    var ngayColumn = dgvDanhSachCong.Columns["ngay"];
+                    if (ngayColumn != null)
                     {
-                        dgvDanhSachCong.Columns["TongGio"].HeaderText = "Tổng Giờ";
+                        ngayColumn.DefaultCellStyle.Format = "dd/MM/yyyy";
                     }
 
-                    dgvDanhSachCong.Columns["trangThai"].HeaderText = "Trạng Thái";
+                    SetColumnHeader("gioVao", "Giờ Vào");
+                    SetColumnHeader("gioRa", "Giờ Ra");
+
+                    // Kiểm tra xem SQL có trả về cột TongGio không thì mới đổi tên (tránh lỗi nếu DAL chưa cập nhật TongGio)
+                    var tongGioColumn = dgvDanhSachCong.Columns["TongGio"];
+                    if (tongGioColumn != null)
+                    {
+                        tongGioColumn.HeaderText = "Tổng Giờ";
+                    }
+
+                    SetColumnHeader("trangThai", "Trạng Thái");
 
                     // Phóng to các cột cho lấp đầy bảng
                     dgvDanhSachCong.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -75,20 +82,20 @@ namespace Quan_ly_nhan_su.GUI
         // ==========================================
 
         // Nút Lọc
-        private void btnLoc_Click(object sender, EventArgs e)
+        private void btnLoc_Click(object? sender, EventArgs e)
         {
             LoadData();
         }
 
         // Nút Làm mới (Mình để tên btnRefresh_Click theo đúng ảnh bạn chụp lần trước)
-        private void btnRefresh_Click(object sender, EventArgs e)
+        private void btnRefresh_Click(object? sender, EventArgs e)
         {
             txtTimKiem.Clear();
             ucQuanLyCong_Load(sender, e);
         }
 
         // Nút Xuất Excel
-        private void btnXuatExcel_Click(object sender, EventArgs e)
+        private void btnXuatExcel_Click(object? sender, EventArgs e)
         {
             if (dgvDanhSachCong.Rows.Count == 0 || dgvDanhSachCong.DataSource == null)
             {
@@ -96,6 +103,20 @@ namespace Quan_ly_nhan_su.GUI
                 return;
             }
             MessageBox.Show("Chức năng xuất Excel đang được phát triển!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void SetColumnHeader(string columnName, string headerText)
+        {
+            if (!dgvDanhSachCong.Columns.Contains(columnName))
+            {
+                return;
+            }
+
+            var column = dgvDanhSachCong.Columns[columnName];
+            if (column != null)
+            {
+                column.HeaderText = headerText;
+            }
         }
     }
 }

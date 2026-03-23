@@ -1,29 +1,28 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
+using System.Linq;
 using System.Windows.Forms;
+using Quan_ly_nhan_su.BUS;
+using Quan_ly_nhan_su.DTO;
 
 namespace Quan_ly_nhan_su.GUI
 {
     public partial class frmChamCong : Form
     {
+        private readonly ChamCongBUS _chamCongBUS = new();
+        private string _currentEmployeeId = string.Empty;
 
         public frmChamCong()
         {
             InitializeComponent();
             timerClock.Interval = 1000;
-            timerClock.Tick += new EventHandler(timerClock_Tick);
             timerClock.Start();
-
-
         }
+
         private void AssignClickEventToAll(Control parentControl, EventHandler clickEvent)
         {
             parentControl.Click += clickEvent;
-
 
             foreach (Control child in parentControl.Controls)
             {
@@ -31,62 +30,65 @@ namespace Quan_ly_nhan_su.GUI
             }
         }
 
-
-        private void guna2Button1_Click(object sender, EventArgs e)
+        private void guna2Button1_Click(object? sender, EventArgs e)
         {
-
         }
 
-        private void iconButton1_Click(object sender, EventArgs e)
+        private void iconButton1_Click(object? sender, EventArgs e)
         {
-
         }
 
-        private void label10_Click(object sender, EventArgs e)
+        private void label10_Click(object? sender, EventArgs e)
         {
-
         }
 
-        private void label12_Click(object sender, EventArgs e)
+        private void label12_Click(object? sender, EventArgs e)
         {
-
         }
 
-
-        private void LoadDanhSachChamCong()
+        private void LoadDanhSachChamCong(IEnumerable<LichSuCongDTO> lichSu)
         {
             flpDanhSachChamCong.SuspendLayout();
             flpDanhSachChamCong.Controls.Clear();
-            TaoTheChamCong("23", "Thứ 2, 23/10/2024", "8h 10m", "08:00 - 17:00");
-            TaoTheChamCong("20", "Thứ 2, 23/10/2024", "8h 10m", "08:00 - 17:00");
-            TaoTheChamCong("19", "Thứ 2, 23/10/2024", "8h 10m", "08:00 - 17:00");
+
+            foreach (var item in lichSu.OrderByDescending(x => x.ngay))
+            {
+                var tongGio = item.gioVao.HasValue && item.gioRa.HasValue
+                    ? FormatDuration(item.gioRa.Value - item.gioVao.Value)
+                    : "--";
+                var thoiGian = $"{FormatTime(item.gioVao)} - {FormatTime(item.gioRa)}";
+                TaoTheChamCong(
+                    item.ngay.Day.ToString("00"),
+                    $"{GetDayOfWeekText(item.ngay.DayOfWeek)}, {item.ngay:dd/MM/yyyy}",
+                    tongGio,
+                    thoiGian);
+            }
+
             flpDanhSachChamCong.ResumeLayout();
         }
+
         private void TaoTheChamCong(string ngay, string dmy, string tonggio, string thoigian)
         {
-            ucItemChamCong item = new ucItemChamCong();
+            var item = new ucItemChamCong();
             item.SetDataChamCong(ngay, dmy, tonggio, thoigian);
             item.Width = flpDanhSachChamCong.ClientSize.Width - SystemInformation.VerticalScrollBarWidth - 5;
             flpDanhSachChamCong.Controls.Add(item);
         }
-        private void flpDanhSachChamCong_Paint(object sender, PaintEventArgs e)
+
+        private void flpDanhSachChamCong_Paint(object? sender, PaintEventArgs e)
         {
             foreach (Control ctrl in flpDanhSachChamCong.Controls)
             {
-
                 ctrl.Width = flpDanhSachChamCong.ClientSize.Width - SystemInformation.VerticalScrollBarWidth - 5;
             }
         }
 
-
-
-
-        private void frmChamCong_Load(object sender, EventArgs e)
+        private void frmChamCong_Load(object? sender, EventArgs e)
         {
             AssignClickEventToAll(pnCheckIn, pnCheckIn_Click);
             AssignClickEventToAll(pnCheckOut, pnCheckOut_Click);
+            ResetAttendanceSummary();
 
-            LoadDanhSachChamCong();
             flpDanhSachChamCong.SizeChanged += (s, ev) =>
             {
                 flpDanhSachChamCong.SuspendLayout();
@@ -94,109 +96,246 @@ namespace Quan_ly_nhan_su.GUI
                 {
                     item.Width = flpDanhSachChamCong.ClientSize.Width - SystemInformation.VerticalScrollBarWidth - 5;
                 }
+
                 flpDanhSachChamCong.ResumeLayout();
             };
         }
 
-        private void timerClock_Tick(object sender, EventArgs e)
+        private void timerClock_Tick(object? sender, EventArgs e)
         {
             DateTime now = DateTime.Now;
-            lbClock.Text = DateTime.Now.ToString("HH:mm:ss");
-
-            string[] day = { "Chủ nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy" };
-            string thu = day[(int)now.DayOfWeek];
-            lbDate.Text = $"{thu}, {now.Day} tháng {now.Month}, {now.Year}";
+            lbClock.Text = now.ToString("HH:mm:ss");
+            lbDate.Text = $"{GetDayOfWeekText(now.DayOfWeek)}, {now.Day} tháng {now.Month}, {now.Year}";
         }
 
-        private void lbClock_Click(object sender, EventArgs e)
+        private void lbClock_Click(object? sender, EventArgs e)
         {
-
         }
 
-        private void label11_Click(object sender, EventArgs e)
+        private void label11_Click(object? sender, EventArgs e)
         {
-
         }
 
-        private void guna2Panel3_Paint(object sender, PaintEventArgs e)
+        private void guna2Panel3_Paint(object? sender, PaintEventArgs e)
         {
-
         }
 
-        private void pnCheckIn_Click(object sender, EventArgs e)
+        private void pnCheckIn_Click(object? sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtNhapMaNV.Text.Trim()))
-           
+            var maNV = ResolveTargetEmployeeId(isCheckOut: false);
+            if (!EnsureEmployeeLoaded(maNV, showError: true, out _))
             {
-                MessageBox.Show("Vui lòng nhập mã nhân viên trước khi Check-in!");
                 return;
             }
-            lbGioVao.Text = DateTime.Now.ToString("HH:mm");
-            pnCheckIn.FillColor = Color.Gray;
-            icCheckIn.BackColor = Color.Gray;
-            lbCheckIn.BackColor = Color.Gray;
+
+            var ketQua = _chamCongBUS.CheckIn(maNV, DateTime.Now);
+            if (!string.Equals(ketQua, "Thành công", StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show(ketQua, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            txtNhapMaNV.Clear();
+            LoadEmployeeContext(maNV);
+            MessageBox.Show("Bạn đã check-in thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void pnCheckOut_Click(object? sender, EventArgs e)
+        {
+            var maNV = ResolveTargetEmployeeId(isCheckOut: true);
+            if (!EnsureEmployeeLoaded(maNV, showError: true, out _))
+            {
+                return;
+            }
+
+            var ketQua = _chamCongBUS.CheckOut(maNV, DateTime.Now);
+            if (!string.Equals(ketQua, "Thành công", StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show(ketQua, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            txtNhapMaNV.Clear();
+            LoadEmployeeContext(maNV);
+            MessageBox.Show("Bạn đã check-out thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void lbTongGio_Click(object? sender, EventArgs e)
+        {
+        }
+
+        private void txtNhapMaNV_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Enter)
+            {
+                return;
+            }
+
+            e.SuppressKeyPress = true;
+            var maNV = txtNhapMaNV.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(maNV))
+            {
+                MessageBox.Show("Vui lòng nhập mã nhân viên!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!EnsureEmployeeLoaded(maNV, showError: true, out _))
+            {
+                return;
+            }
+
+            LoadEmployeeContext(maNV);
+        }
+
+        private bool EnsureEmployeeLoaded(string maNV, bool showError, out NhanVienDTO? nhanVien)
+        {
+            nhanVien = null;
+            maNV = (maNV ?? string.Empty).Trim();
+            if (string.IsNullOrWhiteSpace(maNV))
+            {
+                if (showError)
+                {
+                    MessageBox.Show("Vui lòng nhập mã nhân viên!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+                return false;
+            }
+
+            nhanVien = _chamCongBUS.LayThongTinNhanVien(maNV);
+            if (nhanVien == null)
+            {
+                if (showError)
+                {
+                    MessageBox.Show("Không tìm thấy nhân viên với mã đã nhập.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+                _currentEmployeeId = string.Empty;
+                pnThongTinNV.Visible = false;
+                flpDanhSachChamCong.Controls.Clear();
+                ResetAttendanceSummary();
+                return false;
+            }
+
+            return true;
+        }
+
+        private void LoadEmployeeContext(string maNV)
+        {
+            if (!EnsureEmployeeLoaded(maNV, showError: false, out var nhanVien) || nhanVien == null)
+            {
+                return;
+            }
+
+            _currentEmployeeId = nhanVien.MaNV;
+            var lichSu = _chamCongBUS.LayLichSuGanDay(maNV, 3);
+
+            label7.Text = string.IsNullOrWhiteSpace(nhanVien.TenNV) ? "Chưa cập nhật" : nhanVien.TenNV;
+            label12.Text = string.IsNullOrWhiteSpace(nhanVien.SoDienThoai) ? "Chưa cập nhật" : nhanVien.SoDienThoai;
+            label11.Text = string.IsNullOrWhiteSpace(nhanVien.DiaChi) ? "Chưa cập nhật" : nhanVien.DiaChi;
+            pnThongTinNV.Visible = true;
+            pnThongTinNV.BringToFront();
+
+            LoadDanhSachChamCong(lichSu);
+            ApplyAttendanceSummary(nhanVien, lichSu);
+        }
+
+        private void ApplyAttendanceSummary(NhanVienDTO nhanVien, List<LichSuCongDTO> lichSu)
+        {
+            var lichSuHomNay = lichSu.FirstOrDefault(x => x.ngay.Date == DateTime.Today);
+            var gioVao = lichSuHomNay?.gioVao;
+            var gioRa = lichSuHomNay?.gioRa;
+
+            if (!gioVao.HasValue && nhanVien.NgayChamCong?.Date == DateTime.Today)
+            {
+                gioVao = nhanVien.GioVao;
+                gioRa = nhanVien.GioRa;
+            }
+
+            if (!gioVao.HasValue)
+            {
+                ResetAttendanceSummary();
+                return;
+            }
+
+            lbGioVao.Text = FormatTime(gioVao);
+            lbGioRa.Text = FormatTime(gioRa);
+            lbTongGio.Text = gioRa.HasValue ? FormatDuration(gioRa.Value - gioVao.Value) : "--";
+
+            SetCheckInState(false);
+            SetCheckOutState(!gioRa.HasValue);
+        }
+
+        private void ResetAttendanceSummary()
+        {
+            lbGioVao.Text = "--:--";
+            lbGioRa.Text = "--:--";
+            lbTongGio.Text = "--";
+            SetCheckInState(true);
+            SetCheckOutState(true);
+        }
+
+        private void SetCheckInState(bool enabled)
+        {
+            pnCheckIn.Enabled = enabled;
+            pnCheckIn.FillColor = enabled ? Color.MediumSeaGreen : Color.Gray;
+            icCheckIn.BackColor = pnCheckIn.FillColor;
+            lbCheckIn.BackColor = pnCheckIn.FillColor;
             lbCheckIn.ForeColor = Color.White;
-            pnCheckIn.Enabled = false;
-            txtNhapMaNV.Clear();
-            MessageBox.Show("Bạn đã Check-in thành công!");
-            
         }
 
-        private void pnCheckOut_Click(object sender, EventArgs e)
+        private void SetCheckOutState(bool enabled)
         {
-            if (pnCheckIn.Enabled == true)
-            {
-                MessageBox.Show("Bạn chưa Check-in. Vui lòng Check-in trước khi Check-out!");
-                return;
-            }
-            else if (string.IsNullOrEmpty(txtNhapMaNV.Text.Trim()))
-            {
-                MessageBox.Show("Vui lòng nhập mã nhân viên trước khi Check-out!");
-                return;
-            }
-            lbGioRa.Text = DateTime.Now.ToString("HH:mm");
-            lbTongGio.Text = (DateTime.Parse(lbGioRa.Text) - DateTime.Parse(lbGioVao.Text)).TotalHours.ToString("0.00") + "h";
-            pnCheckOut.FillColor = Color.Gray;
-            pnCheckOut.FillColor = Color.Gray;
-            icCheckOut.BackColor = Color.Gray;
-            lbCheckOut.BackColor = Color.Gray;
+            pnCheckOut.Enabled = enabled;
+            pnCheckOut.FillColor = enabled ? Color.FromArgb(255, 128, 0) : Color.Gray;
+            icCheckOut.BackColor = pnCheckOut.FillColor;
+            lbCheckOut.BackColor = pnCheckOut.FillColor;
             lbCheckOut.ForeColor = Color.White;
-            pnCheckOut.Enabled = false;
-            MessageBox.Show("Bạn đã Check-out thành công!");
-            txtNhapMaNV.Clear();
         }
 
-        private void lbTongGio_Click(object sender, EventArgs e)
+        private string ResolveTargetEmployeeId(bool isCheckOut)
         {
-
-        }
-
-        private void txtNhapMaNV_KeyDown(object sender, KeyEventArgs e)
-        {
-
-            if (e.KeyCode == Keys.Enter)
+            var maNVNhap = txtNhapMaNV.Text.Trim();
+            if (isCheckOut && !pnCheckIn.Enabled && !string.IsNullOrWhiteSpace(_currentEmployeeId))
             {
-                e.SuppressKeyPress = true; // tắt âm thanh "ding" khi nhấn Enter
-                string MaNV = txtNhapMaNV.Text.Trim();
-
-                if (string.IsNullOrEmpty(MaNV))
-                {
-                    MessageBox.Show("Vui lòng nhập mã nhân viên!");
-                    return;
-                }
-                else
-                {
-                    pnThongTinNV.Visible = true;
-                    pnThongTinNV.BringToFront();
-                }
-
-                
-
-
-
+                return _currentEmployeeId;
             }
+
+            if (!string.IsNullOrWhiteSpace(maNVNhap))
+            {
+                return maNVNhap;
+            }
+
+            return _currentEmployeeId;
         }
 
-        
+        private static string FormatTime(TimeSpan? time)
+        {
+            return time.HasValue ? time.Value.ToString(@"hh\:mm") : "--:--";
+        }
+
+        private static string FormatDuration(TimeSpan duration)
+        {
+            if (duration < TimeSpan.Zero)
+            {
+                return "--";
+            }
+
+            return $"{(int)duration.TotalHours}h {duration.Minutes}m";
+        }
+
+        private static string GetDayOfWeekText(DayOfWeek dayOfWeek)
+        {
+            return dayOfWeek switch
+            {
+                DayOfWeek.Monday => "Thứ Hai",
+                DayOfWeek.Tuesday => "Thứ Ba",
+                DayOfWeek.Wednesday => "Thứ Tư",
+                DayOfWeek.Thursday => "Thứ Năm",
+                DayOfWeek.Friday => "Thứ Sáu",
+                DayOfWeek.Saturday => "Thứ Bảy",
+                _ => "Chủ nhật"
+            };
+        }
     }
 }
