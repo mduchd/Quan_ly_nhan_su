@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Quan_ly_nhan_su.DAL;
 
 namespace Quan_ly_nhan_su.BUS
@@ -10,11 +8,12 @@ namespace Quan_ly_nhan_su.BUS
         private TaiKhoanDAL dal = new TaiKhoanDAL();
         public string DangNhap(string taikhoan, string matkhau)
         {
-            if (string.IsNullOrEmpty(taikhoan) || string.IsNullOrEmpty(matkhau))
+            if (string.IsNullOrWhiteSpace(taikhoan) || string.IsNullOrWhiteSpace(matkhau))
             {
-                System.Windows.Forms.MessageBox.Show("Vui lòng nhập đầy đủ thông tin đăng nhập.");
+                return null;
             }
-            return dal.KiemTraDangNhap(taikhoan, matkhau);
+
+            return dal.KiemTraDangNhap(taikhoan.Trim(), matkhau);
         }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.Data.SqlClient;
 
 namespace Quan_ly_nhan_su.DAL
@@ -9,30 +7,16 @@ namespace Quan_ly_nhan_su.DAL
     {
         public string KiemTraDangNhap(string taikhoan, string matkhau)
         {
-            string quyen = null;
-            using (SqlConnection conn = DbContext.GetSqlConnection())
-            {
-                try
-                {
-                    conn.Open();
-                    string sql = "SELECT Quyen From TAI_KHOAN WHERE TenDangNhap = @taikhoan AND MatKhau = @matkhau";
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-                    cmd.Parameters.AddWithValue("@taikhoan", taikhoan);
-                    cmd.Parameters.AddWithValue("@matkhau", matkhau);
+            using SqlConnection conn = DbContext.GetSqlConnection();
+            conn.Open();
 
-                    object result = cmd.ExecuteScalar();
-                    if (result != null)
-                    {
-                        quyen = result.ToString();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    System.Windows.Forms.MessageBox.Show("Loi CSDL: " + ex.Message);
-                }
-            }
+            const string sql = "SELECT Quyen From TAI_KHOAN WHERE TenDangNhap = @taikhoan AND MatKhau = @matkhau";
+            using SqlCommand cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@taikhoan", taikhoan);
+            cmd.Parameters.AddWithValue("@matkhau", matkhau);
 
-            return quyen;
+            object result = cmd.ExecuteScalar();
+            return result?.ToString();
         }
     }
 }
