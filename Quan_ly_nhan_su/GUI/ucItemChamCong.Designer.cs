@@ -116,6 +116,7 @@
             lblNgay.Size = new Size(36, 28);
             lblNgay.TabIndex = 0;
             lblNgay.Text = "23";
+            lblNgay.Click += lblNgay_Click;
             // 
             // ucItemChamCong
             // 

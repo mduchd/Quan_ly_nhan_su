@@ -1,4 +1,4 @@
-﻿using Quan_ly_nhan_su.BUS;
+using Quan_ly_nhan_su.BUS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,7 +32,25 @@ namespace Quan_ly_nhan_su.GUI
             string taikhoan = txtTaiKhoan.Text.Trim();
             string matkhau = txtMatKhau.Text;
 
+<<<<<<< HEAD
             if (string.IsNullOrWhiteSpace(taikhoan) || string.IsNullOrWhiteSpace(matkhau))
+=======
+            bool isSuccess = bus.DangNhap(taikhoan, matkhau);
+            if (isSuccess)
+            {
+                MainForm mainForm = new MainForm();
+                mainForm.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Tài khoản hoặc mật khẩu không đúng!", "Lỗi đăng nhập", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtMatKhau.Clear();
+                txtMatKhau.Focus();
+            }
+
+            if (string.IsNullOrEmpty(taikhoan) || string.IsNullOrEmpty("matkhau"))
+>>>>>>> d26ba5df7ff7f0fdc50b5959ad37b4224078c120
             {
                 MessageBox.Show("Vui lòng nhập đầy đủ tài khoản và mật khẩu!", "Lỗi đăng nhập", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtTaiKhoan.Focus();

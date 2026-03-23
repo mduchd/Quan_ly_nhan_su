@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -615,7 +615,11 @@ namespace Quan_ly_nhan_su.GUI
             const int row4Top = 165;
             const int row5Top = 209;
             const int row6Top = 253;
+<<<<<<< HEAD
             const int buttonTop = 280;
+=======
+            const int buttonTop = 320;
+>>>>>>> d26ba5df7ff7f0fdc50b5959ad37b4224078c120
             const int buttonWidth = 110;
             const int buttonGap = 12;
             const int columnGap = 32;
@@ -684,14 +688,25 @@ namespace Quan_ly_nhan_su.GUI
             lblAddress.SetBounds(leftLabelX, row6Top + 3, labelWidth, lblAddress.Height);
             txtAddress.SetBounds(leftInputX, row6Top, (rightInputX + inputWidth) - leftInputX, inputHeight);
 
+<<<<<<< HEAD
             var totalButtonWidth = (buttonWidth * 5) + (buttonGap * 4);
             var buttonStartX = Math.Max(rightInputX + inputWidth - totalButtonWidth, margin);
+=======
+            var totalButtonWidth = (buttonWidth * 4) + (buttonGap * 3);
+            var buttonStartX = leftInputX;
+>>>>>>> d26ba5df7ff7f0fdc50b5959ad37b4224078c120
 
             btnAdd.SetBounds(buttonStartX, buttonTop, buttonWidth, 36);
             btnEdit.SetBounds(btnAdd.Right + buttonGap, buttonTop, buttonWidth, 36);
             btnDelete.SetBounds(btnEdit.Right + buttonGap, buttonTop, buttonWidth, 36);
             btnClear.SetBounds(btnDelete.Right + buttonGap, buttonTop, buttonWidth, 36);
+<<<<<<< HEAD
             btnExport.SetBounds(btnClear.Right + buttonGap, buttonTop, buttonWidth, 36);
+=======
+
+            // Force the GroupBox to always be tall enough to show the buttons
+            grpInput.Height = buttonTop + 60;
+>>>>>>> d26ba5df7ff7f0fdc50b5959ad37b4224078c120
         }
 
     }

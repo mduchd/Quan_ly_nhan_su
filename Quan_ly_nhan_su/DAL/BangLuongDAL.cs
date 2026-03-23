@@ -9,17 +9,28 @@ namespace Quan_ly_nhan_su.DAL
 {
     public class BangLuongDAL
     {
+<<<<<<< HEAD
+=======
+        // SỬA TÊN SERVER THÀNH DẤU CHẤM (.)
+
+
+>>>>>>> d26ba5df7ff7f0fdc50b5959ad37b4224078c120
         public List<BangLuongDTO> GetDanhSachBangLuong(string tuKhoa = "", string thangNam = "")
         {
             using var conn = DbContext.GetSqlConnection();
             conn.Open();
 
+<<<<<<< HEAD
             var thangDuocChon = ResolveMonth(thangNam);
             var dsNhanVien = LoadEmployees(conn, tuKhoa);
             var soNgayLamMap = LoadWorkedDays(conn, thangDuocChon);
             var soNgayChuan = DateTime.DaysInMonth(thangDuocChon.Year, thangDuocChon.Month);
 
             foreach (var nv in dsNhanVien)
+=======
+            // Dùng try-catch để nếu lỗi nó báo rõ cho mình biết
+            using (SqlConnection conn = DbContext.GetSqlConnection())
+>>>>>>> d26ba5df7ff7f0fdc50b5959ad37b4224078c120
             {
                 nv.SoNgayChuan = soNgayChuan;
                 nv.SoNgayLam = soNgayLamMap.TryGetValue(nv.MaNV, out var soNgayLam) ? soNgayLam : 0;
@@ -209,7 +220,12 @@ namespace Quan_ly_nhan_su.DAL
                 var maNV = reader["MaNV"]?.ToString();
                 if (string.IsNullOrWhiteSpace(maNV))
                 {
+<<<<<<< HEAD
                     continue;
+=======
+                    // Nếu vẫn lỗi, nó sẽ hiện thông báo chi tiết ở đây
+                    throw new Exception("Lỗi kết nối DB: " + ex.Message);
+>>>>>>> d26ba5df7ff7f0fdc50b5959ad37b4224078c120
                 }
 
                 var soNgayLam = reader["SoNgayLam"] == DBNull.Value ? 0 : Convert.ToInt32(reader["SoNgayLam"]);

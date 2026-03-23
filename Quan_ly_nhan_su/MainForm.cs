@@ -6,18 +6,28 @@ namespace Quan_ly_nhan_su
 {
     public partial class MainForm : Form
     {
+<<<<<<< HEAD
         private readonly string _quyen;
         private bool _isLoggingOut;
+=======
+        
+>>>>>>> d26ba5df7ff7f0fdc50b5959ad37b4224078c120
         private readonly ucNhanVien _ucNhanVien = new();
         private readonly ucBangLuong _ucBangLuong = new();
         private readonly ucQuanLyCong _ucQuanLyCong = new();
 
-        public MainForm(string quyen)
+        public MainForm()
         {
             InitializeComponent();
+<<<<<<< HEAD
             _quyen = quyen;
             ThietLapPhanQuyen();
             OpenControl(_ucNhanVien);
+=======
+
+          
+        
+>>>>>>> d26ba5df7ff7f0fdc50b5959ad37b4224078c120
         }
 
         private void OpenControl(UserControl control)
@@ -33,6 +43,7 @@ namespace Quan_ly_nhan_su
             control.BringToFront();
         }
 
+<<<<<<< HEAD
         public void ThietLapPhanQuyen()
         {
             if (_quyen == "User")
@@ -50,6 +61,20 @@ namespace Quan_ly_nhan_su
                 lblVaiTro.Text = "Vai trò: Quản lý";
             }
         }
+=======
+        private void button2_Click(object? sender, EventArgs e)
+        {
+            OpenControl(_ucNhanVien);
+        }
+
+        private void lblLogo_Click(object? sender, EventArgs e)
+        {
+            OpenControl(_ucNhanVien);
+
+        }
+
+     
+>>>>>>> d26ba5df7ff7f0fdc50b5959ad37b4224078c120
 
         private void pnlDesktop_Paint(object sender, PaintEventArgs e)
         {

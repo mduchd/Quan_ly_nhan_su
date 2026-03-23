@@ -41,8 +41,9 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             label1 = new Label();
-            iconButton1 = new FontAwesome.Sharp.IconButton();
             lbDate = new Label();
             lbClock = new Label();
             pnCheckOut = new Guna.UI2.WinForms.Guna2Panel();
@@ -61,20 +62,19 @@
             label8 = new Label();
             label6 = new Label();
             label14 = new Label();
-            label15 = new Label();
             flpDanhSachChamCong = new FlowLayoutPanel();
             guna2Panel5 = new Guna.UI2.WinForms.Guna2Panel();
             txtNhapMaNV = new Guna.UI2.WinForms.Guna2TextBox();
             timerClock = new System.Windows.Forms.Timer(components);
             tableLayoutPanel1 = new TableLayoutPanel();
+            btnBack = new Guna.UI2.WinForms.Guna2Button();
             pnThongTinNV = new Guna.UI2.WinForms.Guna2Panel();
-            label12 = new Label();
-            label11 = new Label();
-            label7 = new Label();
-            label5 = new Label();
-            label4 = new Label();
-            label3 = new Label();
-            label2 = new Label();
+            lblDiaChiNhanVien = new Label();
+            lblSoDienThoai = new Label();
+            lblHoTenNhanVien = new Label();
+            lblDiaChi = new Label();
+            lblSDT = new Label();
+            lblHoTenNV = new Label();
             pnCheckOut.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)icCheckOut).BeginInit();
             pnCheckIn.SuspendLayout();
@@ -94,20 +94,6 @@
             label1.TabIndex = 0;
             label1.Text = "Chấm Công";
             // 
-            // iconButton1
-            // 
-            iconButton1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            iconButton1.BackColor = SystemColors.Control;
-            iconButton1.IconChar = FontAwesome.Sharp.IconChar.Bell;
-            iconButton1.IconColor = Color.Gray;
-            iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton1.IconSize = 40;
-            iconButton1.Location = new Point(1627, 32);
-            iconButton1.Name = "iconButton1";
-            iconButton1.Size = new Size(45, 41);
-            iconButton1.TabIndex = 1;
-            iconButton1.UseVisualStyleBackColor = false;
-            // 
             // lbDate
             // 
             lbDate.Anchor = AnchorStyles.Top;
@@ -118,6 +104,7 @@
             lbDate.Size = new Size(216, 21);
             lbDate.TabIndex = 2;
             lbDate.Text = "Thứ Tư, 18 Tháng 3, 2026";
+            lbDate.Click += lbDate_Click;
             // 
             // lbClock
             // 
@@ -251,7 +238,6 @@
             lbTongGio.Size = new Size(38, 21);
             lbTongGio.TabIndex = 7;
             lbTongGio.Text = "--:--";
-            lbTongGio.Click += lbTongGio_Click;
             // 
             // lbGioRa
             // 
@@ -342,21 +328,9 @@
             label14.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label14.Location = new Point(18, 483);
             label14.Name = "label14";
-            label14.Size = new Size(183, 21);
+            label14.Size = new Size(151, 21);
             label14.TabIndex = 9;
-            label14.Text = "Lịch sử 3 ngày gần đây";
-            // 
-            // label15
-            // 
-            label15.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label15.AutoSize = true;
-            label15.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label15.ForeColor = Color.DodgerBlue;
-            label15.Location = new Point(1588, 483);
-            label15.Name = "label15";
-            label15.Size = new Size(87, 21);
-            label15.TabIndex = 10;
-            label15.Text = "Xem tất cả";
+            label14.Text = "Lịch sử chấm công";
             // 
             // flpDanhSachChamCong
             // 
@@ -403,6 +377,7 @@
             txtNhapMaNV.Size = new Size(321, 60);
             txtNhapMaNV.TabIndex = 13;
             txtNhapMaNV.TextAlign = HorizontalAlignment.Center;
+            txtNhapMaNV.TextChanged += txtNhapMaNV_TextChanged;
             txtNhapMaNV.KeyDown += txtNhapMaNV_KeyDown;
             // 
             // timerClock
@@ -426,104 +401,97 @@
             tableLayoutPanel1.Size = new Size(1657, 100);
             tableLayoutPanel1.TabIndex = 14;
             // 
+            // btnBack
+            // 
+            btnBack.BorderColor = Color.FromArgb(224, 224, 224);
+            btnBack.BorderRadius = 10;
+            btnBack.BorderThickness = 2;
+            btnBack.CustomizableEdges = customizableEdges11;
+            btnBack.DisabledState.BorderColor = Color.DarkGray;
+            btnBack.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnBack.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnBack.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnBack.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBack.ForeColor = Color.White;
+            btnBack.Location = new Point(18, 19);
+            btnBack.Name = "btnBack";
+            btnBack.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            btnBack.Size = new Size(117, 45);
+            btnBack.TabIndex = 16;
+            btnBack.Text = "Back";
+            btnBack.Click += btnBack_Click;
+            // 
             // pnThongTinNV
             // 
-            pnThongTinNV.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            pnThongTinNV.BorderColor = Color.FromArgb(224, 224, 224);
-            pnThongTinNV.BorderRadius = 10;
-            pnThongTinNV.BorderThickness = 2;
-            pnThongTinNV.Controls.Add(label12);
-            pnThongTinNV.Controls.Add(label11);
-            pnThongTinNV.Controls.Add(label7);
-            pnThongTinNV.Controls.Add(label5);
-            pnThongTinNV.Controls.Add(label4);
-            pnThongTinNV.Controls.Add(label3);
-            pnThongTinNV.Controls.Add(label2);
-            pnThongTinNV.CustomizableEdges = customizableEdges11;
-            pnThongTinNV.FillColor = Color.White;
-            pnThongTinNV.Location = new Point(1083, 88);
+            pnThongTinNV.Controls.Add(lblDiaChiNhanVien);
+            pnThongTinNV.Controls.Add(lblSoDienThoai);
+            pnThongTinNV.Controls.Add(lblHoTenNhanVien);
+            pnThongTinNV.Controls.Add(lblDiaChi);
+            pnThongTinNV.Controls.Add(lblSDT);
+            pnThongTinNV.Controls.Add(lblHoTenNV);
+            pnThongTinNV.CustomizableEdges = customizableEdges13;
+            pnThongTinNV.Location = new Point(1061, 103);
             pnThongTinNV.Name = "pnThongTinNV";
-            pnThongTinNV.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            pnThongTinNV.Size = new Size(592, 157);
-            pnThongTinNV.TabIndex = 15;
-            pnThongTinNV.Visible = false;
+            pnThongTinNV.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            pnThongTinNV.Size = new Size(611, 142);
+            pnThongTinNV.TabIndex = 17;
             // 
-            // label12
+            // lblDiaChiNhanVien
             // 
-            label12.AutoSize = true;
-            label12.BackColor = Color.White;
-            label12.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label12.Location = new Point(450, 51);
-            label12.Name = "label12";
-            label12.Size = new Size(99, 20);
-            label12.TabIndex = 6;
-            label12.Text = "0994758364";
+            lblDiaChiNhanVien.AutoSize = true;
+            lblDiaChiNhanVien.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblDiaChiNhanVien.Location = new Point(98, 81);
+            lblDiaChiNhanVien.Name = "lblDiaChiNhanVien";
+            lblDiaChiNhanVien.Size = new Size(0, 21);
+            lblDiaChiNhanVien.TabIndex = 5;
             // 
-            // label11
+            // lblSoDienThoai
             // 
-            label11.AutoSize = true;
-            label11.BackColor = Color.White;
-            label11.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            label11.Location = new Point(111, 103);
-            label11.Name = "label11";
-            label11.Size = new Size(258, 20);
-            label11.TabIndex = 5;
-            label11.Text = "Yên Xá, Tân Triều, Thanh Trì, Hà Nội";
+            lblSoDienThoai.AutoSize = true;
+            lblSoDienThoai.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblSoDienThoai.Location = new Point(478, 21);
+            lblSoDienThoai.Name = "lblSoDienThoai";
+            lblSoDienThoai.Size = new Size(0, 21);
+            lblSoDienThoai.TabIndex = 4;
             // 
-            // label7
+            // lblHoTenNhanVien
             // 
-            label7.AutoSize = true;
-            label7.BackColor = Color.White;
-            label7.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            label7.Location = new Point(111, 51);
-            label7.Name = "label7";
-            label7.Size = new Size(118, 20);
-            label7.TabIndex = 4;
-            label7.Text = "Nguyễn Văn An";
+            lblHoTenNhanVien.AutoSize = true;
+            lblHoTenNhanVien.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblHoTenNhanVien.Location = new Point(98, 21);
+            lblHoTenNhanVien.Name = "lblHoTenNhanVien";
+            lblHoTenNhanVien.Size = new Size(0, 21);
+            lblHoTenNhanVien.TabIndex = 3;
             // 
-            // label5
+            // lblDiaChi
             // 
-            label5.AutoSize = true;
-            label5.BackColor = Color.White;
-            label5.Font = new Font("Segoe UI", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(226, 11);
-            label5.Name = "label5";
-            label5.Size = new Size(178, 23);
-            label5.TabIndex = 3;
-            label5.Text = "Thông Tin Nhân Viên";
+            lblDiaChi.AutoSize = true;
+            lblDiaChi.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblDiaChi.Location = new Point(21, 81);
+            lblDiaChi.Name = "lblDiaChi";
+            lblDiaChi.Size = new Size(71, 21);
+            lblDiaChi.TabIndex = 2;
+            lblDiaChi.Text = "Địa chỉ: ";
             // 
-            // label4
+            // lblSDT
             // 
-            label4.AutoSize = true;
-            label4.BackColor = Color.White;
-            label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label4.Location = new Point(34, 103);
-            label4.Name = "label4";
-            label4.Size = new Size(71, 21);
-            label4.TabIndex = 2;
-            label4.Text = "Địa chỉ: ";
+            lblSDT.AutoSize = true;
+            lblSDT.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblSDT.Location = new Point(348, 20);
+            lblSDT.Name = "lblSDT";
+            lblSDT.Size = new Size(124, 21);
+            lblSDT.TabIndex = 1;
+            lblSDT.Text = "Số Điện Thoại: ";
             // 
-            // label3
+            // lblHoTenNV
             // 
-            label3.AutoSize = true;
-            label3.BackColor = Color.White;
-            label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label3.Location = new Point(320, 51);
-            label3.Name = "label3";
-            label3.Size = new Size(124, 21);
-            label3.TabIndex = 1;
-            label3.Text = "Số Điện Thoại: ";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.BackColor = Color.White;
-            label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label2.Location = new Point(34, 51);
-            label2.Name = "label2";
-            label2.Size = new Size(71, 21);
-            label2.TabIndex = 0;
-            label2.Text = "Họ Tên: ";
+            lblHoTenNV.AutoSize = true;
+            lblHoTenNV.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblHoTenNV.Location = new Point(21, 20);
+            lblHoTenNV.Name = "lblHoTenNV";
+            lblHoTenNV.Size = new Size(71, 21);
+            lblHoTenNV.TabIndex = 0;
+            lblHoTenNV.Text = "Họ Tên: ";
             // 
             // frmChamCong
             // 
@@ -531,19 +499,20 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1714, 1061);
             Controls.Add(pnThongTinNV);
+            Controls.Add(btnBack);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(txtNhapMaNV);
             Controls.Add(guna2Panel5);
             Controls.Add(flpDanhSachChamCong);
-            Controls.Add(label15);
             Controls.Add(label14);
             Controls.Add(guna2Panel4);
             Controls.Add(lbClock);
             Controls.Add(lbDate);
-            Controls.Add(iconButton1);
             Controls.Add(label1);
             Name = "frmChamCong";
             Padding = new Padding(0, 0, 10, 0);
+            FormClosing += frmChamCong_FormClosing;
+            FormClosed += frmChamCong_FormClosed;
             Load += frmChamCong_Load;
             pnCheckOut.ResumeLayout(false);
             pnCheckOut.PerformLayout();
@@ -562,7 +531,6 @@
 
         #endregion
         private Label label1;
-        private FontAwesome.Sharp.IconButton iconButton1;
         private Label lbDate;
         private Label lbClock;
         private Guna.UI2.WinForms.Guna2Panel pnCheckOut;
@@ -581,19 +549,18 @@
         private Label lbTongGio;
         private Label lbGioRa;
         private Label label14;
-        private Label label15;
         private FlowLayoutPanel flpDanhSachChamCong;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel5;
         private Guna.UI2.WinForms.Guna2TextBox txtNhapMaNV;
         private System.Windows.Forms.Timer timerClock;
         private TableLayoutPanel tableLayoutPanel1;
+        private Guna.UI2.WinForms.Guna2Button btnBack;
         private Guna.UI2.WinForms.Guna2Panel pnThongTinNV;
-        private Label label4;
-        private Label label3;
-        private Label label2;
-        private Label label5;
-        private Label label12;
-        private Label label11;
-        private Label label7;
+        private Label lblHoTenNV;
+        private Label lblDiaChi;
+        private Label lblSDT;
+        private Label lblDiaChiNhanVien;
+        private Label lblSoDienThoai;
+        private Label lblHoTenNhanVien;
     }
 }

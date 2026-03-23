@@ -5,11 +5,14 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Quan_ly_nhan_su.DAL;
 
 namespace Quan_ly_nhan_su.GUI
 {
     public partial class ucItemChamCong : UserControl
     {
+      
+     
         public ucItemChamCong()
         {
             InitializeComponent();
@@ -23,6 +26,33 @@ namespace Quan_ly_nhan_su.GUI
         }
         private void guna2Panel1_Paint(object sender, PaintEventArgs e)
         {
+
+        }
+
+        private void lblNgay_Click(object sender, EventArgs e)
+        {
+            
+        }
+        public void LichSuNgay(int ngay, int thang, int nam, string thu, TimeSpan giovao, TimeSpan? giora)
+        {
+            
+            
+            lblNgay.Text = ngay.ToString();
+            lblDmy.Text = $"{thu}, {ngay} tháng {thang}";
+            if (giora.HasValue)
+            {
+                lblThoiGian.Text = $"{giovao.ToString(@"hh\:mm")} - {giora.Value.ToString(@"hh\:mm")}";
+                TimeSpan tongGio = giora.Value - giovao;
+                int sogio = tongGio.Hours;
+                int sophut = tongGio.Minutes;
+                lblTongThoiGian.Text = $"{sogio}h {sophut:D2}m";
+            }
+            else
+            {
+                lblThoiGian.Text = $"{giovao.ToString(@"hh\:mm")} - --:--";
+                lblTongThoiGian.Text = "Đang làm...";
+            }
+            
 
         }
     }
