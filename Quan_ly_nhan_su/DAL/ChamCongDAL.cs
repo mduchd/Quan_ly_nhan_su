@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using Quan_ly_nhan_su.DTO;
 using System.Drawing.Text;
 
+
 // truy xất DB 
 namespace Quan_ly_nhan_su.DAL
 {
@@ -45,20 +46,23 @@ namespace Quan_ly_nhan_su.DAL
                 try
                 {
                     conn.Open();
-                    string query = "Update NhanVienChamCong Set Trangthai = @Trangthai, NgayChamCong = @NgayChamCong, GioVao = @GioVao where MaNV = @MaNV";
+                    DateTime now = DateTime.Now;
+                    string query = "insert into ChiTietChamCong(MaNV, NgayChamCong, GioVao) values (@MaNV, @NgayChamCong, @GioVao)";
                     using (SqlCommand cmd = new SqlCommand(query, conn)) {
-                        DateTime now = DateTime.Now;
-                        cmd.Parameters.AddWithValue("@Trangthai", trangThaiMoi);
                         cmd.Parameters.AddWithValue("@MaNV", maNV);
                         cmd.Parameters.AddWithValue("@NgayChamCong", now.Date);
                         cmd.Parameters.AddWithValue("@GioVao", now.TimeOfDay);
-
-                        int soDongCapNhat = cmd.ExecuteNonQuery();
-                        if (soDongCapNhat > 0)
+                        cmd.ExecuteNonQuery();
+                    }
+                    string queryUpdate = "Update NhanVien set Trangthai= @Trangthai where MaNV = @MaNV";
+                    using(SqlCommand cmdUpdate = new SqlCommand(queryUpdate, conn))
+                    {
+                        cmdUpdate.Parameters.AddWithValue("@Trangthai", trangThaiMoi);
+                        cmdUpdate.Parameters.AddWithValue("@MaNV", maNV);
+                        if(cmdUpdate.ExecuteNonQuery() > 0)
                         {
                             ketqua = true;
                         }
-
                     }
                 }
                 catch (Exception ex)
@@ -68,7 +72,7 @@ namespace Quan_ly_nhan_su.DAL
             }
             return ketqua;
         }
-        public bool CapNhatTrangThaiCheckOut(string maNV)
+        public bool CapNhatTrangThaiCheckOut(string maNV, double tongGio)
         {
             bool ketQua = false;
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -76,13 +80,22 @@ namespace Quan_ly_nhan_su.DAL
                 try
                 {
                     conn.Open();
-                    string query = @"Update NhanVienChamCong set Trangthai = 0, GioRa = @GioRa Where MaNV = @MaNV And Trangthai = 1";
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    DateTime now = DateTime.Now;
+                    string queryUpdateHistory = @"Update ChiTietChamCong set  GioRa = @GioRa,  TongGio = @TongGio Where MaNV = @MaNV And NgayChamCong = @Ngay and GioRa Is null";
+                    using (SqlCommand cmd1 = new SqlCommand(queryUpdateHistory, conn))
                     {
-                        cmd.Parameters.AddWithValue("@GioRa", DateTime.Now.TimeOfDay);
-                        cmd.Parameters.AddWithValue("@MaNV", maNV);
-                        int soDongCapNhat = cmd.ExecuteNonQuery();
-                        if (soDongCapNhat > 0)
+                        cmd1.Parameters.AddWithValue("@GioRa", DateTime.Now.TimeOfDay);
+                        cmd1.Parameters.AddWithValue("@MaNV", maNV);
+                        cmd1.Parameters.AddWithValue("@TongGio", tongGio);
+                        cmd1.Parameters.AddWithValue("@Ngay", now.Date);
+                        cmd1.ExecuteNonQuery();
+                        
+                    }
+                    string queryUpdateStatus = "Update NhanVien Set Trangthai = 0 where MaNV = @MaNV";
+                    using(SqlCommand cmd2 = new SqlCommand(queryUpdateStatus, conn))
+                    {
+                        cmd2.Parameters.AddWithValue("@MaNV", maNV);
+                        if(cmd2.ExecuteNonQuery() > 0)
                         {
                             ketQua = true;
                         }
@@ -103,7 +116,7 @@ namespace Quan_ly_nhan_su.DAL
                 try
                 {
                     conn.Open();
-                    string query = "Select Trangthai from NhanVienChamCong where MaNV = @MaNV";
+                    string query = "Select Trangthai from NhanVien where MaNV = @MaNV";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@MaNV", maNV);
@@ -123,7 +136,7 @@ namespace Quan_ly_nhan_su.DAL
 
         }
       
-    public ChamCongDTO LayThongTinChamCong(string maNV)
+        public ChamCongDTO LayThongTinChamCong(string maNV)
         {
             ChamCongDTO nv = null;
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -131,9 +144,10 @@ namespace Quan_ly_nhan_su.DAL
                 try
                 {
                     conn.Open();
-                    string query = "Select MaNV, GioVao from NhanVienChamCong where MaNV = @MaNV";
+                    string query = "Select MaNV, GioVao from ChiTietChamCong where MaNV = @MaNV AND NgayChamCong = @Ngay AND GioRa IS NULL";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
+                        cmd.Parameters.AddWithValue("@Ngay", DateTime.Now.Date);
                         cmd.Parameters.AddWithValue("@MaNV", maNV);
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
@@ -155,6 +169,67 @@ namespace Quan_ly_nhan_su.DAL
                 }
             }
             return nv;
+        }
+
+        public (string tenNV, string SDT, string DiaChi) LayThongTinNhanVien(string maNhanVien)
+        {
+            string query = "Select TenNV, SoDienThoai, DiaChi from NhanVien where MaNV = @MaNV";
+            string tenNV = "";
+            string SDT = "";
+            string DiaChi = "";
+       
+                
+            using(SqlConnection conn = new SqlConnection(connectionString))
+            {
+                using(SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@MaNV", maNhanVien);
+                    try
+                    {
+                        conn.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                               
+                                tenNV = reader["TenNV"].ToString();
+                                SDT = reader["SoDienThoai"].ToString();
+                                DiaChi = reader["DiaChi"].ToString();
+                               
+
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lối" + ex.Message);
+                    }
+                }
+                return (tenNV, SDT, DiaChi);
+            }
+        }
+        public DataTable LayLichSuChamCong(string maNV)
+        {
+            DataTable dt = new DataTable();
+            string query = "Select NgayChamCong, GioVao, GioRa from ChiTietChamCong where MaNV = @MaNV order by NgayChamCong DESC, GioVao DESC";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                using(SqlCommand  cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@MaNV", maNV);
+                    try
+                    {
+                        conn.Open();
+                        SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                        adapter.Fill(dt);
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show("Lỗi lấy lịch sử: " + ex.Message);
+                    }
+                }
+            }
+            return dt;
         }
     }
 }

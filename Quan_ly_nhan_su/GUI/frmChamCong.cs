@@ -7,13 +7,14 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using Quan_ly_nhan_su.DTO;
+using System.Security.RightsManagement;
 
 
 namespace Quan_ly_nhan_su.GUI
 {
     public partial class frmChamCong : Form
     {
-
+        private bool isThoat = true;
         public frmChamCong()
         {
             InitializeComponent();
@@ -55,16 +56,37 @@ namespace Quan_ly_nhan_su.GUI
 
         }
 
-
-        private void LoadDanhSachChamCong()
+        private void LoadLichSuCuaNhanVien(string maNV)
         {
             flpDanhSachChamCong.SuspendLayout();
             flpDanhSachChamCong.Controls.Clear();
-            TaoTheChamCong("23", "Thứ 2, 23/10/2024", "8h 10m", "08:00 - 17:00");
-            TaoTheChamCong("20", "Thứ 2, 23/10/2024", "8h 10m", "08:00 - 17:00");
-            TaoTheChamCong("19", "Thứ 2, 23/10/2024", "8h 10m", "08:00 - 17:00");
+            ChamCongDAL dal = new ChamCongDAL();
+            DataTable dtLichSu = dal.LayLichSuChamCong(maNV);
+            string[] day = { "Chủ nhật", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7" };
+            foreach (DataRow row in dtLichSu.Rows)
+            {
+                if (row["NgayChamCong"] != DBNull.Value && row["GioVao"] != DBNull.Value && row["GioRa"] != DBNull.Value)
+                {
+                    DateTime ngayDayDu = Convert.ToDateTime(row["NgayChamCong"]);
+                    TimeSpan gioVao = (TimeSpan)row["GioVao"];
+                    TimeSpan gioRa = (TimeSpan)row["GioRa"];
+
+                    int ngay = ngayDayDu.Day;
+                    int thang = ngayDayDu.Month;
+                    int nam = ngayDayDu.Year;
+                    string thu = day[(int)ngayDayDu.DayOfWeek];
+
+                    ucItemChamCong uct = new ucItemChamCong();
+                    uct.LichSuNgay(ngay, thang, nam, thu, gioVao, gioRa);
+                    uct.Width = flpDanhSachChamCong.ClientSize.Width - SystemInformation.VerticalScrollBarWidth - 5;
+
+                    flpDanhSachChamCong.Controls.Add(uct);
+                }
+            }
             flpDanhSachChamCong.ResumeLayout();
         }
+
+
         private void TaoTheChamCong(string ngay, string dmy, string tonggio, string thoigian)
         {
             ucItemChamCong item = new ucItemChamCong();
@@ -89,7 +111,7 @@ namespace Quan_ly_nhan_su.GUI
             AssignClickEventToAll(pnCheckIn, pnCheckIn_Click);
             AssignClickEventToAll(pnCheckOut, pnCheckOut_Click);
 
-            LoadDanhSachChamCong();
+
             flpDanhSachChamCong.SizeChanged += (s, ev) =>
             {
                 flpDanhSachChamCong.SuspendLayout();
@@ -99,6 +121,7 @@ namespace Quan_ly_nhan_su.GUI
                 }
                 flpDanhSachChamCong.ResumeLayout();
             };
+            pnThongTinNV.Visible = false;
         }
 
         private void timerClock_Tick(object sender, EventArgs e)
@@ -158,6 +181,7 @@ namespace Quan_ly_nhan_su.GUI
                 lbGioVao.Text = DateTime.Now.ToString("HH:mm");
                 khoaNutCheckIn();
                 txtNhapMaNV.Clear();
+                pnThongTinNV.Visible = false;
 
             }
             else
@@ -209,35 +233,41 @@ namespace Quan_ly_nhan_su.GUI
                 return;
 
             }
-            bool isSuccess = dal.CapNhatTrangThaiCheckOut(maNhanVien);
-            if (isSuccess)
+            ChamCongDTO thongtin = dal.LayThongTinChamCong(maNhanVien);
+
+            if (thongtin != null && thongtin.GioVao != null)
             {
-                MessageBox.Show(maNhanVien + " đã Check-out thành công!");
-                ChamCongDTO thongtin = dal.LayThongTinChamCong(maNhanVien);
-                if (thongtin != null && thongtin.GioVao != null)
+                TimeSpan gioRa = DateTime.Now.TimeOfDay;
+                TimeSpan gioVao = thongtin.GioVao.Value;
+                TimeSpan tongThoiGian = gioRa - gioVao;
+                double tongGioLam = tongThoiGian.TotalHours;
+
+
+                bool isSuccess = dal.CapNhatTrangThaiCheckOut(maNhanVien, tongGioLam);
+                if (isSuccess)
                 {
+                    MessageBox.Show(maNhanVien + " đã Check-out thành công!");
+
                     lbGioVao.Text = thongtin.GioVao.Value.ToString("hh\\:mm");
-                    lbGioRa.Text = DateTime.Now.ToString("HH:mm");
-                    TimeSpan gioRa = DateTime.Now.TimeOfDay;
-                    TimeSpan gioVao = thongtin.GioVao.Value;
-                    TimeSpan tongThoiGian = gioRa - gioVao;
                     int soGio = tongThoiGian.Hours;
                     int soPhut = tongThoiGian.Minutes;
-
-                    // Hiển thị lên giao diện
                     lbTongGio.Text = $"{soGio}h {soPhut:D2}m";
+                    khoaNutCheckIn();
+                    txtNhapMaNV.Clear();
+                    pnThongTinNV.Visible = false;
+                    ucItemChamCong uct = new ucItemChamCong();
 
+                    LoadLichSuCuaNhanVien(maNhanVien);
                 }
-
-                khoaNutCheckIn();
-                txtNhapMaNV.Clear();
+                else
+                {
+                    MessageBox.Show("Check-out thất bại. Vui lòng thử lại!");
+                }
             }
             else
             {
-                MessageBox.Show("Check-out thất bại. Vui lòng thử lại!");
+                MessageBox.Show("Không lấy được giờ vào của nhân viên này để tính toán!");
             }
-
-
 
         }
 
@@ -261,8 +291,19 @@ namespace Quan_ly_nhan_su.GUI
                 }
                 ChamCongDAL dal = new ChamCongDAL();
                 int trangThai = dal.KiemTraTrangThai(MaNV);
+
+                if (trangThai == -1)
+                {
+                    MessageBox.Show("Mã nhân viên này không có trong hệ thống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    pnThongTinNV.Visible = false;
+                    flpDanhSachChamCong.Controls.Clear();
+                    return;
+                }
+                TTNV();
+                LoadLichSuCuaNhanVien(MaNV);
                 if (trangThai == 1)
                 {
+
                     khoaNutCheckIn();
                     ChamCongDTO thongtin = dal.LayThongTinChamCong(MaNV);
                     if (thongtin != null && thongtin.GioVao != null)
@@ -274,16 +315,32 @@ namespace Quan_ly_nhan_su.GUI
                 }
                 else if (trangThai == 0)
                 {
+                    pnThongTinNV.Enabled = true;
                     upDateColor();
                     lbGioVao.Text = "--:--";
                     lbGioRa.Text = "--:--";
                     lbTongGio.Text = "0.00h";
                 }
-                else
-                {
-                    pnThongTinNV.Visible = true;
-                    pnThongTinNV.BringToFront();
-                }
+
+            }
+        }
+
+        public void TTNV()
+        {
+            ChamCongDAL dal = new ChamCongDAL();
+            try
+            {
+
+                string MaNV = txtNhapMaNV.Text.Trim();
+                var thongtin = dal.LayThongTinNhanVien(MaNV);
+                lblHoTenNhanVien.Text = thongtin.tenNV;
+                lblSoDienThoai.Text = thongtin.SDT;
+                lblDiaChiNhanVien.Text = thongtin.DiaChi;
+                pnThongTinNV.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi" + ex.Message);
             }
         }
 
@@ -294,9 +351,33 @@ namespace Quan_ly_nhan_su.GUI
 
         private void btnBack_Click(object sender, EventArgs e)
         {
+            isThoat = false;
             frmDangNhap f = new frmDangNhap();
             f.Show();
             this.Close();
+        }
+
+        private void lbDate_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmChamCong_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (isThoat)
+            {
+                Application.Exit();
+            }
+            
+        }
+
+        private void frmChamCong_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (timerClock != null)
+            {
+                timerClock.Stop();
+                timerClock.Dispose();
+            }
         }
     }
 }
