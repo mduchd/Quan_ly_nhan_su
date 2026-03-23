@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using Microsoft.Data.SqlClient;
@@ -13,15 +13,8 @@ namespace Quan_ly_nhan_su.DAL
             var ds = new List<NhanVienDTO>();
             totalRecords = 0;
 
-            if (pageNumber < 1)
-            {
-                pageNumber = 1;
-            }
-
-            if (pageSize < 1)
-            {
-                pageSize = 20;
-            }
+            if (pageNumber < 1) pageNumber = 1;
+            if (pageSize < 1) pageSize = 20;
 
             const string countQuery = @"
                 SELECT COUNT(1)
@@ -31,25 +24,8 @@ namespace Quan_ly_nhan_su.DAL
             using var conn = DbContext.GetSqlConnection();
             conn.Open();
 
-            var ngayChamCongColumn = AttendanceSchemaHelper.ResolveColumn(conn, "NhanVien", null, "NgayChamCong", "Ngay", "ngay", "NgayCong");
-            var gioVaoColumn = AttendanceSchemaHelper.ResolveColumn(conn, "NhanVien", null, "GioVao", "gioVao", "CheckIn");
-            var gioRaColumn = AttendanceSchemaHelper.ResolveColumn(conn, "NhanVien", null, "GioRa", "gioRa", "CheckOut");
-
-            var ngayChamCongExpression = string.IsNullOrWhiteSpace(ngayChamCongColumn)
-                ? "CAST(NULL AS date)"
-                : $"[{ngayChamCongColumn}]";
-            var gioVaoExpression = string.IsNullOrWhiteSpace(gioVaoColumn)
-                ? "CAST(NULL AS time)"
-                : $"[{gioVaoColumn}]";
-            var gioRaExpression = string.IsNullOrWhiteSpace(gioRaColumn)
-                ? "CAST(NULL AS time)"
-                : $"[{gioRaColumn}]";
-
-            var dataQuery = $@"
-                SELECT MaNV, TenNV, NgaySinh, GioiTinh, ChucVu, SoDienThoai, Email, DiaChi, NgayVaoLam, TrangThai, PhongBan, LuongCung,
-                       {ngayChamCongExpression} AS NgayChamCong,
-                       {gioVaoExpression} AS GioVao,
-                       {gioRaExpression} AS GioRa
+            var dataQuery = @"
+                SELECT MaNV, TenNV, NgaySinh, GioiTinh, ChucVu, SoDienThoai, Email, DiaChi, NgayVaoLam, TrangThai, PhongBan, LuongCung
                 FROM NhanVien
                 WHERE (@TuKhoa = '' OR MaNV LIKE @LikeTuKhoa OR TenNV LIKE @LikeTuKhoa OR SoDienThoai LIKE @LikeTuKhoa OR Email LIKE @LikeTuKhoa)
                 ORDER BY MaNV
@@ -89,9 +65,9 @@ namespace Quan_ly_nhan_su.DAL
                     TrangThai = reader["TrangThai"] != DBNull.Value && Convert.ToBoolean(reader["TrangThai"]),
                     PhongBan = reader["PhongBan"]?.ToString() ?? string.Empty,
                     LuongCung = reader["LuongCung"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["LuongCung"]),
-                    NgayChamCong = reader["NgayChamCong"] == DBNull.Value ? null : Convert.ToDateTime(reader["NgayChamCong"]),
-                    GioVao = reader["GioVao"] == DBNull.Value ? null : (TimeSpan?)reader["GioVao"],
-                    GioRa = reader["GioRa"] == DBNull.Value ? null : (TimeSpan?)reader["GioRa"]
+                    NgayChamCong = null,
+                    GioVao = null,
+                    GioRa = null
                 });
             }
 
@@ -106,8 +82,8 @@ namespace Quan_ly_nhan_su.DAL
         public bool ThemNhanVien(NhanVienDTO nv)
         {
             const string query = @"
-                INSERT INTO NhanVien(MaNV, TenNV, NgaySinh, GioiTinh, ChucVu, SoDienThoai, Email, DiaChi, NgayVaoLam, TrangThai, PhongBan, LuongCung, NgayChamCong, GioVao, GioRa)
-                VALUES(@MaNV, @TenNV, @NgaySinh, @GioiTinh, @ChucVu, @SoDienThoai, @Email, @DiaChi, @NgayVaoLam, @TrangThai, @PhongBan, @LuongCung, @NgayChamCong, @GioVao, @GioRa)";
+                INSERT INTO NhanVien(MaNV, TenNV, NgaySinh, GioiTinh, ChucVu, SoDienThoai, Email, DiaChi, NgayVaoLam, TrangThai, PhongBan, LuongCung)
+                VALUES(@MaNV, @TenNV, @NgaySinh, @GioiTinh, @ChucVu, @SoDienThoai, @Email, @DiaChi, @NgayVaoLam, @TrangThai, @PhongBan, @LuongCung)";
 
             using var conn = DbContext.GetSqlConnection();
             using var cmd = new SqlCommand(query, conn);
@@ -130,10 +106,7 @@ namespace Quan_ly_nhan_su.DAL
                     NgayVaoLam = @NgayVaoLam,
                     TrangThai = @TrangThai,
                     PhongBan = @PhongBan,
-                    LuongCung = @LuongCung,
-                    NgayChamCong = @NgayChamCong,
-                    GioVao = @GioVao,
-                    GioRa = @GioRa
+                    LuongCung = @LuongCung
                 WHERE MaNV = @MaNV";
 
             using var conn = DbContext.GetSqlConnection();
@@ -192,7 +165,7 @@ namespace Quan_ly_nhan_su.DAL
             var so = 0;
             if (maCuoi.StartsWith("NV", StringComparison.OrdinalIgnoreCase))
             {
-                _ = int.TryParse(maCuoi.Substring(2), out so);
+                int.TryParse(maCuoi.Substring(2), out so);
             }
 
             return $"NV{(so + 1):D3}";
@@ -204,36 +177,17 @@ namespace Quan_ly_nhan_su.DAL
             using var conn = DbContext.GetSqlConnection();
             conn.Open();
 
-            var tenCotPhongBan = ResolveDepartmentNameColumn(conn);
-            if (!string.IsNullOrWhiteSpace(tenCotPhongBan))
+            const string query = @"
+                SELECT TenPhongBan
+                FROM PhongBan
+                WHERE TenPhongBan IS NOT NULL AND LTRIM(RTRIM(TenPhongBan)) <> ''
+                ORDER BY TenPhongBan";
+
+            using var cmd = new SqlCommand(query, conn);
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
             {
-                var query = $@"
-                    SELECT [{tenCotPhongBan}]
-                    FROM PhongBan
-                    WHERE [{tenCotPhongBan}] IS NOT NULL AND LTRIM(RTRIM([{tenCotPhongBan}])) <> ''
-                    ORDER BY [{tenCotPhongBan}]";
-
-                using var cmd = new SqlCommand(query, conn);
-                using var reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    ds.Add(reader[tenCotPhongBan].ToString() ?? string.Empty);
-                }
-
-                return ds;
-            }
-
-            const string fallbackQuery = @"
-                SELECT DISTINCT PhongBan
-                FROM NhanVien
-                WHERE PhongBan IS NOT NULL AND LTRIM(RTRIM(PhongBan)) <> ''
-                ORDER BY PhongBan";
-
-            using var fallbackCmd = new SqlCommand(fallbackQuery, conn);
-            using var fallbackReader = fallbackCmd.ExecuteReader();
-            while (fallbackReader.Read())
-            {
-                ds.Add(fallbackReader["PhongBan"].ToString() ?? string.Empty);
+                ds.Add(reader["TenPhongBan"].ToString() ?? string.Empty);
             }
 
             return ds;
@@ -244,26 +198,40 @@ namespace Quan_ly_nhan_su.DAL
             using var conn = DbContext.GetSqlConnection();
             conn.Open();
 
-            var tenCotPhongBan = ResolveDepartmentNameColumn(conn);
-            if (string.IsNullOrWhiteSpace(tenCotPhongBan))
+            string query = "INSERT INTO PhongBan (TenPhongBan) VALUES (@TenPhongBan)";
+
+            using var cmd = new SqlCommand(query, conn);
+            cmd.Parameters.Add("@TenPhongBan", SqlDbType.NVarChar, 100).Value = tenPhongBan;
+            
+            try
+            {
+                return cmd.ExecuteNonQuery() > 0;
+            }
+            catch
             {
                 return false;
             }
+        }
 
-            var checkQuery = $"SELECT COUNT(1) FROM PhongBan WHERE [{tenCotPhongBan}] = @TenPhongBan";
-            using (var checkCmd = new SqlCommand(checkQuery, conn))
+        public bool DoiTenPhongBan(string tenCu, string tenMoi)
+        {
+            using var conn = DbContext.GetSqlConnection();
+            conn.Open();
+
+            string query = "UPDATE PhongBan SET TenPhongBan = @TenMoi WHERE TenPhongBan = @TenCu";
+
+            using var cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@TenMoi", tenMoi);
+            cmd.Parameters.AddWithValue("@TenCu", tenCu);
+
+            try
             {
-                checkCmd.Parameters.Add("@TenPhongBan", SqlDbType.NVarChar, 100).Value = tenPhongBan;
-                if (Convert.ToInt32(checkCmd.ExecuteScalar()) > 0)
-                {
-                    return false;
-                }
+                return cmd.ExecuteNonQuery() > 0;
             }
-
-            var insertQuery = $"INSERT INTO PhongBan([{tenCotPhongBan}]) VALUES (@TenPhongBan)";
-            using var insertCmd = new SqlCommand(insertQuery, conn);
-            insertCmd.Parameters.Add("@TenPhongBan", SqlDbType.NVarChar, 100).Value = tenPhongBan;
-            return insertCmd.ExecuteNonQuery() > 0;
+            catch
+            {
+                return false;
+            }
         }
 
         public bool XoaPhongBan(string tenPhongBan)
@@ -271,143 +239,48 @@ namespace Quan_ly_nhan_su.DAL
             using var conn = DbContext.GetSqlConnection();
             conn.Open();
 
-            var tenCotPhongBan = ResolveDepartmentNameColumn(conn);
-            if (string.IsNullOrWhiteSpace(tenCotPhongBan))
+            string query = "DELETE FROM PhongBan WHERE TenPhongBan = @TenPhongBan";
+
+            using var cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@TenPhongBan", tenPhongBan);
+
+            try
+            {
+                return cmd.ExecuteNonQuery() > 0;
+            }
+            catch
             {
                 return false;
             }
-
-            var query = $"DELETE FROM PhongBan WHERE [{tenCotPhongBan}] = @TenPhongBan";
-            using var cmd = new SqlCommand(query, conn);
-            cmd.Parameters.Add("@TenPhongBan", SqlDbType.NVarChar, 100).Value = tenPhongBan;
-            return cmd.ExecuteNonQuery() > 0;
         }
 
         public bool KiemTraPhongBanDangDuocSuDung(string tenPhongBan)
         {
-            const string query = "SELECT COUNT(1) FROM NhanVien WHERE PhongBan = @TenPhongBan";
-
             using var conn = DbContext.GetSqlConnection();
+            conn.Open();
+
+            string query = "SELECT COUNT(1) FROM NhanVien WHERE PhongBan = @TenPhongBan";
+
             using var cmd = new SqlCommand(query, conn);
-            cmd.Parameters.Add("@TenPhongBan", SqlDbType.NVarChar, 100).Value = tenPhongBan;
-            conn.Open();
-            return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
-        }
+            cmd.Parameters.AddWithValue("@TenPhongBan", tenPhongBan);
 
-        public bool DoiTenPhongBan(string tenCu, string tenMoi)
-        {
-            using var conn = DbContext.GetSqlConnection();
-            conn.Open();
-            using var tran = conn.BeginTransaction();
-
-            try
-            {
-                var tenCotPhongBan = ResolveDepartmentNameColumn(conn, tran);
-                if (string.IsNullOrWhiteSpace(tenCotPhongBan))
-                {
-                    tran.Rollback();
-                    return false;
-                }
-
-                var checkQuery = $"SELECT COUNT(1) FROM PhongBan WHERE [{tenCotPhongBan}] = @TenMoi";
-                using (var checkCmd = new SqlCommand(checkQuery, conn, tran))
-                {
-                    checkCmd.Parameters.Add("@TenMoi", SqlDbType.NVarChar, 100).Value = tenMoi;
-                    if (Convert.ToInt32(checkCmd.ExecuteScalar()) > 0)
-                    {
-                        tran.Rollback();
-                        return false;
-                    }
-                }
-
-                var updatePhongBanQuery = $"UPDATE PhongBan SET [{tenCotPhongBan}] = @TenMoi WHERE [{tenCotPhongBan}] = @TenCu";
-                using (var updatePhongBanCmd = new SqlCommand(updatePhongBanQuery, conn, tran))
-                {
-                    updatePhongBanCmd.Parameters.Add("@TenMoi", SqlDbType.NVarChar, 100).Value = tenMoi;
-                    updatePhongBanCmd.Parameters.Add("@TenCu", SqlDbType.NVarChar, 100).Value = tenCu;
-                    if (updatePhongBanCmd.ExecuteNonQuery() <= 0)
-                    {
-                        tran.Rollback();
-                        return false;
-                    }
-                }
-
-                const string updateNhanVienQuery = "UPDATE NhanVien SET PhongBan = @TenMoi WHERE PhongBan = @TenCu";
-                using (var updateNhanVienCmd = new SqlCommand(updateNhanVienQuery, conn, tran))
-                {
-                    updateNhanVienCmd.Parameters.Add("@TenMoi", SqlDbType.NVarChar, 100).Value = tenMoi;
-                    updateNhanVienCmd.Parameters.Add("@TenCu", SqlDbType.NVarChar, 100).Value = tenCu;
-                    _ = updateNhanVienCmd.ExecuteNonQuery();
-                }
-
-                tran.Commit();
-                return true;
-            }
-            catch
-            {
-                tran.Rollback();
-                return false;
-            }
-        }
-
-        private static string ResolveDepartmentNameColumn(SqlConnection conn, SqlTransaction? tran = null)
-        {
-            const string preferredNameQuery = @"
-                SELECT TOP 1 c.name
-                FROM sys.tables t
-                INNER JOIN sys.columns c ON t.object_id = c.object_id
-                WHERE t.name = 'PhongBan'
-                  AND c.name IN ('TenPhongBan', 'PhongBan', 'TenPB', 'TenPhong')
-                ORDER BY CASE c.name
-                    WHEN 'TenPhongBan' THEN 1
-                    WHEN 'PhongBan' THEN 2
-                    WHEN 'TenPB' THEN 3
-                    WHEN 'TenPhong' THEN 4
-                    ELSE 5
-                END";
-
-            using (var preferredCmd = new SqlCommand(preferredNameQuery, conn, tran))
-            {
-                var preferredColumn = preferredCmd.ExecuteScalar()?.ToString();
-                if (!string.IsNullOrWhiteSpace(preferredColumn))
-                {
-                    return preferredColumn;
-                }
-            }
-
-            const string fallbackNameQuery = @"`
-                SELECT TOP 1 c.name
-                FROM sys.tables t
-                INNER JOIN sys.columns c ON t.object_id = c.object_id
-                INNER JOIN sys.types ty ON c.user_type_id = ty.user_type_id
-                WHERE t.name = 'PhongBan'
-                  AND ty.name IN ('nvarchar', 'varchar', 'nchar', 'char')
-                  AND c.name NOT LIKE 'Ma%'
-                ORDER BY c.column_id";
-
-            using var fallbackCmd = new SqlCommand(fallbackNameQuery, conn, tran);
-            return fallbackCmd.ExecuteScalar()?.ToString() ?? string.Empty;
+            return (int)cmd.ExecuteScalar() > 0;
         }
 
         private static void FillNhanVienParameters(SqlCommand cmd, NhanVienDTO nv)
         {
             cmd.Parameters.Add("@MaNV", SqlDbType.VarChar, 20).Value = nv.MaNV;
-            cmd.Parameters.Add("@TenNV", SqlDbType.NVarChar, 100).Value = nv.TenNV;
-            cmd.Parameters.Add("@NgaySinh", SqlDbType.Date).Value = nv.NgaySinh;
+            cmd.Parameters.Add("@TenNV", SqlDbType.NVarChar, 150).Value = nv.TenNV;
+            cmd.Parameters.Add("@NgaySinh", SqlDbType.Date).Value = nv.NgaySinh.Date;
             cmd.Parameters.Add("@GioiTinh", SqlDbType.NVarChar, 10).Value = nv.GioiTinh;
             cmd.Parameters.Add("@ChucVu", SqlDbType.NVarChar, 100).Value = nv.ChucVu;
             cmd.Parameters.Add("@SoDienThoai", SqlDbType.VarChar, 20).Value = nv.SoDienThoai;
-            cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 100).Value = nv.Email;
+            cmd.Parameters.Add("@Email", SqlDbType.VarChar, 150).Value = nv.Email;
             cmd.Parameters.Add("@DiaChi", SqlDbType.NVarChar, 255).Value = nv.DiaChi;
-            cmd.Parameters.Add("@NgayVaoLam", SqlDbType.Date).Value = nv.NgayVaoLam;
+            cmd.Parameters.Add("@NgayVaoLam", SqlDbType.Date).Value = nv.NgayVaoLam.Date;
             cmd.Parameters.Add("@TrangThai", SqlDbType.Bit).Value = nv.TrangThai;
             cmd.Parameters.Add("@PhongBan", SqlDbType.NVarChar, 100).Value = nv.PhongBan;
             cmd.Parameters.Add("@LuongCung", SqlDbType.Decimal).Value = nv.LuongCung;
-            cmd.Parameters["@LuongCung"].Precision = 18;
-            cmd.Parameters["@LuongCung"].Scale = 2;
-            cmd.Parameters.Add("@NgayChamCong", SqlDbType.Date).Value = (object?)nv.NgayChamCong ?? DBNull.Value;
-            cmd.Parameters.Add("@GioVao", SqlDbType.Time).Value = (object?)nv.GioVao ?? DBNull.Value;
-            cmd.Parameters.Add("@GioRa", SqlDbType.Time).Value = (object?)nv.GioRa ?? DBNull.Value;
         }
     }
 }

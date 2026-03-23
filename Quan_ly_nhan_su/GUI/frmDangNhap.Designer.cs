@@ -54,7 +54,7 @@ namespace Quan_ly_nhan_su.GUI
             // 
             // pnlLeft
             // 
-            pnlLeft.BackColor = Color.DarkCyan;
+            pnlLeft.BackColor = Color.FromArgb(41, 128, 185);
             pnlLeft.Controls.Add(guna2PictureBox1);
             pnlLeft.Controls.Add(guna2HtmlLabel1);
             pnlLeft.Dock = DockStyle.Left;
@@ -65,8 +65,8 @@ namespace Quan_ly_nhan_su.GUI
             // 
             // guna2PictureBox1
             // 
-            guna2PictureBox1.BackColor = Color.White;
-            guna2PictureBox1.BorderRadius = 50;
+            guna2PictureBox1.BackColor = Color.Transparent;
+            guna2PictureBox1.BorderRadius = 0;
             guna2PictureBox1.CustomizableEdges = customizableEdges1;
             guna2PictureBox1.Image = Properties.Resources.management;
             guna2PictureBox1.ImageRotate = 0F;
@@ -129,8 +129,8 @@ namespace Quan_ly_nhan_su.GUI
             btnDangNhap.DisabledState.CustomBorderColor = Color.DarkGray;
             btnDangNhap.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
             btnDangNhap.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btnDangNhap.FillColor = Color.DarkCyan;
-            btnDangNhap.Font = new Font("Segoe UI", 9F);
+            btnDangNhap.FillColor = Color.FromArgb(41, 128, 185);
+            btnDangNhap.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnDangNhap.ForeColor = Color.White;
             btnDangNhap.Location = new Point(475, 305);
             btnDangNhap.Margin = new Padding(3, 2, 3, 2);
@@ -159,7 +159,7 @@ namespace Quan_ly_nhan_su.GUI
             txtTaiKhoan.Location = new Point(405, 135);
             txtTaiKhoan.Margin = new Padding(3, 4, 3, 4);
             txtTaiKhoan.Name = "txtTaiKhoan";
-            txtTaiKhoan.PlaceholderText = "";
+            txtTaiKhoan.PlaceholderText = "Nhập tài khoản...";
             txtTaiKhoan.SelectedText = "";
             txtTaiKhoan.ShadowDecoration.CustomizableEdges = customizableEdges6;
             txtTaiKhoan.Size = new Size(339, 34);
@@ -183,7 +183,7 @@ namespace Quan_ly_nhan_su.GUI
             txtMatKhau.Location = new Point(405, 227);
             txtMatKhau.Margin = new Padding(3, 4, 3, 4);
             txtMatKhau.Name = "txtMatKhau";
-            txtMatKhau.PlaceholderText = "";
+            txtMatKhau.PlaceholderText = "Nhập mật khẩu...";
             txtMatKhau.SelectedText = "";
             txtMatKhau.ShadowDecoration.CustomizableEdges = customizableEdges8;
             txtMatKhau.Size = new Size(339, 34);
@@ -211,7 +211,7 @@ namespace Quan_ly_nhan_su.GUI
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.White;
+            BackColor = Color.FromArgb(242, 245, 250);
             ClientSize = new Size(784, 411);
             Controls.Add(btnMoMayChamCong);
             Controls.Add(txtMatKhau);

@@ -1,4 +1,4 @@
-﻿namespace Quan_ly_nhan_su.GUI
+namespace Quan_ly_nhan_su.GUI
 {
     partial class frmChamCong
     {
@@ -410,8 +410,7 @@
             btnBack.CustomizableEdges = customizableEdges11;
             btnBack.DisabledState.BorderColor = Color.DarkGray;
             btnBack.DisabledState.CustomBorderColor = Color.DarkGray;
-            btnBack.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btnBack.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnBack.FillColor = Color.FromArgb(41, 128, 185);
             btnBack.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnBack.ForeColor = Color.White;
             btnBack.Location = new Point(18, 19);
@@ -499,6 +498,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(242, 245, 250);
             ClientSize = new Size(1714, 1055);
             Controls.Add(pnThongTinNV);
             Controls.Add(btnBack);

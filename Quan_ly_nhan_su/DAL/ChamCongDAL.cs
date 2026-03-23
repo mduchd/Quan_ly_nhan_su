@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Globalization;
 using Microsoft.Data.SqlClient;
 using Quan_ly_nhan_su.DTO;
 
@@ -13,18 +12,18 @@ namespace Quan_ly_nhan_su.DAL
 
         public bool ThemYeuCau(ChamCongDTO yeuCau)
         {
-            const string query = @"
+            string query = @"
                 INSERT INTO YeuCauNghiPhep(TenNhanVien, PhongBan, LoaiNghi, TuNgay, DenNgay, LyDo)
                 VALUES (@TenNhanVien, @PhongBan, @LoaiNghi, @TuNgay, @DenNgay, @LyDo)";
 
             using var conn = DbContext.GetSqlConnection();
             using var cmd = new SqlCommand(query, conn);
-            cmd.Parameters.Add("@TenNhanVien", SqlDbType.NVarChar, 100).Value = yeuCau.TenNhanVien;
-            cmd.Parameters.Add("@PhongBan", SqlDbType.NVarChar, 100).Value = yeuCau.PhongBan;
-            cmd.Parameters.Add("@LoaiNghi", SqlDbType.NVarChar, 100).Value = yeuCau.LoaiNghi;
-            cmd.Parameters.Add("@TuNgay", SqlDbType.Date).Value = yeuCau.TuNgay.Date;
-            cmd.Parameters.Add("@DenNgay", SqlDbType.Date).Value = yeuCau.DenNgay.Date;
-            cmd.Parameters.Add("@LyDo", SqlDbType.NVarChar, 500).Value = yeuCau.LyDo;
+            cmd.Parameters.AddWithValue("@TenNhanVien", yeuCau.TenNhanVien);
+            cmd.Parameters.AddWithValue("@PhongBan", yeuCau.PhongBan ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("@LoaiNghi", yeuCau.LoaiNghi ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("@TuNgay", yeuCau.TuNgay.Date);
+            cmd.Parameters.AddWithValue("@DenNgay", yeuCau.DenNgay.Date);
+            cmd.Parameters.AddWithValue("@LyDo", yeuCau.LyDo ?? (object)DBNull.Value);
 
             try
             {
@@ -42,51 +41,13 @@ namespace Quan_ly_nhan_su.DAL
             using var conn = DbContext.GetSqlConnection();
             conn.Open();
 
-            var employeeTable = AttendanceSchemaHelper.ResolveEmployeeTable(conn);
-            if (string.IsNullOrWhiteSpace(employeeTable))
-            {
-                return null;
-            }
-
-            var employeeIdColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, null, "MaNV", "maNV");
-            var employeeNameColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, null, "TenNV", "HoTen", "hoTen");
-            var employeePhoneColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, null, "SoDienThoai", "DienThoai", "SDT");
-            var employeeAddressColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, null, "DiaChi", "DiaChiThuongTru");
-            var employeeDepartmentColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, null, "PhongBan", "TenPhongBan");
-            var employeePositionColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, null, "ChucVu");
-            var employeeDateColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, null, "NgayChamCong", "Ngay", "ngay", "NgayCong");
-            var employeeCheckInColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, null, "GioVao", "gioVao", "CheckIn");
-            var employeeCheckOutColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, null, "GioRa", "gioRa", "CheckOut");
-
-            if (string.IsNullOrWhiteSpace(employeeIdColumn) || string.IsNullOrWhiteSpace(employeeNameColumn))
-            {
-                return null;
-            }
-
-            var phoneExpression = string.IsNullOrWhiteSpace(employeePhoneColumn) ? "N''" : $"n.[{employeePhoneColumn}]";
-            var addressExpression = string.IsNullOrWhiteSpace(employeeAddressColumn) ? "N''" : $"n.[{employeeAddressColumn}]";
-            var departmentExpression = string.IsNullOrWhiteSpace(employeeDepartmentColumn) ? "N''" : $"n.[{employeeDepartmentColumn}]";
-            var positionExpression = string.IsNullOrWhiteSpace(employeePositionColumn) ? "N''" : $"n.[{employeePositionColumn}]";
-            var dateExpression = string.IsNullOrWhiteSpace(employeeDateColumn) ? "CAST(NULL AS date)" : $"n.[{employeeDateColumn}]";
-            var checkInExpression = string.IsNullOrWhiteSpace(employeeCheckInColumn) ? "CAST(NULL AS time)" : $"n.[{employeeCheckInColumn}]";
-            var checkOutExpression = string.IsNullOrWhiteSpace(employeeCheckOutColumn) ? "CAST(NULL AS time)" : $"n.[{employeeCheckOutColumn}]";
-
-            var query = $@"
-                SELECT TOP 1
-                    n.[{employeeIdColumn}] AS MaNV,
-                    n.[{employeeNameColumn}] AS TenNV,
-                    {phoneExpression} AS SoDienThoai,
-                    {addressExpression} AS DiaChi,
-                    {departmentExpression} AS PhongBan,
-                    {positionExpression} AS ChucVu,
-                    {dateExpression} AS NgayChamCong,
-                    {checkInExpression} AS GioVao,
-                    {checkOutExpression} AS GioRa
-                FROM [{employeeTable}] n
-                WHERE n.[{employeeIdColumn}] = @MaNV";
+            string query = @"
+                SELECT MaNV, TenNV, SoDienThoai, DiaChi, PhongBan, ChucVu
+                FROM NhanVien
+                WHERE MaNV = @MaNV";
 
             using var cmd = new SqlCommand(query, conn);
-            cmd.Parameters.Add("@MaNV", SqlDbType.NVarChar, 20).Value = maNV.Trim();
+            cmd.Parameters.AddWithValue("@MaNV", maNV.Trim());
 
             using var reader = cmd.ExecuteReader();
             if (!reader.Read())
@@ -101,10 +62,7 @@ namespace Quan_ly_nhan_su.DAL
                 SoDienThoai = reader["SoDienThoai"]?.ToString() ?? string.Empty,
                 DiaChi = reader["DiaChi"]?.ToString() ?? string.Empty,
                 PhongBan = reader["PhongBan"]?.ToString() ?? string.Empty,
-                ChucVu = reader["ChucVu"]?.ToString() ?? string.Empty,
-                NgayChamCong = ToNullableDateTime(reader["NgayChamCong"]),
-                GioVao = ToNullableTimeSpan(reader["GioVao"]),
-                GioRa = ToNullableTimeSpan(reader["GioRa"])
+                ChucVu = reader["ChucVu"]?.ToString() ?? string.Empty
             };
         }
 
@@ -126,8 +84,8 @@ namespace Quan_ly_nhan_su.DAL
                     maNV = ma ?? string.Empty,
                     hoTen = row["hoTen"]?.ToString() ?? string.Empty,
                     ngay = row["ngay"] == DBNull.Value ? DateTime.Today : Convert.ToDateTime(row["ngay"]),
-                    gioVao = ToNullableTimeSpan(row["gioVao"]),
-                    gioRa = ToNullableTimeSpan(row["gioRa"]),
+                    gioVao = row["gioVao"] == DBNull.Value ? null : (TimeSpan?)row["gioVao"],
+                    gioRa = row["gioRa"] == DBNull.Value ? null : (TimeSpan?)row["gioRa"],
                     trangThai = row["trangThai"]?.ToString() ?? string.Empty
                 });
 
@@ -153,44 +111,54 @@ namespace Quan_ly_nhan_su.DAL
 
             using var conn = DbContext.GetSqlConnection();
             conn.Open();
-            using var tran = conn.BeginTransaction();
 
-            try
+            // 1. Kiểm tra tồn tại nhân viên
+            string checkNvQuery = "SELECT COUNT(1) FROM NhanVien WHERE MaNV = @MaNV";
+            using (var cmdCheck = new SqlCommand(checkNvQuery, conn))
             {
-                var employeeTable = AttendanceSchemaHelper.ResolveEmployeeTable(conn, tran);
-                var employeeIdColumn = string.IsNullOrWhiteSpace(employeeTable)
-                    ? null
-                    : AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, tran, "MaNV", "maNV");
-
-                if (string.IsNullOrWhiteSpace(employeeTable) || string.IsNullOrWhiteSpace(employeeIdColumn) || !EmployeeExists(conn, tran, employeeTable, employeeIdColumn, maNV))
+                cmdCheck.Parameters.AddWithValue("@MaNV", maNV);
+                int exists = (int)cmdCheck.ExecuteScalar();
+                if (exists == 0)
                 {
-                    tran.Rollback();
                     message = "Không tìm thấy nhân viên với mã đã nhập.";
                     return false;
                 }
+            }
 
-                var detailedTable = AttendanceSchemaHelper.ResolveDetailedAttendanceTable(conn, tran);
-                if (!string.IsNullOrWhiteSpace(detailedTable))
+            // 2. Kiểm tra xem hôm nay đã Check-in chưa
+            string checkDaChamCongQuery = "SELECT GioVao FROM ChamCong WHERE MaNV = @MaNV AND NgayChamCong = @Ngay";
+            using (var cmdCheckDaChamCong = new SqlCommand(checkDaChamCongQuery, conn))
+            {
+                cmdCheckDaChamCong.Parameters.AddWithValue("@MaNV", maNV);
+                cmdCheckDaChamCong.Parameters.AddWithValue("@Ngay", thoiDiem.Date);
+
+                using var reader = cmdCheckDaChamCong.ExecuteReader();
+                if (reader.Read())
                 {
-                    var canContinue = HandleCheckInOnDetailedAttendance(conn, tran, detailedTable, maNV, thoiDiem, out message);
-                    if (!canContinue)
+                    if (reader["GioVao"] != DBNull.Value)
                     {
-                        tran.Rollback();
+                        message = "Nhân viên đã check-in hôm nay.";
                         return false;
                     }
                 }
+            }
 
-                UpdateEmployeeAttendanceSnapshot(conn, tran, employeeTable, employeeIdColumn, maNV, thoiDiem, null, clearCheckOut: true);
+            // 3. Thực hiện Check-in
+            string checkInQuery = @"
+                IF EXISTS(SELECT 1 FROM ChamCong WHERE MaNV = @MaNV AND NgayChamCong = @Ngay)
+                    UPDATE ChamCong SET GioVao = @GioVao WHERE MaNV = @MaNV AND NgayChamCong = @Ngay
+                ELSE
+                    INSERT INTO ChamCong (MaNV, NgayChamCong, GioVao) VALUES (@MaNV, @Ngay, @GioVao)";
 
-                tran.Commit();
+            using (var cmdIn = new SqlCommand(checkInQuery, conn))
+            {
+                cmdIn.Parameters.AddWithValue("@MaNV", maNV);
+                cmdIn.Parameters.AddWithValue("@Ngay", thoiDiem.Date);
+                cmdIn.Parameters.AddWithValue("@GioVao", thoiDiem.TimeOfDay);
+
+                cmdIn.ExecuteNonQuery();
                 message = "Check-in thành công.";
                 return true;
-            }
-            catch (Exception ex)
-            {
-                tran.Rollback();
-                message = "Lỗi khi check-in: " + ex.Message;
-                return false;
             }
         }
 
@@ -207,216 +175,37 @@ namespace Quan_ly_nhan_su.DAL
 
             using var conn = DbContext.GetSqlConnection();
             conn.Open();
-            using var tran = conn.BeginTransaction();
 
-            try
+            // 1. Kiểm tra tồn tại nhân viên
+            string checkNvQuery = "SELECT COUNT(1) FROM NhanVien WHERE MaNV = @MaNV";
+            using (var cmdCheck = new SqlCommand(checkNvQuery, conn))
             {
-                var employeeTable = AttendanceSchemaHelper.ResolveEmployeeTable(conn, tran);
-                var employeeIdColumn = string.IsNullOrWhiteSpace(employeeTable)
-                    ? null
-                    : AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, tran, "MaNV", "maNV");
-
-                if (string.IsNullOrWhiteSpace(employeeTable) || string.IsNullOrWhiteSpace(employeeIdColumn) || !EmployeeExists(conn, tran, employeeTable, employeeIdColumn, maNV))
+                cmdCheck.Parameters.AddWithValue("@MaNV", maNV);
+                int exists = (int)cmdCheck.ExecuteScalar();
+                if (exists == 0)
                 {
-                    tran.Rollback();
                     message = "Không tìm thấy nhân viên với mã đã nhập.";
                     return false;
                 }
+            }
 
-                var employeeState = LoadEmployeeAttendanceState(conn, tran, employeeTable, employeeIdColumn, maNV);
-                var detailedTable = AttendanceSchemaHelper.ResolveDetailedAttendanceTable(conn, tran);
-                var hasDetailedRecord = false;
-                TimeSpan? detailedCheckIn = null;
+            // 2. Kiểm tra log chấm công trong ngày
+            TimeSpan? gioVao = null;
+            TimeSpan? gioRa = null;
 
-                if (!string.IsNullOrWhiteSpace(detailedTable))
+            string checkDaChamCongQuery = "SELECT GioVao, GioRa FROM ChamCong WHERE MaNV = @MaNV AND NgayChamCong = @Ngay";
+            using (var cmdCheckDaChamCong = new SqlCommand(checkDaChamCongQuery, conn))
+            {
+                cmdCheckDaChamCong.Parameters.AddWithValue("@MaNV", maNV);
+                cmdCheckDaChamCong.Parameters.AddWithValue("@Ngay", thoiDiem.Date);
+
+                using var reader = cmdCheckDaChamCong.ExecuteReader();
+                if (reader.Read())
                 {
-                    var canContinue = HandleCheckOutOnDetailedAttendance(conn, tran, detailedTable, maNV, thoiDiem, out hasDetailedRecord, out detailedCheckIn, out message);
-                    if (!canContinue)
-                    {
-                        tran.Rollback();
-                        return false;
-                    }
+                    gioVao = reader["GioVao"] == DBNull.Value ? null : (TimeSpan?)reader["GioVao"];
+                    gioRa = reader["GioRa"] == DBNull.Value ? null : (TimeSpan?)reader["GioRa"];
                 }
-
-                if (!hasDetailedRecord)
-                {
-                    if (!employeeState.NgayChamCong.HasValue || employeeState.NgayChamCong.Value.Date != thoiDiem.Date || !employeeState.GioVao.HasValue)
-                    {
-                        tran.Rollback();
-                        message = "Bạn chưa check-in hôm nay.";
-                        return false;
-                    }
-
-                    if (employeeState.GioRa.HasValue)
-                    {
-                        tran.Rollback();
-                        message = "Nhân viên đã check-out hôm nay.";
-                        return false;
-                    }
-                }
-
-                var gioVaoSnapshot = detailedCheckIn ?? employeeState.GioVao;
-                var thoiDiemGioVao = gioVaoSnapshot.HasValue ? thoiDiem.Date.Add(gioVaoSnapshot.Value) : thoiDiem;
-                UpdateEmployeeAttendanceSnapshot(conn, tran, employeeTable, employeeIdColumn, maNV, thoiDiemGioVao, thoiDiem);
-                UpdateMonthlyWorkedDays(conn, tran, maNV, thoiDiem);
-
-                tran.Commit();
-                message = "Check-out thành công.";
-                return true;
             }
-            catch (Exception ex)
-            {
-                tran.Rollback();
-                message = "Lỗi khi check-out: " + ex.Message;
-                return false;
-            }
-        }
-
-        private static bool HandleCheckInOnDetailedAttendance(SqlConnection conn, SqlTransaction tran, string detailedTable, string maNV, DateTime thoiDiem, out string message)
-        {
-            message = string.Empty;
-
-            var employeeIdColumn = AttendanceSchemaHelper.ResolveColumn(conn, detailedTable, tran, "MaNV", "maNV");
-            var dateColumn = AttendanceSchemaHelper.ResolveColumn(conn, detailedTable, tran, "Ngay", "ngay", "NgayChamCong");
-            var checkInColumn = AttendanceSchemaHelper.ResolveColumn(conn, detailedTable, tran, "GioVao", "gioVao", "CheckIn");
-            var statusColumn = AttendanceSchemaHelper.ResolveColumn(conn, detailedTable, tran, "TrangThai", "trangThai", "Status");
-
-            if (string.IsNullOrWhiteSpace(employeeIdColumn) || string.IsNullOrWhiteSpace(dateColumn) || string.IsNullOrWhiteSpace(checkInColumn))
-            {
-                return true;
-            }
-
-            var query = $@"
-                SELECT TOP 1
-                    c.[{checkInColumn}] AS GioVao
-                FROM [{detailedTable}] c
-                WHERE c.[{employeeIdColumn}] = @MaNV
-                  AND CAST(c.[{dateColumn}] AS date) = @Ngay
-                ORDER BY c.[{dateColumn}] DESC";
-
-            using var cmd = new SqlCommand(query, conn, tran);
-            cmd.Parameters.Add("@MaNV", SqlDbType.NVarChar, 20).Value = maNV;
-            cmd.Parameters.Add("@Ngay", SqlDbType.Date).Value = thoiDiem.Date;
-
-            using var reader = cmd.ExecuteReader();
-            var daCoBanGhiHomNay = reader.Read();
-            var gioVaoDaCo = daCoBanGhiHomNay ? ToNullableTimeSpan(reader["GioVao"]) : null;
-            reader.Close();
-
-            if (gioVaoDaCo.HasValue)
-            {
-                message = "Nhân viên đã check-in hôm nay.";
-                return false;
-            }
-
-            if (daCoBanGhiHomNay)
-            {
-                var setClause = $"[{checkInColumn}] = @GioVao";
-                if (!string.IsNullOrWhiteSpace(statusColumn))
-                {
-                    setClause += $", [{statusColumn}] = @TrangThai";
-                }
-
-                var updateQuery = $@"
-                    UPDATE [{detailedTable}]
-                    SET {setClause}
-                    WHERE [{employeeIdColumn}] = @MaNV
-                      AND CAST([{dateColumn}] AS date) = @Ngay";
-
-                using var updateCmd = new SqlCommand(updateQuery, conn, tran);
-                updateCmd.Parameters.Add("@MaNV", SqlDbType.NVarChar, 20).Value = maNV;
-                updateCmd.Parameters.Add("@Ngay", SqlDbType.Date).Value = thoiDiem.Date;
-                AddColumnValue(updateCmd, "@GioVao", detailedTable, checkInColumn, conn, tran, thoiDiem, isDateOnly: false, isTimeOnly: true);
-                if (!string.IsNullOrWhiteSpace(statusColumn))
-                {
-                    AddAttendanceStatusValue(updateCmd, "@TrangThai", detailedTable, statusColumn, conn, tran, checkedOut: false);
-                }
-
-                _ = updateCmd.ExecuteNonQuery();
-                return true;
-            }
-
-            var providedColumns = new List<string> { employeeIdColumn, dateColumn, checkInColumn };
-            if (!string.IsNullOrWhiteSpace(statusColumn))
-            {
-                providedColumns.Add(statusColumn);
-            }
-
-            if (!AttendanceSchemaHelper.CanInsertWithColumns(conn, detailedTable, providedColumns, tran))
-            {
-                return true;
-            }
-
-            var insertColumns = new List<string> { $"[{employeeIdColumn}]", $"[{dateColumn}]", $"[{checkInColumn}]" };
-            var insertValues = new List<string> { "@MaNV", "@Ngay", "@GioVao" };
-            if (!string.IsNullOrWhiteSpace(statusColumn))
-            {
-                insertColumns.Add($"[{statusColumn}]");
-                insertValues.Add("@TrangThai");
-            }
-
-            var insertQuery = $@"
-                INSERT INTO [{detailedTable}]({string.Join(", ", insertColumns)})
-                VALUES ({string.Join(", ", insertValues)})";
-
-            using var insertCmd = new SqlCommand(insertQuery, conn, tran);
-            insertCmd.Parameters.Add("@MaNV", SqlDbType.NVarChar, 20).Value = maNV;
-            AddColumnValue(insertCmd, "@Ngay", detailedTable, dateColumn, conn, tran, thoiDiem, isDateOnly: true, isTimeOnly: false);
-            AddColumnValue(insertCmd, "@GioVao", detailedTable, checkInColumn, conn, tran, thoiDiem, isDateOnly: false, isTimeOnly: true);
-            if (!string.IsNullOrWhiteSpace(statusColumn))
-            {
-                AddAttendanceStatusValue(insertCmd, "@TrangThai", detailedTable, statusColumn, conn, tran, checkedOut: false);
-            }
-
-            _ = insertCmd.ExecuteNonQuery();
-            return true;
-        }
-
-        private static bool HandleCheckOutOnDetailedAttendance(SqlConnection conn, SqlTransaction tran, string detailedTable, string maNV, DateTime thoiDiem, out bool hasDetailedRecord, out TimeSpan? gioVaoChiTiet, out string message)
-        {
-            message = string.Empty;
-            hasDetailedRecord = false;
-            gioVaoChiTiet = null;
-
-            var employeeIdColumn = AttendanceSchemaHelper.ResolveColumn(conn, detailedTable, tran, "MaNV", "maNV");
-            var dateColumn = AttendanceSchemaHelper.ResolveColumn(conn, detailedTable, tran, "Ngay", "ngay", "NgayChamCong");
-            var checkInColumn = AttendanceSchemaHelper.ResolveColumn(conn, detailedTable, tran, "GioVao", "gioVao", "CheckIn");
-            var checkOutColumn = AttendanceSchemaHelper.ResolveColumn(conn, detailedTable, tran, "GioRa", "gioRa", "CheckOut");
-            var statusColumn = AttendanceSchemaHelper.ResolveColumn(conn, detailedTable, tran, "TrangThai", "trangThai", "Status");
-
-            if (string.IsNullOrWhiteSpace(employeeIdColumn) ||
-                string.IsNullOrWhiteSpace(dateColumn) ||
-                string.IsNullOrWhiteSpace(checkInColumn) ||
-                string.IsNullOrWhiteSpace(checkOutColumn))
-            {
-                return true;
-            }
-
-            var query = $@"
-                SELECT TOP 1
-                    c.[{checkInColumn}] AS GioVao,
-                    c.[{checkOutColumn}] AS GioRa
-                FROM [{detailedTable}] c
-                WHERE c.[{employeeIdColumn}] = @MaNV
-                  AND CAST(c.[{dateColumn}] AS date) = @Ngay
-                ORDER BY c.[{dateColumn}] DESC";
-
-            using var cmd = new SqlCommand(query, conn, tran);
-            cmd.Parameters.Add("@MaNV", SqlDbType.NVarChar, 20).Value = maNV;
-            cmd.Parameters.Add("@Ngay", SqlDbType.Date).Value = thoiDiem.Date;
-
-            using var reader = cmd.ExecuteReader();
-            if (!reader.Read())
-            {
-                reader.Close();
-                return true;
-            }
-
-            hasDetailedRecord = true;
-            var gioVao = ToNullableTimeSpan(reader["GioVao"]);
-            var gioRa = ToNullableTimeSpan(reader["GioRa"]);
-            gioVaoChiTiet = gioVao;
-            reader.Close();
 
             if (!gioVao.HasValue)
             {
@@ -430,346 +219,27 @@ namespace Quan_ly_nhan_su.DAL
                 return false;
             }
 
-            var setClause = $"[{checkOutColumn}] = @GioRa";
-            if (!string.IsNullOrWhiteSpace(statusColumn))
+            // 3. Thực hiện Check-out và Tính tổng giờ
+            var tsGioVao = gioVao.Value;
+            var tsGioRa = thoiDiem.TimeOfDay;
+            var tongGioPhut = (tsGioRa - tsGioVao).TotalHours;
+
+            string checkOutQuery = @"
+                UPDATE ChamCong 
+                SET GioRa = @GioRa, TongGio = @TongGio 
+                WHERE MaNV = @MaNV AND NgayChamCong = @Ngay";
+
+            using (var cmdOut = new SqlCommand(checkOutQuery, conn))
             {
-                setClause += $", [{statusColumn}] = @TrangThai";
+                cmdOut.Parameters.AddWithValue("@MaNV", maNV);
+                cmdOut.Parameters.AddWithValue("@Ngay", thoiDiem.Date);
+                cmdOut.Parameters.AddWithValue("@GioRa", tsGioRa);
+                cmdOut.Parameters.AddWithValue("@TongGio", (decimal)tongGioPhut);
+
+                cmdOut.ExecuteNonQuery();
+                message = "Check-out thành công.";
+                return true;
             }
-
-            var updateQuery = $@"
-                UPDATE [{detailedTable}]
-                SET {setClause}
-                WHERE [{employeeIdColumn}] = @MaNV
-                  AND CAST([{dateColumn}] AS date) = @Ngay";
-
-            using var updateCmd = new SqlCommand(updateQuery, conn, tran);
-            updateCmd.Parameters.Add("@MaNV", SqlDbType.NVarChar, 20).Value = maNV;
-            updateCmd.Parameters.Add("@Ngay", SqlDbType.Date).Value = thoiDiem.Date;
-            AddColumnValue(updateCmd, "@GioRa", detailedTable, checkOutColumn, conn, tran, thoiDiem, isDateOnly: false, isTimeOnly: true);
-            if (!string.IsNullOrWhiteSpace(statusColumn))
-            {
-                AddAttendanceStatusValue(updateCmd, "@TrangThai", detailedTable, statusColumn, conn, tran, checkedOut: true);
-            }
-
-            _ = updateCmd.ExecuteNonQuery();
-            return true;
-        }
-
-        private static void AddAttendanceStatusValue(SqlCommand cmd, string parameterName, string tableName, string columnName, SqlConnection conn, SqlTransaction tran, bool checkedOut)
-        {
-            var dataTypeName = (AttendanceSchemaHelper.GetColumnDataType(conn, tableName, columnName, tran) ?? string.Empty).ToLowerInvariant();
-
-            switch (dataTypeName)
-            {
-                case "bit":
-                    cmd.Parameters.Add(parameterName, SqlDbType.Bit).Value = checkedOut;
-                    break;
-                case "int":
-                case "bigint":
-                case "smallint":
-                case "tinyint":
-                    cmd.Parameters.Add(parameterName, SqlDbType.Int).Value = checkedOut ? 2 : 1;
-                    break;
-                default:
-                    cmd.Parameters.Add(parameterName, SqlDbType.NVarChar, 100).Value = checkedOut ? "Đã check-out" : "Đang làm";
-                    break;
-            }
-        }
-
-        private static void UpdateEmployeeAttendanceSnapshot(SqlConnection conn, SqlTransaction tran, string employeeTable, string employeeIdColumn, string maNV, DateTime gioVao, DateTime? gioRa, bool clearCheckOut = false)
-        {
-            var dateColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, tran, "NgayChamCong", "Ngay", "ngay", "NgayCong");
-            var checkInColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, tran, "GioVao", "gioVao", "CheckIn");
-            var checkOutColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, tran, "GioRa", "gioRa", "CheckOut");
-            var statusColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, tran, "TrangThaiChamCong", "TrangThaiCC", "TrangThai", "trangThai");
-
-            var setClauses = new List<string>();
-            using var cmd = new SqlCommand
-            {
-                Connection = conn,
-                Transaction = tran
-            };
-
-            if (!string.IsNullOrWhiteSpace(dateColumn))
-            {
-                setClauses.Add($"[{dateColumn}] = @NgayChamCong");
-                AddColumnValue(cmd, "@NgayChamCong", employeeTable, dateColumn, conn, tran, gioVao, isDateOnly: true, isTimeOnly: false);
-            }
-
-            if (!string.IsNullOrWhiteSpace(checkInColumn))
-            {
-                setClauses.Add($"[{checkInColumn}] = @GioVao");
-                AddColumnValue(cmd, "@GioVao", employeeTable, checkInColumn, conn, tran, gioVao, isDateOnly: false, isTimeOnly: true);
-            }
-
-            if (!string.IsNullOrWhiteSpace(checkOutColumn))
-            {
-                setClauses.Add($"[{checkOutColumn}] = @GioRa");
-                if (gioRa.HasValue)
-                {
-                    AddColumnValue(cmd, "@GioRa", employeeTable, checkOutColumn, conn, tran, gioRa.Value, isDateOnly: false, isTimeOnly: true);
-                }
-                else if (clearCheckOut)
-                {
-                    AddNullColumnValue(cmd, "@GioRa", employeeTable, checkOutColumn, conn, tran);
-                }
-                else
-                {
-                    setClauses.RemoveAt(setClauses.Count - 1);
-                }
-            }
-
-            if (!string.IsNullOrWhiteSpace(statusColumn))
-            {
-                setClauses.Add($"[{statusColumn}] = @TrangThai");
-                AddEmployeeStatusValue(cmd, "@TrangThai", employeeTable, statusColumn, conn, tran, checkedOut: gioRa.HasValue);
-            }
-
-            if (setClauses.Count == 0)
-            {
-                return;
-            }
-
-            cmd.CommandText = $@"
-                UPDATE [{employeeTable}]
-                SET {string.Join(", ", setClauses)}
-                WHERE [{employeeIdColumn}] = @MaNV";
-            cmd.Parameters.Add("@MaNV", SqlDbType.NVarChar, 20).Value = maNV;
-            _ = cmd.ExecuteNonQuery();
-        }
-
-        private static void AddEmployeeStatusValue(SqlCommand cmd, string parameterName, string tableName, string columnName, SqlConnection conn, SqlTransaction tran, bool checkedOut)
-        {
-            var dataTypeName = (AttendanceSchemaHelper.GetColumnDataType(conn, tableName, columnName, tran) ?? string.Empty).ToLowerInvariant();
-
-            switch (dataTypeName)
-            {
-                case "bit":
-                    cmd.Parameters.Add(parameterName, SqlDbType.Bit).Value = true;
-                    break;
-                case "int":
-                case "bigint":
-                case "smallint":
-                case "tinyint":
-                    cmd.Parameters.Add(parameterName, SqlDbType.Int).Value = checkedOut ? 2 : 1;
-                    break;
-                default:
-                    cmd.Parameters.Add(parameterName, SqlDbType.NVarChar, 100).Value = checkedOut ? "Đã check-out" : "Đang làm";
-                    break;
-            }
-        }
-
-        private static void UpdateMonthlyWorkedDays(SqlConnection conn, SqlTransaction tran, string maNV, DateTime thoiDiem)
-        {
-            var summaryTable = AttendanceSchemaHelper.ResolveMonthlyAttendanceTable(conn, tran);
-            if (string.IsNullOrWhiteSpace(summaryTable))
-            {
-                return;
-            }
-
-            var employeeIdColumn = AttendanceSchemaHelper.ResolveColumn(conn, summaryTable, tran, "MaNV", "maNV");
-            var monthColumn = AttendanceSchemaHelper.ResolveColumn(conn, summaryTable, tran, "ThangNam", "Thang", "KyLuong");
-            var workDayColumn = AttendanceSchemaHelper.ResolveColumn(conn, summaryTable, tran, "SoNgayLam", "NgayCong", "TongNgayLam");
-
-            if (string.IsNullOrWhiteSpace(employeeIdColumn) || string.IsNullOrWhiteSpace(monthColumn) || string.IsNullOrWhiteSpace(workDayColumn))
-            {
-                return;
-            }
-
-            var thangNam = thoiDiem.ToString("MM/yyyy", CultureInfo.InvariantCulture);
-
-            var checkQuery = $@"
-                SELECT TOP 1 [{workDayColumn}]
-                FROM [{summaryTable}]
-                WHERE [{employeeIdColumn}] = @MaNV
-                  AND [{monthColumn}] = @ThangNam";
-
-            using var checkCmd = new SqlCommand(checkQuery, conn, tran);
-            checkCmd.Parameters.Add("@MaNV", SqlDbType.NVarChar, 20).Value = maNV;
-            checkCmd.Parameters.Add("@ThangNam", SqlDbType.NVarChar, 20).Value = thangNam;
-            var existingValue = checkCmd.ExecuteScalar();
-
-            if (existingValue != null)
-            {
-                var updateQuery = $@"
-                    UPDATE [{summaryTable}]
-                    SET [{workDayColumn}] = ISNULL([{workDayColumn}], 0) + 1
-                    WHERE [{employeeIdColumn}] = @MaNV
-                      AND [{monthColumn}] = @ThangNam";
-
-                using var updateCmd = new SqlCommand(updateQuery, conn, tran);
-                updateCmd.Parameters.Add("@MaNV", SqlDbType.NVarChar, 20).Value = maNV;
-                updateCmd.Parameters.Add("@ThangNam", SqlDbType.NVarChar, 20).Value = thangNam;
-                _ = updateCmd.ExecuteNonQuery();
-                return;
-            }
-
-            var providedColumns = new[] { employeeIdColumn, monthColumn, workDayColumn };
-            if (!AttendanceSchemaHelper.CanInsertWithColumns(conn, summaryTable, providedColumns, tran))
-            {
-                return;
-            }
-
-            var insertQuery = $@"
-                INSERT INTO [{summaryTable}]([{employeeIdColumn}], [{monthColumn}], [{workDayColumn}])
-                VALUES (@MaNV, @ThangNam, @SoNgayLam)";
-
-            using var insertCmd = new SqlCommand(insertQuery, conn, tran);
-            insertCmd.Parameters.Add("@MaNV", SqlDbType.NVarChar, 20).Value = maNV;
-            insertCmd.Parameters.Add("@ThangNam", SqlDbType.NVarChar, 20).Value = thangNam;
-            insertCmd.Parameters.Add("@SoNgayLam", SqlDbType.Int).Value = 1;
-            _ = insertCmd.ExecuteNonQuery();
-        }
-
-        private static EmployeeAttendanceState LoadEmployeeAttendanceState(SqlConnection conn, SqlTransaction tran, string employeeTable, string employeeIdColumn, string maNV)
-        {
-            var dateColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, tran, "NgayChamCong", "Ngay", "ngay", "NgayCong");
-            var checkInColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, tran, "GioVao", "gioVao", "CheckIn");
-            var checkOutColumn = AttendanceSchemaHelper.ResolveColumn(conn, employeeTable, tran, "GioRa", "gioRa", "CheckOut");
-
-            if (string.IsNullOrWhiteSpace(dateColumn) && string.IsNullOrWhiteSpace(checkInColumn) && string.IsNullOrWhiteSpace(checkOutColumn))
-            {
-                return new EmployeeAttendanceState();
-            }
-
-            var dateExpression = string.IsNullOrWhiteSpace(dateColumn) ? "CAST(NULL AS date)" : $"n.[{dateColumn}]";
-            var checkInExpression = string.IsNullOrWhiteSpace(checkInColumn) ? "CAST(NULL AS time)" : $"n.[{checkInColumn}]";
-            var checkOutExpression = string.IsNullOrWhiteSpace(checkOutColumn) ? "CAST(NULL AS time)" : $"n.[{checkOutColumn}]";
-
-            var query = $@"
-                SELECT TOP 1
-                    {dateExpression} AS NgayChamCong,
-                    {checkInExpression} AS GioVao,
-                    {checkOutExpression} AS GioRa
-                FROM [{employeeTable}] n
-                WHERE n.[{employeeIdColumn}] = @MaNV";
-
-            using var cmd = new SqlCommand(query, conn, tran);
-            cmd.Parameters.Add("@MaNV", SqlDbType.NVarChar, 20).Value = maNV;
-
-            using var reader = cmd.ExecuteReader();
-            if (!reader.Read())
-            {
-                return new EmployeeAttendanceState();
-            }
-
-            return new EmployeeAttendanceState
-            {
-                NgayChamCong = ToNullableDateTime(reader["NgayChamCong"]),
-                GioVao = ToNullableTimeSpan(reader["GioVao"]),
-                GioRa = ToNullableTimeSpan(reader["GioRa"])
-            };
-        }
-
-        private static bool EmployeeExists(SqlConnection conn, SqlTransaction tran, string employeeTable, string employeeIdColumn, string maNV)
-        {
-            var query = $@"
-                SELECT COUNT(1)
-                FROM [{employeeTable}]
-                WHERE [{employeeIdColumn}] = @MaNV";
-
-            using var cmd = new SqlCommand(query, conn, tran);
-            cmd.Parameters.Add("@MaNV", SqlDbType.NVarChar, 20).Value = maNV;
-            return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
-        }
-
-        private static void AddColumnValue(SqlCommand cmd, string parameterName, string tableName, string columnName, SqlConnection conn, SqlTransaction tran, DateTime value, bool isDateOnly, bool isTimeOnly)
-        {
-            var dataTypeName = AttendanceSchemaHelper.GetColumnDataType(conn, tableName, columnName, tran);
-            var parameter = cmd.Parameters.Add(parameterName, MapSqlDbType(dataTypeName));
-            parameter.Value = ConvertDateTimeValue(value, dataTypeName, isDateOnly, isTimeOnly);
-        }
-
-        private static void AddNullColumnValue(SqlCommand cmd, string parameterName, string tableName, string columnName, SqlConnection conn, SqlTransaction tran)
-        {
-            var dataTypeName = AttendanceSchemaHelper.GetColumnDataType(conn, tableName, columnName, tran);
-            var parameter = cmd.Parameters.Add(parameterName, MapSqlDbType(dataTypeName));
-            parameter.Value = DBNull.Value;
-        }
-
-        private static object ConvertDateTimeValue(DateTime value, string? dataTypeName, bool isDateOnly, bool isTimeOnly)
-        {
-            var normalizedType = (dataTypeName ?? string.Empty).ToLowerInvariant();
-
-            return normalizedType switch
-            {
-                "date" => value.Date,
-                "datetime" or "datetime2" or "smalldatetime" => isDateOnly ? value.Date : value,
-                "time" => value.TimeOfDay,
-                "char" or "nchar" or "varchar" or "nvarchar" => isTimeOnly
-                    ? value.ToString("HH:mm:ss", CultureInfo.InvariantCulture)
-                    : isDateOnly
-                        ? value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
-                        : value.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
-                _ => isTimeOnly ? value.TimeOfDay : value
-            };
-        }
-
-        private static SqlDbType MapSqlDbType(string? dataTypeName)
-        {
-            return (dataTypeName ?? string.Empty).ToLowerInvariant() switch
-            {
-                "char" => SqlDbType.Char,
-                "nchar" => SqlDbType.NChar,
-                "varchar" => SqlDbType.VarChar,
-                "nvarchar" => SqlDbType.NVarChar,
-                "date" => SqlDbType.Date,
-                "datetime" => SqlDbType.DateTime,
-                "datetime2" => SqlDbType.DateTime2,
-                "smalldatetime" => SqlDbType.SmallDateTime,
-                "time" => SqlDbType.Time,
-                "int" => SqlDbType.Int,
-                "bigint" => SqlDbType.BigInt,
-                "bit" => SqlDbType.Bit,
-                "decimal" => SqlDbType.Decimal,
-                "numeric" => SqlDbType.Decimal,
-                "float" => SqlDbType.Float,
-                "real" => SqlDbType.Real,
-                _ => SqlDbType.NVarChar
-            };
-        }
-
-        private static DateTime? ToNullableDateTime(object value)
-        {
-            if (value == null || value == DBNull.Value)
-            {
-                return null;
-            }
-
-            if (value is DateTime dateTime)
-            {
-                return dateTime;
-            }
-
-            return DateTime.TryParse(value.ToString(), out var parsed) ? parsed : null;
-        }
-
-        private static TimeSpan? ToNullableTimeSpan(object value)
-        {
-            if (value == null || value == DBNull.Value)
-            {
-                return null;
-            }
-
-            if (value is TimeSpan timeSpan)
-            {
-                return timeSpan;
-            }
-
-            if (value is DateTime dateTime)
-            {
-                return dateTime.TimeOfDay;
-            }
-
-            return TimeSpan.TryParse(value.ToString(), out var parsed) ? parsed : null;
-        }
-
-        private sealed class EmployeeAttendanceState
-        {
-            public DateTime? NgayChamCong { get; init; }
-            public TimeSpan? GioVao { get; init; }
-            public TimeSpan? GioRa { get; init; }
         }
     }
 }
-
