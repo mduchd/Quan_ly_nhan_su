@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using Quan_ly_nhan_su.DTO;
 using System.Drawing.Text;
 
@@ -14,13 +14,13 @@ namespace Quan_ly_nhan_su.DAL
     {
 
         // Thay dòng cũ bằng dòng này:
-        private string connectionString = @"Data Source=.; Initial Catalog=QL_Nhansu; Integrated Security=True";
+
         public DataTable ExecuteQuery(string query)
         {
             DataTable data = new DataTable();
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = DbContext.GetSqlConnection())
                 {
                     conn.Open();
                     SqlCommand command = new SqlCommand(query, conn);
@@ -32,7 +32,7 @@ namespace Quan_ly_nhan_su.DAL
             catch (Exception ex)
             {
                 // Hiển thị lỗi để biết tại sao nút không chạy
-                System.Windows.Forms.MessageBox.Show("Lỗi thực thi truy vấn: " + ex.Message);
+                throw new Exception("Lỗi thực thi truy vấn: " + ex.Message);
             }
             return data;
         }
@@ -42,7 +42,7 @@ namespace Quan_ly_nhan_su.DAL
         {
             bool ketqua = false;
 
-            using (SqlConnection conn = new SqlConnection(connectionString)) {
+            using (SqlConnection conn = DbContext.GetSqlConnection()) {
                 try
                 {
                     conn.Open();
@@ -67,7 +67,7 @@ namespace Quan_ly_nhan_su.DAL
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Chi tiết lỗi : " + ex.Message, "Lỗi");
+                    throw new Exception("Chi tiết lỗi : " + ex.Message);
                 }
             }
             return ketqua;
@@ -75,7 +75,7 @@ namespace Quan_ly_nhan_su.DAL
         public bool CapNhatTrangThaiCheckOut(string maNV, double tongGio)
         {
             bool ketQua = false;
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = DbContext.GetSqlConnection())
             {
                 try
                 {
@@ -103,7 +103,7 @@ namespace Quan_ly_nhan_su.DAL
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Chi tiết lỗi : " + ex.Message, "Lỗi");
+                    throw new Exception("Chi tiết lỗi : " + ex.Message);
                 }
             }
             return ketQua;
@@ -111,7 +111,7 @@ namespace Quan_ly_nhan_su.DAL
         public int KiemTraTrangThai(string maNV)
         {
             int trangthai = -1;
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = DbContext.GetSqlConnection())
             {
                 try
                 {
@@ -139,7 +139,7 @@ namespace Quan_ly_nhan_su.DAL
         public ChamCongDTO LayThongTinChamCong(string maNV)
         {
             ChamCongDTO nv = null;
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = DbContext.GetSqlConnection())
             {
                 try
                 {
@@ -165,7 +165,7 @@ namespace Quan_ly_nhan_su.DAL
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Chi tiết lỗi : " + ex.Message);
+                    throw new Exception("Chi tiết lỗi : " + ex.Message);
                 }
             }
             return nv;

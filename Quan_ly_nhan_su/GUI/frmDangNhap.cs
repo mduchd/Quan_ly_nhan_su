@@ -1,4 +1,4 @@
-﻿using Quan_ly_nhan_su.BUS;
+using Quan_ly_nhan_su.BUS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,8 +32,8 @@ namespace Quan_ly_nhan_su.GUI
             string taikhoan = txtTaiKhoan.Text;
             string matkhau = txtMatKhau.Text;
 
-            string quyen = bus.DangNhap(taikhoan, matkhau);
-            if (quyen != null)
+            bool isSuccess = bus.DangNhap(taikhoan, matkhau);
+            if (isSuccess)
             {
                 MainForm mainForm = new MainForm();
                 mainForm.Show();

@@ -1,17 +1,17 @@
-﻿using System;
+using System;
 using System.Data;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 
 namespace Quan_ly_nhan_su.DAL
 {
     internal class QuanLyCongDAL
     {
-        private string connectionString = "Data Source=DESKTOP-9K5QG8P;Initial Catalog=QuanLyNhanSu;Integrated Security=True";
+
 
         public DataTable LayDanhSachLichSuCong(string tuKhoa, DateTime? tuNgay, DateTime? denNgay)
         {
             DataTable dt = new DataTable();
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = DbContext.GetSqlConnection())
             {
                 // Sửa lại cú pháp chuỗi @"..." và bổ sung tính TongGio
                 string query = @"
@@ -23,8 +23,8 @@ namespace Quan_ly_nhan_su.DAL
                             ELSE '--'
                         END AS TongGio,
                         c.trangThai
-                        FROM CHAM_CONG c
-                        INNER JOIN NHAN_VIEN n ON c.MaNV = n.MaNV
+                        FROM ChamCong c
+                        INNER JOIN NhanVien n ON c.MaNV = n.MaNV
                         WHERE 1 = 1";
 
                 if (!string.IsNullOrEmpty(tuKhoa))

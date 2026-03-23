@@ -1,4 +1,4 @@
-﻿namespace Quan_ly_nhan_su.GUI
+namespace Quan_ly_nhan_su.GUI
 {
     partial class ucNhanVien
     {
@@ -101,7 +101,7 @@
             grpInput.Dock = DockStyle.Top;
             grpInput.Location = new Point(0, 0);
             grpInput.Name = "grpInput";
-            grpInput.Size = new Size(1804, 340);
+            grpInput.Size = new Size(1804, 380);
             grpInput.TabIndex = 0;
             grpInput.TabStop = false;
             grpInput.Text = "Thông tin nhân viên";
@@ -386,7 +386,7 @@
             pnlSearch.Controls.Add(txtSearch);
             pnlSearch.Controls.Add(lblSearch);
             pnlSearch.Dock = DockStyle.Top;
-            pnlSearch.Location = new Point(0, 340);
+            pnlSearch.Location = new Point(0, 380);
             pnlSearch.Name = "pnlSearch";
             pnlSearch.Size = new Size(1804, 52);
             pnlSearch.TabIndex = 2;
