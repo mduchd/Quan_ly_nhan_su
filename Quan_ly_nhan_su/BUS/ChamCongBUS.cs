@@ -51,10 +51,9 @@ namespace Quan_ly_nhan_su.BUS
             return "Check-in thất bại. Vui lòng thử lại!";
         }
 
-        // Nhận vào mã NV, tự động lấy giờ, trừ giờ, rồi gọi DAL lưu xuống DB
         public string XuLyCheckOut(string maNV, out TimeSpan gioVao, out TimeSpan gioRa, out TimeSpan tongThoiGian)
         {
-            // Gán giá trị mặc định cho các biến out
+          
             gioVao = TimeSpan.Zero;
             gioRa = TimeSpan.Zero;
             tongThoiGian = TimeSpan.Zero;
@@ -68,13 +67,13 @@ namespace Quan_ly_nhan_su.BUS
             ChamCongDTO thongtin = dal.LayThongTinChamCong(maNV);
             if (thongtin != null && thongtin.GioVao != null)
             {
-                // Thực hiện tính toán thời gian ở tầng BUS
+              
                 gioRa = DateTime.Now.TimeOfDay;
                 gioVao = thongtin.GioVao.Value;
                 tongThoiGian = gioRa - gioVao;
                 double tongGioLam = tongThoiGian.TotalHours;
 
-                // Ra lệnh cho DAL cập nhật xuống SQL
+              
                 bool isSuccess = dal.CapNhatTrangThaiCheckOut(maNV, tongGioLam);
                 if (isSuccess) return "Thành công";
                 return "Check-out thất bại. Vui lòng thử lại!";

@@ -15,7 +15,7 @@ namespace Quan_ly_nhan_su.DAL
                 try
                 {
                     conn.Open();
-                    string sql = "SELECT 1 From TaiKhoan WHERE TenDangNhap = @taikhoan AND MatKhau = @matkhau";
+                    string sql = "SELECT 1 From Tai_Khoan WHERE TenDangNhap = @taikhoan AND MatKhau = @matkhau";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@taikhoan", taikhoan);
                     cmd.Parameters.AddWithValue("@matkhau", matkhau);
