@@ -36,8 +36,6 @@ namespace Quan_ly_nhan_su.DAL
             }
             return data;
         }
-
-
         public bool CapNhatTrangThaiCheckIn(string maNV, int trangThaiMoi)
         {
             bool ketqua = false;

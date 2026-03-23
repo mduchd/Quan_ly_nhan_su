@@ -67,7 +67,6 @@ namespace Quan_ly_nhan_su.BUS
             ChamCongDTO thongtin = dal.LayThongTinChamCong(maNV);
             if (thongtin != null && thongtin.GioVao != null)
             {
-              
                 gioRa = DateTime.Now.TimeOfDay;
                 gioVao = thongtin.GioVao.Value;
                 tongThoiGian = gioRa - gioVao;
