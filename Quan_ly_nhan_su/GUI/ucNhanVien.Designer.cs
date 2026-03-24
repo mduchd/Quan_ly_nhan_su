@@ -144,7 +144,7 @@ namespace Quan_ly_nhan_su.GUI
             grpInput.Dock = DockStyle.Top;
             grpInput.Location = new Point(0, 0);
             grpInput.Name = "grpInput";
-            grpInput.Size = new Size(1804, 380);
+            grpInput.Size = new Size(1804, 340);
             grpInput.TabIndex = 0;
             grpInput.TabStop = false;
             grpInput.Text = "Thông tin nhân viên";
@@ -364,7 +364,7 @@ namespace Quan_ly_nhan_su.GUI
             btnDelete.FillColor = Color.FromArgb(231, 76, 60);
             btnDelete.Font = new Font("Segoe UI", 9F);
             btnDelete.ForeColor = Color.White;
-            btnDelete.Location = new Point(1149, 294);
+            btnDelete.Location = new Point(1148, 309);
             btnDelete.Name = "btnDelete";
             btnDelete.ShadowDecoration.CustomizableEdges = customizableEdges20;
             btnDelete.Size = new Size(120, 36);
@@ -379,7 +379,7 @@ namespace Quan_ly_nhan_su.GUI
             btnEdit.FillColor = Color.FromArgb(41, 128, 185);
             btnEdit.Font = new Font("Segoe UI", 9F);
             btnEdit.ForeColor = Color.White;
-            btnEdit.Location = new Point(1012, 294);
+            btnEdit.Location = new Point(1011, 309);
             btnEdit.Name = "btnEdit";
             btnEdit.ShadowDecoration.CustomizableEdges = customizableEdges22;
             btnEdit.Size = new Size(120, 36);
@@ -394,7 +394,7 @@ namespace Quan_ly_nhan_su.GUI
             btnAdd.FillColor = Color.FromArgb(41, 128, 185);
             btnAdd.Font = new Font("Segoe UI", 9F);
             btnAdd.ForeColor = Color.White;
-            btnAdd.Location = new Point(875, 294);
+            btnAdd.Location = new Point(874, 309);
             btnAdd.Name = "btnAdd";
             btnAdd.ShadowDecoration.CustomizableEdges = customizableEdges24;
             btnAdd.Size = new Size(120, 36);
@@ -409,7 +409,7 @@ namespace Quan_ly_nhan_su.GUI
             btnExport.FillColor = Color.FromArgb(46, 204, 113);
             btnExport.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnExport.ForeColor = Color.White;
-            btnExport.Location = new Point(1423, 294);
+            btnExport.Location = new Point(1422, 309);
             btnExport.Name = "btnExport";
             btnExport.ShadowDecoration.CustomizableEdges = customizableEdges26;
             btnExport.Size = new Size(120, 36);
@@ -578,7 +578,7 @@ namespace Quan_ly_nhan_su.GUI
             pnlSearch.Controls.Add(txtSearch);
             pnlSearch.Controls.Add(lblSearch);
             pnlSearch.Dock = DockStyle.Top;
-            pnlSearch.Location = new Point(0, 380);
+            pnlSearch.Location = new Point(0, 340);
             pnlSearch.Name = "pnlSearch";
             pnlSearch.Size = new Size(1804, 52);
             pnlSearch.TabIndex = 2;
@@ -597,7 +597,8 @@ namespace Quan_ly_nhan_su.GUI
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             gridEmployees.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            gridEmployees.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            gridEmployees.ColumnHeadersHeight = 4;
+            gridEmployees.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = Color.White;
             dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
@@ -627,7 +628,7 @@ namespace Quan_ly_nhan_su.GUI
             gridEmployees.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None;
             gridEmployees.ThemeStyle.HeaderStyle.Font = new Font("Segoe UI", 9F);
             gridEmployees.ThemeStyle.HeaderStyle.ForeColor = Color.White;
-            gridEmployees.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            gridEmployees.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             gridEmployees.ThemeStyle.HeaderStyle.Height = 4;
             gridEmployees.ThemeStyle.ReadOnly = true;
             gridEmployees.ThemeStyle.RowsStyle.BackColor = Color.White;
