@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Collections.Generic;
 using System.Linq;
@@ -130,16 +130,22 @@ namespace Quan_ly_nhan_su.GUI
         }
         private void LoadBangLuong(string tuKhoa = "")
         {
-            string thangDuocChon = dtpThangNam.Value.ToString("MM/yyyy");
-
-            // 2. Truyền cả Từ khóa VÀ Tháng năm xuống tầng DAL để lọc
-            dsGoc = dal.GetDanhSachBangLuong(tuKhoa, thangDuocChon);
-
-            foreach (var nv in dsGoc)
+            try
             {
-                nv.TongLuong = bus.TinhTongLuong(nv);
+                string thangDuocChon = dtpThangNam.Value.ToString("MM/yyyy");
+                dsGoc = dal.GetDanhSachBangLuong(tuKhoa, thangDuocChon);
+
+                foreach (var nv in dsGoc)
+                {
+                    nv.TongLuong = bus.TinhTongLuong(nv);
+                }
+
+                HienThiLenBang(dsGoc);
             }
-            HienThiLenBang(dsGoc);
+            catch (Exception ex)
+            {
+                MessageBox.Show("Không thể tải dữ liệu bảng lương: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private void HienThiLenBang(List<BangLuongDTO> danhSach) { 
             dgvBangLuong.DataSource = null;
@@ -174,7 +180,7 @@ namespace Quan_ly_nhan_su.GUI
             {
                 SaveFileDialog saveDialog = new SaveFileDialog();
                 saveDialog.Filter = "Excel Files (*.xlsx)|*.xlsx";
-                saveDialog.FileName = "BaoCaoBangLuong.xlsx"; 
+                saveDialog.FileName = $"BangLuong_{dtpThangNam.Value:MM_yyyy}.xlsx"; 
 
                 if (saveDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -182,25 +188,47 @@ namespace Quan_ly_nhan_su.GUI
                     using (XLWorkbook workbook = new XLWorkbook())
                     {
                         var worksheet = workbook.Worksheets.Add("Bảng Lương");
+                        
+                        // 1. Tạo Tiêu đề
                         for (int i = 0; i < dgvBangLuong.Columns.Count; i++)
                         {
                             var cell = worksheet.Cell(1, i + 1);
                             cell.Value = dgvBangLuong.Columns[i].HeaderText;
                             cell.Style.Font.Bold = true;
                             cell.Style.Fill.BackgroundColor = XLColor.LightBlue;
+                            cell.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
                         }
+
+                        // 2. Đổ dữ liệu
                         for (int i = 0; i < dgvBangLuong.Rows.Count; i++)
                         {
                             for (int j = 0; j < dgvBangLuong.Columns.Count; j++)
                             {
-                                worksheet.Cell(i + 2, j + 1).Value = dgvBangLuong.Rows[i].Cells[j].Value?.ToString();
+                                var value = dgvBangLuong.Rows[i].Cells[j].Value;
+                                var cell = worksheet.Cell(i + 2, j + 1);
+                                
+                                // Gán giá trị trực tiếp để Excel nhận diện kiểu (Số/Chữ)
+                                if (value != null)
+                                {
+                                    cell.Value = XLCellValue.FromObject(value);
+                                }
+
+                                // Định dạng tiền tệ cho cột Lương (LuongCung: index 2, TongLuong: index 5)
+                                if (dgvBangLuong.Columns[j].Name == "LuongCung" || dgvBangLuong.Columns[j].Name == "TongLuong")
+                                {
+                                    cell.Style.NumberFormat.Format = "#,##0 \"VNĐ\"";
+                                }
+
+                                cell.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
                             }
                         }
+
+                        // 3. Tự động căn chỉnh
                         worksheet.Columns().AdjustToContents();
                         workbook.SaveAs(saveDialog.FileName);
                     }
 
-                    MessageBox.Show("Xuất file Excel thành công rực rỡ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Xuất báo cáo lương thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)

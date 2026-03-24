@@ -40,24 +40,26 @@ namespace Quan_ly_nhan_su.DAL
         {
             bool ketqua = false;
 
-            using (SqlConnection conn = DbContext.GetSqlConnection()) {
+            using (SqlConnection conn = DbContext.GetSqlConnection())
+            {
                 try
                 {
                     conn.Open();
                     DateTime now = DateTime.Now;
                     string query = "insert into ChiTietChamCong(MaNV, NgayChamCong, GioVao) values (@MaNV, @NgayChamCong, @GioVao)";
-                    using (SqlCommand cmd = new SqlCommand(query, conn)) {
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
                         cmd.Parameters.AddWithValue("@MaNV", maNV);
                         cmd.Parameters.AddWithValue("@NgayChamCong", now.Date);
                         cmd.Parameters.AddWithValue("@GioVao", now.TimeOfDay);
                         cmd.ExecuteNonQuery();
                     }
                     string queryUpdate = "Update NhanVien set Trangthai= @Trangthai where MaNV = @MaNV";
-                    using(SqlCommand cmdUpdate = new SqlCommand(queryUpdate, conn))
+                    using (SqlCommand cmdUpdate = new SqlCommand(queryUpdate, conn))
                     {
                         cmdUpdate.Parameters.AddWithValue("@Trangthai", trangThaiMoi);
                         cmdUpdate.Parameters.AddWithValue("@MaNV", maNV);
-                        if(cmdUpdate.ExecuteNonQuery() > 0)
+                        if (cmdUpdate.ExecuteNonQuery() > 0)
                         {
                             ketqua = true;
                         }
@@ -87,13 +89,13 @@ namespace Quan_ly_nhan_su.DAL
                         cmd1.Parameters.AddWithValue("@TongGio", tongGio);
                         cmd1.Parameters.AddWithValue("@Ngay", now.Date);
                         cmd1.ExecuteNonQuery();
-                        
+
                     }
                     string queryUpdateStatus = "Update NhanVien Set Trangthai = 0 where MaNV = @MaNV";
-                    using(SqlCommand cmd2 = new SqlCommand(queryUpdateStatus, conn))
+                    using (SqlCommand cmd2 = new SqlCommand(queryUpdateStatus, conn))
                     {
                         cmd2.Parameters.AddWithValue("@MaNV", maNV);
-                        if(cmd2.ExecuteNonQuery() > 0)
+                        if (cmd2.ExecuteNonQuery() > 0)
                         {
                             ketQua = true;
                         }
@@ -133,7 +135,7 @@ namespace Quan_ly_nhan_su.DAL
             return trangthai;
 
         }
-      
+
         public ChamCongDTO LayThongTinChamCong(string maNV)
         {
             ChamCongDTO nv = null;
@@ -175,11 +177,11 @@ namespace Quan_ly_nhan_su.DAL
             string tenNV = "";
             string SDT = "";
             string DiaChi = "";
-       
-                
-            using(SqlConnection conn = DbContext.GetSqlConnection())
+
+
+            using (SqlConnection conn = DbContext.GetSqlConnection())
             {
-                using(SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@MaNV", maNhanVien);
                     try
@@ -189,11 +191,11 @@ namespace Quan_ly_nhan_su.DAL
                         {
                             if (reader.Read())
                             {
-                               
+
                                 tenNV = reader["TenNV"].ToString();
                                 SDT = reader["SoDienThoai"].ToString();
                                 DiaChi = reader["DiaChi"].ToString();
-                               
+
 
                             }
                         }
@@ -212,7 +214,7 @@ namespace Quan_ly_nhan_su.DAL
             string query = "Select NgayChamCong, GioVao, GioRa from ChiTietChamCong where MaNV = @MaNV order by NgayChamCong DESC, GioVao DESC";
             using (SqlConnection conn = DbContext.GetSqlConnection())
             {
-                using(SqlCommand  cmd = new SqlCommand(query, conn))
+                using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@MaNV", maNV);
                     try
@@ -221,7 +223,7 @@ namespace Quan_ly_nhan_su.DAL
                         SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                         adapter.Fill(dt);
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         throw new Exception("Lỗi lấy lịch sử : " + ex.Message);
                     }

@@ -88,20 +88,21 @@
             // 
             label1.Anchor = AnchorStyles.Top;
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(799, 32);
+            label1.Location = new Point(767, 35);
             label1.Name = "label1";
-            label1.Size = new Size(145, 41);
+            label1.Size = new Size(181, 41);
             label1.TabIndex = 0;
             label1.Text = "Chấm Công";
+          
             // 
             // lbDate
             // 
             lbDate.Anchor = AnchorStyles.Top;
             lbDate.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbDate.ForeColor = Color.DarkGray;
-            lbDate.Location = new Point(763, 103);
+            lbDate.Location = new Point(754, 103);
             lbDate.Name = "lbDate";
-            lbDate.Size = new Size(216, 21);
+            lbDate.Size = new Size(226, 30);
             lbDate.TabIndex = 2;
             lbDate.Text = "Thứ Tư, 18 Tháng 3, 2026";
             lbDate.Click += lbDate_Click;
@@ -110,9 +111,9 @@
             // 
             lbClock.Anchor = AnchorStyles.Top;
             lbClock.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbClock.Location = new Point(789, 133);
+            lbClock.Location = new Point(754, 133);
             lbClock.Name = "lbClock";
-            lbClock.Size = new Size(164, 47);
+            lbClock.Size = new Size(226, 52);
             lbClock.TabIndex = 3;
             lbClock.Text = "08:00:00";
             lbClock.Click += lbClock_Click;
@@ -156,7 +157,7 @@
             lbCheckOut.ForeColor = Color.White;
             lbCheckOut.Location = new Point(371, 60);
             lbCheckOut.Name = "lbCheckOut";
-            lbCheckOut.Size = new Size(103, 25);
+            lbCheckOut.Size = new Size(129, 32);
             lbCheckOut.TabIndex = 1;
             lbCheckOut.Text = "Check-out";
             // 
@@ -200,7 +201,7 @@
             lbCheckIn.ForeColor = Color.White;
             lbCheckIn.Location = new Point(358, 60);
             lbCheckIn.Name = "lbCheckIn";
-            lbCheckIn.Size = new Size(89, 25);
+            lbCheckIn.Size = new Size(112, 32);
             lbCheckIn.TabIndex = 0;
             lbCheckIn.Text = "Check-in";
             // 
@@ -235,7 +236,7 @@
             lbTongGio.ForeColor = Color.LightSkyBlue;
             lbTongGio.Location = new Point(1322, 58);
             lbTongGio.Name = "lbTongGio";
-            lbTongGio.Size = new Size(38, 21);
+            lbTongGio.Size = new Size(49, 28);
             lbTongGio.TabIndex = 7;
             lbTongGio.Text = "--:--";
             // 
@@ -247,7 +248,7 @@
             lbGioRa.ForeColor = Color.Gray;
             lbGioRa.Location = new Point(818, 59);
             lbGioRa.Name = "lbGioRa";
-            lbGioRa.Size = new Size(45, 20);
+            lbGioRa.Size = new Size(59, 25);
             lbGioRa.TabIndex = 6;
             lbGioRa.Text = "  --:--";
             // 
@@ -258,7 +259,7 @@
             lbGioVao.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbGioVao.Location = new Point(299, 59);
             lbGioVao.Name = "lbGioVao";
-            lbGioVao.Size = new Size(41, 20);
+            lbGioVao.Size = new Size(54, 25);
             lbGioVao.TabIndex = 5;
             lbGioVao.Text = " --:--";
             lbGioVao.Click += label11_Click;
@@ -283,7 +284,7 @@
             label10.ForeColor = Color.Silver;
             label10.Location = new Point(1311, 31);
             label10.Name = "label10";
-            label10.Size = new Size(72, 17);
+            label10.Size = new Size(93, 23);
             label10.TabIndex = 3;
             label10.Text = "TỔNG GIỜ";
             // 
@@ -295,7 +296,7 @@
             label9.ForeColor = Color.Silver;
             label9.Location = new Point(818, 31);
             label9.Name = "label9";
-            label9.Size = new Size(52, 17);
+            label9.Size = new Size(68, 23);
             label9.TabIndex = 2;
             label9.Text = "GIỜ RA";
             // 
@@ -307,7 +308,7 @@
             label8.ForeColor = Color.Silver;
             label8.Location = new Point(294, 31);
             label8.Name = "label8";
-            label8.Size = new Size(62, 17);
+            label8.Size = new Size(80, 23);
             label8.TabIndex = 1;
             label8.Text = "GIỜ VÀO";
             // 
@@ -318,7 +319,7 @@
             label6.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label6.Location = new Point(43, 11);
             label6.Name = "label6";
-            label6.Size = new Size(129, 20);
+            label6.Size = new Size(161, 25);
             label6.TabIndex = 0;
             label6.Text = "Tóm tắt hôm nay";
             // 
@@ -328,7 +329,7 @@
             label14.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label14.Location = new Point(18, 483);
             label14.Name = "label14";
-            label14.Size = new Size(151, 21);
+            label14.Size = new Size(187, 28);
             label14.TabIndex = 9;
             label14.Text = "Lịch sử chấm công";
             // 
@@ -355,7 +356,7 @@
             // 
             // txtNhapMaNV
             // 
-            txtNhapMaNV.Anchor = AnchorStyles.Top;
+            txtNhapMaNV.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtNhapMaNV.BorderColor = Color.FromArgb(224, 224, 224);
             txtNhapMaNV.BorderRadius = 10;
             txtNhapMaNV.BorderThickness = 2;
@@ -368,13 +369,13 @@
             txtNhapMaNV.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             txtNhapMaNV.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             txtNhapMaNV.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            txtNhapMaNV.Location = new Point(713, 185);
+            txtNhapMaNV.Location = new Point(656, 190);
             txtNhapMaNV.Margin = new Padding(4, 5, 4, 5);
             txtNhapMaNV.Name = "txtNhapMaNV";
             txtNhapMaNV.PlaceholderText = "Vui lòng nhập mã nhân viên...";
             txtNhapMaNV.SelectedText = "";
             txtNhapMaNV.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            txtNhapMaNV.Size = new Size(321, 60);
+            txtNhapMaNV.Size = new Size(404, 60);
             txtNhapMaNV.TabIndex = 13;
             txtNhapMaNV.TextAlign = HorizontalAlignment.Center;
             txtNhapMaNV.TextChanged += txtNhapMaNV_TextChanged;
@@ -430,11 +431,12 @@
             pnThongTinNV.Controls.Add(lblSDT);
             pnThongTinNV.Controls.Add(lblHoTenNV);
             pnThongTinNV.CustomizableEdges = customizableEdges13;
-            pnThongTinNV.Location = new Point(1061, 103);
+            pnThongTinNV.Location = new Point(1067, 103);
             pnThongTinNV.Name = "pnThongTinNV";
             pnThongTinNV.ShadowDecoration.CustomizableEdges = customizableEdges14;
-            pnThongTinNV.Size = new Size(611, 142);
+            pnThongTinNV.Size = new Size(608, 134);
             pnThongTinNV.TabIndex = 17;
+           
             // 
             // lblDiaChiNhanVien
             // 
@@ -442,7 +444,7 @@
             lblDiaChiNhanVien.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblDiaChiNhanVien.Location = new Point(98, 81);
             lblDiaChiNhanVien.Name = "lblDiaChiNhanVien";
-            lblDiaChiNhanVien.Size = new Size(0, 21);
+            lblDiaChiNhanVien.Size = new Size(0, 28);
             lblDiaChiNhanVien.TabIndex = 5;
             // 
             // lblSoDienThoai
@@ -451,7 +453,7 @@
             lblSoDienThoai.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblSoDienThoai.Location = new Point(478, 21);
             lblSoDienThoai.Name = "lblSoDienThoai";
-            lblSoDienThoai.Size = new Size(0, 21);
+            lblSoDienThoai.Size = new Size(0, 28);
             lblSoDienThoai.TabIndex = 4;
             // 
             // lblHoTenNhanVien
@@ -460,7 +462,7 @@
             lblHoTenNhanVien.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblHoTenNhanVien.Location = new Point(98, 21);
             lblHoTenNhanVien.Name = "lblHoTenNhanVien";
-            lblHoTenNhanVien.Size = new Size(0, 21);
+            lblHoTenNhanVien.Size = new Size(0, 28);
             lblHoTenNhanVien.TabIndex = 3;
             // 
             // lblDiaChi
@@ -469,7 +471,7 @@
             lblDiaChi.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lblDiaChi.Location = new Point(21, 81);
             lblDiaChi.Name = "lblDiaChi";
-            lblDiaChi.Size = new Size(71, 21);
+            lblDiaChi.Size = new Size(89, 28);
             lblDiaChi.TabIndex = 2;
             lblDiaChi.Text = "Địa chỉ: ";
             // 
@@ -479,7 +481,7 @@
             lblSDT.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lblSDT.Location = new Point(348, 20);
             lblSDT.Name = "lblSDT";
-            lblSDT.Size = new Size(124, 21);
+            lblSDT.Size = new Size(155, 28);
             lblSDT.TabIndex = 1;
             lblSDT.Text = "Số Điện Thoại: ";
             // 
@@ -489,7 +491,7 @@
             lblHoTenNV.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lblHoTenNV.Location = new Point(21, 20);
             lblHoTenNV.Name = "lblHoTenNV";
-            lblHoTenNV.Size = new Size(71, 21);
+            lblHoTenNV.Size = new Size(89, 28);
             lblHoTenNV.TabIndex = 0;
             lblHoTenNV.Text = "Họ Tên: ";
             // 
@@ -497,7 +499,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1714, 1061);
+            ClientSize = new Size(1714, 1055);
             Controls.Add(pnThongTinNV);
             Controls.Add(btnBack);
             Controls.Add(tableLayoutPanel1);

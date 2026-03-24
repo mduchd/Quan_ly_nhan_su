@@ -10,10 +10,9 @@ namespace Quan_ly_nhan_su.BUS
         public decimal TinhTongLuong(BangLuongDTO nv)
         {
             if (nv == null) return 0m;
-            const decimal daysInMonth = 30m;
-            int ngayLam = nv.SoNgayLam < 0 ? 0 : nv.SoNgayLam;
-            // Calculate proportional salary based on days worked
-            decimal tong = nv.LuongCung * (ngayLam / daysInMonth);
+            var soNgayChuan = nv.SoNgayChuan > 0 ? nv.SoNgayChuan : 30;
+            var ngayLam = Math.Clamp(nv.SoNgayLam, 0, soNgayChuan);
+            decimal tong = nv.LuongCung * ngayLam / soNgayChuan;
             return Math.Round(tong, 0);
         }
     }

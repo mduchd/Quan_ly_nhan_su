@@ -15,5 +15,12 @@ namespace Quan_ly_nhan_su.DTO
         public DateTime? NgayChamCong { get; set; }
         public TimeSpan? GioVao { get; set; }
         public TimeSpan? GioRa { get; set; }
+
+        public string TenNhanVien { get; set; } = string.Empty;
+        public string PhongBan { get; set; } = string.Empty;
+        public string LoaiNghi { get; set; } = string.Empty;
+        public DateTime TuNgay { get; set; }
+        public DateTime DenNgay { get; set; }
+        public string LyDo { get; set; } = string.Empty;
     }
 }

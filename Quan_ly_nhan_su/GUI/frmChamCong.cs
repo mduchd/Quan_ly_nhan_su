@@ -1,4 +1,4 @@
-﻿using Quan_ly_nhan_su.DAL;
+using Quan_ly_nhan_su.DAL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

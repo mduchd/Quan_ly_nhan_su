@@ -1,4 +1,4 @@
-﻿using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Bibliography;
 using Quan_ly_nhan_su.DAL;
 using Quan_ly_nhan_su.DTO;
 using System;
@@ -22,7 +22,7 @@ namespace Quan_ly_nhan_su.BUS
         {
             return dal.CapNhatTrangThaiCheckIn(maNV, trangThai);
         }
-        public bool CapNhatTrangThaiCheckOut(string maNV,double tongGio)
+        public bool CapNhatTrangThaiCheckOut(string maNV, double tongGio)
         {
             return dal.CapNhatTrangThaiCheckOut(maNV, tongGio);
         }
@@ -53,7 +53,7 @@ namespace Quan_ly_nhan_su.BUS
 
         public string XuLyCheckOut(string maNV, out TimeSpan gioVao, out TimeSpan gioRa, out TimeSpan tongThoiGian)
         {
-          
+
             gioVao = TimeSpan.Zero;
             gioRa = TimeSpan.Zero;
             tongThoiGian = TimeSpan.Zero;
@@ -72,7 +72,7 @@ namespace Quan_ly_nhan_su.BUS
                 tongThoiGian = gioRa - gioVao;
                 double tongGioLam = tongThoiGian.TotalHours;
 
-              
+
                 bool isSuccess = dal.CapNhatTrangThaiCheckOut(maNV, tongGioLam);
                 if (isSuccess) return "Thành công";
                 return "Check-out thất bại. Vui lòng thử lại!";

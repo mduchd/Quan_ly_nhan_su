@@ -1,42 +1,32 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.Data.SqlClient;
 
 namespace Quan_ly_nhan_su.DAL
 {
     internal class TaiKhoanDAL
     {
-        public bool KiemTraDangNhap(string taikhoan, string matkhau)
+        public string KiemTraDangNhap(string taikhoan, string matkhau)
         {
-            bool hopLe = false;
             using (SqlConnection conn = DbContext.GetSqlConnection())
             {
                 try
                 {
                     conn.Open();
-                    string sql = "SELECT 1 From Tai_Khoan WHERE TenDangNhap = @taikhoan AND MatKhau = @matkhau";
-                    SqlCommand cmd = new SqlCommand(sql, conn);
+
+                    const string sql = "SELECT Quyen FROM TAI_KHOAN WHERE TenDangNhap = @taikhoan AND MatKhau = @matkhau";
+                    using SqlCommand cmd = new SqlCommand(sql, conn);
+
                     cmd.Parameters.AddWithValue("@taikhoan", taikhoan);
                     cmd.Parameters.AddWithValue("@matkhau", matkhau);
 
                     object result = cmd.ExecuteScalar();
-                    if (result != null)
-                    {
-                        hopLe = true;
-                    }
+                    return result?.ToString();
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Loi CSDL: " + ex.Message);
+                    throw new Exception("Lỗi CSDL khi kiểm tra đăng nhập: " + ex.Message, ex);
                 }
             }
-
-            return hopLe;
         }
     }
 }
-
-
-
-
