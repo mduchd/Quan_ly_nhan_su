@@ -179,7 +179,7 @@ namespace Quan_ly_nhan_su.GUI
             // 
             // txtAddress
             // 
-            txtAddress.BorderRadius = 6;
+            txtAddress.BorderRadius = 8;
             txtAddress.Cursor = Cursors.IBeam;
             txtAddress.CustomizableEdges = customizableEdges1;
             txtAddress.DefaultText = "";
@@ -204,7 +204,7 @@ namespace Quan_ly_nhan_su.GUI
             // 
             // txtEmail
             // 
-            txtEmail.BorderRadius = 6;
+            txtEmail.BorderRadius = 8;
             txtEmail.Cursor = Cursors.IBeam;
             txtEmail.CustomizableEdges = customizableEdges3;
             txtEmail.DefaultText = "";
@@ -229,7 +229,7 @@ namespace Quan_ly_nhan_su.GUI
             // 
             // txtPhone
             // 
-            txtPhone.BorderRadius = 6;
+            txtPhone.BorderRadius = 8;
             txtPhone.Cursor = Cursors.IBeam;
             txtPhone.CustomizableEdges = customizableEdges5;
             txtPhone.DefaultText = "";
@@ -254,7 +254,7 @@ namespace Quan_ly_nhan_su.GUI
             // 
             // dtpStartDate
             // 
-            dtpStartDate.BorderRadius = 6;
+            dtpStartDate.BorderRadius = 8;
             dtpStartDate.Checked = true;
             dtpStartDate.CustomFormat = "dd/MM/yyyy";
             dtpStartDate.CustomizableEdges = customizableEdges7;
@@ -299,9 +299,9 @@ namespace Quan_ly_nhan_su.GUI
             // 
             // btnDeleteDept
             // 
-            btnDeleteDept.BorderRadius = 6;
+            btnDeleteDept.BorderRadius = 8;
             btnDeleteDept.CustomizableEdges = customizableEdges11;
-            btnDeleteDept.FillColor = Color.IndianRed;
+            btnDeleteDept.FillColor = Color.FromArgb(231, 76, 60);
             btnDeleteDept.Font = new Font("Segoe UI", 9F);
             btnDeleteDept.ForeColor = Color.White;
             btnDeleteDept.Location = new Point(1364, 76);
@@ -314,9 +314,9 @@ namespace Quan_ly_nhan_su.GUI
             // 
             // btnEditDept
             // 
-            btnEditDept.BorderRadius = 6;
+            btnEditDept.BorderRadius = 8;
             btnEditDept.CustomizableEdges = customizableEdges13;
-            btnEditDept.FillColor = Color.SteelBlue;
+            btnEditDept.FillColor = Color.FromArgb(41, 128, 185);
             btnEditDept.Font = new Font("Segoe UI", 9F);
             btnEditDept.ForeColor = Color.White;
             btnEditDept.Location = new Point(1316, 76);
@@ -329,9 +329,9 @@ namespace Quan_ly_nhan_su.GUI
             // 
             // btnAddDept
             // 
-            btnAddDept.BorderRadius = 6;
+            btnAddDept.BorderRadius = 8;
             btnAddDept.CustomizableEdges = customizableEdges15;
-            btnAddDept.FillColor = Color.SteelBlue;
+            btnAddDept.FillColor = Color.FromArgb(41, 128, 185);
             btnAddDept.Font = new Font("Segoe UI", 9F);
             btnAddDept.ForeColor = Color.White;
             btnAddDept.Location = new Point(1268, 76);
@@ -346,9 +346,9 @@ namespace Quan_ly_nhan_su.GUI
             // 
             btnClear.BorderRadius = 8;
             btnClear.CustomizableEdges = customizableEdges17;
-            btnClear.FillColor = Color.SlateGray;
-            btnClear.Font = new Font("Segoe UI", 9F);
-            btnClear.ForeColor = Color.White;
+            btnClear.FillColor = Color.FromArgb(189, 195, 199);
+            btnClear.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnClear.ForeColor = Color.Black;
             btnClear.Location = new Point(1286, 294);
             btnClear.Name = "btnClear";
             btnClear.ShadowDecoration.CustomizableEdges = customizableEdges18;
@@ -361,7 +361,7 @@ namespace Quan_ly_nhan_su.GUI
             // 
             btnDelete.BorderRadius = 8;
             btnDelete.CustomizableEdges = customizableEdges19;
-            btnDelete.FillColor = Color.IndianRed;
+            btnDelete.FillColor = Color.FromArgb(231, 76, 60);
             btnDelete.Font = new Font("Segoe UI", 9F);
             btnDelete.ForeColor = Color.White;
             btnDelete.Location = new Point(1149, 294);
@@ -376,7 +376,7 @@ namespace Quan_ly_nhan_su.GUI
             // 
             btnEdit.BorderRadius = 8;
             btnEdit.CustomizableEdges = customizableEdges21;
-            btnEdit.FillColor = Color.SteelBlue;
+            btnEdit.FillColor = Color.FromArgb(41, 128, 185);
             btnEdit.Font = new Font("Segoe UI", 9F);
             btnEdit.ForeColor = Color.White;
             btnEdit.Location = new Point(1012, 294);
@@ -391,7 +391,7 @@ namespace Quan_ly_nhan_su.GUI
             // 
             btnAdd.BorderRadius = 8;
             btnAdd.CustomizableEdges = customizableEdges23;
-            btnAdd.FillColor = Color.SteelBlue;
+            btnAdd.FillColor = Color.FromArgb(41, 128, 185);
             btnAdd.Font = new Font("Segoe UI", 9F);
             btnAdd.ForeColor = Color.White;
             btnAdd.Location = new Point(875, 294);
@@ -406,8 +406,8 @@ namespace Quan_ly_nhan_su.GUI
             // 
             btnExport.BorderRadius = 8;
             btnExport.CustomizableEdges = customizableEdges25;
-            btnExport.FillColor = Color.MediumSeaGreen;
-            btnExport.Font = new Font("Segoe UI", 9F);
+            btnExport.FillColor = Color.FromArgb(46, 204, 113);
+            btnExport.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnExport.ForeColor = Color.White;
             btnExport.Location = new Point(1423, 294);
             btnExport.Name = "btnExport";
@@ -446,7 +446,7 @@ namespace Quan_ly_nhan_su.GUI
             // 
             // txtPosition
             // 
-            txtPosition.BorderRadius = 6;
+            txtPosition.BorderRadius = 8;
             txtPosition.Cursor = Cursors.IBeam;
             txtPosition.CustomizableEdges = customizableEdges29;
             txtPosition.DefaultText = "";
@@ -471,7 +471,7 @@ namespace Quan_ly_nhan_su.GUI
             // 
             // dtpDob
             // 
-            dtpDob.BorderRadius = 6;
+            dtpDob.BorderRadius = 8;
             dtpDob.Checked = true;
             dtpDob.CustomFormat = "dd/MM/yyyy";
             dtpDob.CustomizableEdges = customizableEdges31;
@@ -498,7 +498,7 @@ namespace Quan_ly_nhan_su.GUI
             // 
             // txtName
             // 
-            txtName.BorderRadius = 6;
+            txtName.BorderRadius = 8;
             txtName.Cursor = Cursors.IBeam;
             txtName.CustomizableEdges = customizableEdges33;
             txtName.DefaultText = "";
@@ -523,7 +523,7 @@ namespace Quan_ly_nhan_su.GUI
             // 
             // txtId
             // 
-            txtId.BorderRadius = 6;
+            txtId.BorderRadius = 8;
             txtId.Cursor = Cursors.IBeam;
             txtId.CustomizableEdges = customizableEdges35;
             txtId.DefaultText = "";
@@ -648,6 +648,7 @@ namespace Quan_ly_nhan_su.GUI
             Controls.Add(grpInput);
             Name = "ucNhanVien";
             Size = new Size(1804, 713);
+            BackColor = Color.FromArgb(242, 245, 250);
             grpInput.ResumeLayout(false);
             grpInput.PerformLayout();
             pnlSearch.ResumeLayout(false);

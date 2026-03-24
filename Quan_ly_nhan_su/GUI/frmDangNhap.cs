@@ -69,8 +69,9 @@ namespace Quan_ly_nhan_su.GUI
         private void btnMoMayChamCong_Click(object sender, EventArgs e)
         {
             frmChamCong chamCongForm = new frmChamCong();
+            // Khi đóng form chấm công thì hiện lại form đăng nhập
+            chamCongForm.FormClosed += (s, args) => this.Show();
             chamCongForm.Show();
-
             this.Hide();
         }
     }

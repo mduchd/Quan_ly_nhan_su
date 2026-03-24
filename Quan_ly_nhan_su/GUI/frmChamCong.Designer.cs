@@ -1,4 +1,4 @@
-﻿namespace Quan_ly_nhan_su.GUI
+namespace Quan_ly_nhan_su.GUI
 {
     partial class frmChamCong
     {
@@ -93,7 +93,6 @@
             label1.Size = new Size(181, 41);
             label1.TabIndex = 0;
             label1.Text = "Chấm Công";
-          
             // 
             // lbDate
             // 
@@ -356,7 +355,7 @@
             // 
             // txtNhapMaNV
             // 
-            txtNhapMaNV.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtNhapMaNV.Anchor = AnchorStyles.Top;
             txtNhapMaNV.BorderColor = Color.FromArgb(224, 224, 224);
             txtNhapMaNV.BorderRadius = 10;
             txtNhapMaNV.BorderThickness = 2;
@@ -410,8 +409,7 @@
             btnBack.CustomizableEdges = customizableEdges11;
             btnBack.DisabledState.BorderColor = Color.DarkGray;
             btnBack.DisabledState.CustomBorderColor = Color.DarkGray;
-            btnBack.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btnBack.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnBack.FillColor = Color.FromArgb(41, 128, 185);
             btnBack.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnBack.ForeColor = Color.White;
             btnBack.Location = new Point(18, 19);
@@ -424,6 +422,7 @@
             // 
             // pnThongTinNV
             // 
+            pnThongTinNV.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pnThongTinNV.Controls.Add(lblDiaChiNhanVien);
             pnThongTinNV.Controls.Add(lblSoDienThoai);
             pnThongTinNV.Controls.Add(lblHoTenNhanVien);
@@ -431,12 +430,11 @@
             pnThongTinNV.Controls.Add(lblSDT);
             pnThongTinNV.Controls.Add(lblHoTenNV);
             pnThongTinNV.CustomizableEdges = customizableEdges13;
-            pnThongTinNV.Location = new Point(1067, 103);
+            pnThongTinNV.Location = new Point(1080, 103);
             pnThongTinNV.Name = "pnThongTinNV";
             pnThongTinNV.ShadowDecoration.CustomizableEdges = customizableEdges14;
-            pnThongTinNV.Size = new Size(608, 134);
+            pnThongTinNV.Size = new Size(615, 134);
             pnThongTinNV.TabIndex = 17;
-           
             // 
             // lblDiaChiNhanVien
             // 
@@ -479,7 +477,7 @@
             // 
             lblSDT.AutoSize = true;
             lblSDT.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblSDT.Location = new Point(348, 20);
+            lblSDT.Location = new Point(338, 20);
             lblSDT.Name = "lblSDT";
             lblSDT.Size = new Size(155, 28);
             lblSDT.TabIndex = 1;
@@ -499,6 +497,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(242, 245, 250);
             ClientSize = new Size(1714, 1055);
             Controls.Add(pnThongTinNV);
             Controls.Add(btnBack);
