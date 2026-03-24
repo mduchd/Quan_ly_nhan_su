@@ -24,7 +24,6 @@ namespace Quan_ly_nhan_su.GUI
         private int _totalRecords;
         private int _totalPages = 1;
         private const int PageSize = 20;
-
         private const string EmployeeIdColumnName = "MaNV";
 
         public ucNhanVien()
@@ -34,7 +33,6 @@ namespace Quan_ly_nhan_su.GUI
             LoadCombobox();
             LoadGridData(resetPage: true);
             ClearInputs();
-
             SizeChanged += ucNhanVien_SizeChanged;
             ApplyResponsiveLayout();
         }
@@ -43,20 +41,16 @@ namespace Quan_ly_nhan_su.GUI
         {
             ApplyResponsiveLayout();
         }
-
         private void LoadCombobox()
         {
             _departments = _nhanVienBUS.LayDanhSachPhongBan();
-
             var selectedDept = cbDept.SelectedItem?.ToString();
             cbDept.DataSource = null;
             cbDept.DataSource = _departments;
-
             if (!string.IsNullOrWhiteSpace(selectedDept) && _departments.Contains(selectedDept))
             {
                 cbDept.SelectedItem = selectedDept;
             }
-
             cbGender.DataSource = new List<string> { "Nam", "Nữ", "Khác" };
         }
 
@@ -66,7 +60,6 @@ namespace Quan_ly_nhan_su.GUI
             {
                 _currentPage = 1;
             }
-
             _employees = _nhanVienBUS.LayDanhSachNhanVien(txtSearch.Text.Trim(), _currentPage, PageSize, out _totalRecords);
             _totalPages = Math.Max(1, (int)Math.Ceiling(_totalRecords / (double)PageSize));
 
@@ -86,27 +79,23 @@ namespace Quan_ly_nhan_su.GUI
                 SoDienThoai = e.SoDienThoai,
                 Email = e.Email,
                 NgayVaoLam = e.NgayVaoLam.ToString("dd/MM/yyyy"),
-                NgayChamCong = e.NgayChamCong?.ToString("dd/MM/yyyy") ?? string.Empty,
-                GioVao = e.GioVao?.ToString(@"hh\:mm") ?? string.Empty,
-                GioRa = e.GioRa?.ToString(@"hh\:mm") ?? string.Empty,
                 TrangThai = e.TrangThai ? "Đang làm" : "Nghỉ việc",
                 PhongBan = e.PhongBan
             }).OrderBy(x => x.MaNV).ToList();
-
             gridEmployees.DataSource = null;
             gridEmployees.DataSource = displayData;
+            gridEmployees.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            gridEmployees.ColumnHeadersHeight = 36;
+            gridEmployees.ThemeStyle.HeaderStyle.Height = 36;
             ConfigureGridHeaders();
-
             UpdatePagingControls();
         }
-
         private void ConfigureGridHeaders()
         {
             if (gridEmployees.Columns.Count == 0)
             {
                 return;
             }
-
             gridEmployees.Columns["MaNV"].HeaderText = "Mã NV";
             gridEmployees.Columns["HoTen"].HeaderText = "Họ Tên";
             gridEmployees.Columns["NgaySinh"].HeaderText = "Ngày Sinh";
@@ -114,9 +103,6 @@ namespace Quan_ly_nhan_su.GUI
             gridEmployees.Columns["ChucVu"].HeaderText = "Chức Vụ";
             gridEmployees.Columns["SoDienThoai"].HeaderText = "SĐT";
             gridEmployees.Columns["NgayVaoLam"].HeaderText = "Ngày Vào Làm";
-            gridEmployees.Columns["NgayChamCong"].HeaderText = "Ngày Chấm Công";
-            gridEmployees.Columns["GioVao"].HeaderText = "Giờ Vào";
-            gridEmployees.Columns["GioRa"].HeaderText = "Giờ Ra";
             gridEmployees.Columns["TrangThai"].HeaderText = "Trạng Thái";
             gridEmployees.Columns["PhongBan"].HeaderText = "Phòng Ban";
         }
@@ -147,7 +133,6 @@ namespace Quan_ly_nhan_su.GUI
             {
                 return;
             }
-
             var maNV = gridEmployees.CurrentRow.Cells[EmployeeIdColumnName].Value?.ToString() ?? string.Empty;
             var emp = _employees.FirstOrDefault(x => x.MaNV.Equals(maNV, StringComparison.OrdinalIgnoreCase));
             if (emp == null)
@@ -165,7 +150,6 @@ namespace Quan_ly_nhan_su.GUI
             txtAddress.Text = emp.DiaChi;
             dtpStartDate.Value = emp.NgayVaoLam;
             chkIsActive.Checked = emp.TrangThai;
-
             if (!string.IsNullOrWhiteSpace(emp.PhongBan) && _departments.Contains(emp.PhongBan))
             {
                 cbDept.SelectedItem = emp.PhongBan;
@@ -195,7 +179,6 @@ namespace Quan_ly_nhan_su.GUI
             SelectEmployeeRow(nhanVien.MaNV);
             MessageBox.Show("Thêm thành công!", "Thông báo");
         }
-
         private void btnEdit_Click(object sender, EventArgs e)
         {
             var maNV = txtId.Text.Trim();
@@ -615,13 +598,14 @@ namespace Quan_ly_nhan_su.GUI
             const int row4Top = 165;
             const int row5Top = 209;
             const int row6Top = 253;
-            const int buttonTop = 280;
             const int buttonWidth = 110;
             const int buttonGap = 12;
             const int columnGap = 32;
             const int minColumnWidth = 250;
             const int deptButtonWidth = 42;
             const int deptButtonGap = 6;
+            const int buttonTopSpacing = 12;
+            const int buttonBottomPadding = 10;
 
             var availableWidth = grpInput.ClientSize.Width - (margin * 2);
             if (availableWidth <= 0)
@@ -686,6 +670,13 @@ namespace Quan_ly_nhan_su.GUI
 
             var totalButtonWidth = (buttonWidth * 5) + (buttonGap * 4);
             var buttonStartX = Math.Max(rightInputX + inputWidth - totalButtonWidth, margin);
+            var desiredButtonTop = txtAddress.Bottom + buttonTopSpacing;
+            var maxButtonTop = grpInput.ClientSize.Height - btnAdd.Height - buttonBottomPadding;
+            var buttonTop = Math.Min(desiredButtonTop, maxButtonTop);
+            if (buttonTop < desiredButtonTop)
+            {
+                buttonTop = Math.Max(row6Top + inputHeight + 4, buttonTop);
+            }
 
             btnAdd.SetBounds(buttonStartX, buttonTop, buttonWidth, 36);
             btnEdit.SetBounds(btnAdd.Right + buttonGap, buttonTop, buttonWidth, 36);
