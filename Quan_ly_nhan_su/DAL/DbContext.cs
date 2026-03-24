@@ -10,7 +10,7 @@ namespace Quan_ly_nhan_su.DAL
     {
 
         // server = . la localhost
-        public static string ConnectionString = @"Server=.;Database=QL_Nhansu; Integrated Security=true;TrustServerCertificate=True";
+        public static string ConnectionString = @"Server=LAPTOP-Q7PBMSMT\PHAMTUAN;Database=QL_Nhansu;Integrated Security=true;TrustServerCertificate=True";
 
         public static SqlConnection GetSqlConnection()
         {

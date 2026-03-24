@@ -19,7 +19,6 @@ namespace Quan_ly_nhan_su.DAL
 
             string keyword = tuKhoa.Trim();
 
-            // SQL đếm số ngày công hợp lệ (có giờ vào và giờ ra) trong tháng của từng nhân viên
             string query = @"
                 SELECT 
                     n.MaNV, 
@@ -61,19 +60,24 @@ namespace Quan_ly_nhan_su.DAL
             return dsBangLuong;
         }
 
+        // HÀM MỚI: Cập nhật Lương Cứng
+        public bool CapNhatLuongCung(string maNV, decimal luongMoi)
+        {
+            using var conn = DbContext.GetSqlConnection();
+            conn.Open();
+            string query = "UPDATE NhanVien SET LuongCung = @LuongCung WHERE MaNV = @MaNV";
+            using var cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@LuongCung", luongMoi);
+            cmd.Parameters.AddWithValue("@MaNV", maNV);
+            return cmd.ExecuteNonQuery() > 0;
+        }
+
         private static DateTime ResolveMonth(string thangNam)
         {
             if (!string.IsNullOrWhiteSpace(thangNam))
             {
-                if (DateTime.TryParseExact(thangNam, "yyyy-MM", null, System.Globalization.DateTimeStyles.None, out var m))
-                {
-                    return m;
-                }
-
-                if (DateTime.TryParseExact(thangNam, "MM/yyyy", null, System.Globalization.DateTimeStyles.None, out m))
-                {
-                    return m;
-                }
+                if (DateTime.TryParseExact(thangNam, "yyyy-MM", null, System.Globalization.DateTimeStyles.None, out var m)) return m;
+                if (DateTime.TryParseExact(thangNam, "MM/yyyy", null, System.Globalization.DateTimeStyles.None, out m)) return m;
             }
             return DateTime.Today;
         }
