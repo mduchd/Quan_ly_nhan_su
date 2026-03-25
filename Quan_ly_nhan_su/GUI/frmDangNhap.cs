@@ -41,10 +41,9 @@ namespace Quan_ly_nhan_su.GUI
 
             try
             {
-                string quyen = bus.DangNhap(taikhoan, matkhau);
-                if (!string.IsNullOrWhiteSpace(quyen))
+                if (bus.DangNhap(taikhoan, matkhau))
                 {
-                    MainForm mainForm = new MainForm(quyen);
+                    MainForm mainForm = new MainForm(taikhoan);
                     mainForm.Show();
                     this.Hide();
                     return;

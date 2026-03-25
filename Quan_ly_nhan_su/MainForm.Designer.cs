@@ -1,4 +1,4 @@
-﻿namespace Quan_ly_nhan_su
+namespace Quan_ly_nhan_su
 {
     partial class MainForm
     {
@@ -34,11 +34,14 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             pnlSidebar = new Panel();
+            btnDoiMatKhau = new Guna.UI2.WinForms.Guna2Button();
             btnTienLuong = new Guna.UI2.WinForms.Guna2Button();
             btnChamCong = new Guna.UI2.WinForms.Guna2Button();
             btnQLNhanSu = new Guna.UI2.WinForms.Guna2Button();
@@ -54,6 +57,7 @@
             // pnlSidebar
             // 
             pnlSidebar.BackColor = Color.SteelBlue;
+            pnlSidebar.Controls.Add(btnDoiMatKhau);
             pnlSidebar.Controls.Add(btnTienLuong);
             pnlSidebar.Controls.Add(btnChamCong);
             pnlSidebar.Controls.Add(btnQLNhanSu);
@@ -64,6 +68,24 @@
             pnlSidebar.Name = "pnlSidebar";
             pnlSidebar.Size = new Size(249, 561);
             pnlSidebar.TabIndex = 0;
+            // 
+            // btnDoiMatKhau
+            // 
+            btnDoiMatKhau.BorderRadius = 15;
+            btnDoiMatKhau.CustomizableEdges = customizableEdges11;
+            btnDoiMatKhau.DisabledState.BorderColor = Color.DarkGray;
+            btnDoiMatKhau.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnDoiMatKhau.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnDoiMatKhau.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnDoiMatKhau.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnDoiMatKhau.ForeColor = Color.White;
+            btnDoiMatKhau.Location = new Point(12, 311);
+            btnDoiMatKhau.Name = "btnDoiMatKhau";
+            btnDoiMatKhau.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            btnDoiMatKhau.Size = new Size(225, 56);
+            btnDoiMatKhau.TabIndex = 13;
+            btnDoiMatKhau.Text = "Đổi mật khẩu";
+            btnDoiMatKhau.Click += btnDoiMatKhau_Click;
             // 
             // btnTienLuong
             // 
@@ -209,6 +231,7 @@
         private Label lblLogo;
         private Button button4;
       
+        private Guna.UI2.WinForms.Guna2Button btnDoiMatKhau;
         private Guna.UI2.WinForms.Guna2Button btnDangXuat;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblVaiTro;
