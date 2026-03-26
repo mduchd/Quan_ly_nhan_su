@@ -166,7 +166,7 @@ namespace Quan_ly_nhan_su.DAL
                 }
                 catch(Exception ex)
                 {
-                    throw new Exception("Chi tiet loi ow ham kiem tra trang thai : " + ex.Message);
+                    throw new Exception("Chi tiet loi o ham kiem tra trang thai : " + ex.Message);
                 }
             }
         }

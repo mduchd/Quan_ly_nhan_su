@@ -274,9 +274,8 @@ namespace Quan_ly_nhan_su.GUI
         private void btnBack_Click(object sender, EventArgs e)
         {
             isThoat = false;
-            frmDangNhap f = new frmDangNhap();
-            f.Show();
             this.Close();
+            
         }
 
         private void lbDate_Click(object sender, EventArgs e)

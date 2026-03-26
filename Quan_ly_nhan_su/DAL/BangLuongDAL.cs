@@ -28,7 +28,7 @@ namespace Quan_ly_nhan_su.DAL
                 FROM NhanVien n
                 LEFT JOIN (
                     SELECT MaNV, COUNT(DISTINCT NgayChamCong) AS SoNgayLam
-                    FROM ChamCong
+                    FROM ChiTietChamCong
                     WHERE YEAR(NgayChamCong) = @Nam AND MONTH(NgayChamCong) = @Thang
                       AND GioVao IS NOT NULL AND GioRa IS NOT NULL
                     GROUP BY MaNV

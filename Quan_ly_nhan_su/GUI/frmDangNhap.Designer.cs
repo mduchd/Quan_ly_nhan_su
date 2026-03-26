@@ -66,7 +66,6 @@ namespace Quan_ly_nhan_su.GUI
             // guna2PictureBox1
             // 
             guna2PictureBox1.BackColor = Color.Transparent;
-            guna2PictureBox1.BorderRadius = 0;
             guna2PictureBox1.CustomizableEdges = customizableEdges1;
             guna2PictureBox1.Image = Properties.Resources.management;
             guna2PictureBox1.ImageRotate = 0F;
@@ -107,7 +106,7 @@ namespace Quan_ly_nhan_su.GUI
             label3.AutoSize = true;
             label3.Location = new Point(405, 104);
             label3.Name = "label3";
-            label3.Size = new Size(58, 15);
+            label3.Size = new Size(57, 15);
             label3.TabIndex = 2;
             label3.Text = "Tài khoản";
             label3.Click += label3_Click;
@@ -132,11 +131,11 @@ namespace Quan_ly_nhan_su.GUI
             btnDangNhap.FillColor = Color.FromArgb(41, 128, 185);
             btnDangNhap.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnDangNhap.ForeColor = Color.White;
-            btnDangNhap.Location = new Point(475, 305);
+            btnDangNhap.Location = new Point(405, 310);
             btnDangNhap.Margin = new Padding(3, 2, 3, 2);
             btnDangNhap.Name = "btnDangNhap";
             btnDangNhap.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            btnDangNhap.Size = new Size(197, 42);
+            btnDangNhap.Size = new Size(144, 42);
             btnDangNhap.TabIndex = 7;
             btnDangNhap.Text = "Đăng nhập";
             btnDangNhap.Click += btnDangNhap_Click;
@@ -192,19 +191,20 @@ namespace Quan_ly_nhan_su.GUI
             // 
             // btnMoMayChamCong
             // 
+            btnMoMayChamCong.BorderRadius = 15;
             btnMoMayChamCong.CustomizableEdges = customizableEdges9;
             btnMoMayChamCong.DisabledState.BorderColor = Color.DarkGray;
             btnMoMayChamCong.DisabledState.CustomBorderColor = Color.DarkGray;
             btnMoMayChamCong.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
             btnMoMayChamCong.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btnMoMayChamCong.Font = new Font("Segoe UI", 9F);
+            btnMoMayChamCong.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnMoMayChamCong.ForeColor = Color.White;
-            btnMoMayChamCong.Location = new Point(492, 366);
+            btnMoMayChamCong.Location = new Point(600, 310);
             btnMoMayChamCong.Name = "btnMoMayChamCong";
             btnMoMayChamCong.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            btnMoMayChamCong.Size = new Size(145, 33);
+            btnMoMayChamCong.Size = new Size(144, 42);
             btnMoMayChamCong.TabIndex = 10;
-            btnMoMayChamCong.Text = "Đi tới máy chấm công";
+            btnMoMayChamCong.Text = "Chấm Công";
             btnMoMayChamCong.Click += btnMoMayChamCong_Click;
             // 
             // frmDangNhap
