@@ -145,8 +145,9 @@ namespace Quan_ly_nhan_su.GUI
             grpInput.Location = new Point(0, 0);
             grpInput.Margin = new Padding(3, 2, 3, 2);
             grpInput.Name = "grpInput";
-            grpInput.Padding = new Padding(3, 2, 3, 2);
-            grpInput.Size = new Size(1578, 407);
+
+            grpInput.Size = new Size(1804, 340);
+
             grpInput.TabIndex = 0;
             grpInput.TabStop = false;
             grpInput.Text = "Thông tin nhân viên";
@@ -397,8 +398,9 @@ namespace Quan_ly_nhan_su.GUI
             btnDelete.FillColor = Color.FromArgb(231, 76, 60);
             btnDelete.Font = new Font("Segoe UI", 9F);
             btnDelete.ForeColor = Color.White;
-            btnDelete.Location = new Point(1005, 220);
-            btnDelete.Margin = new Padding(3, 2, 3, 2);
+
+            btnDelete.Location = new Point(1148, 309);
+
             btnDelete.Name = "btnDelete";
             btnDelete.ShadowDecoration.CustomizableEdges = customizableEdges22;
             btnDelete.Size = new Size(105, 27);
@@ -413,8 +415,9 @@ namespace Quan_ly_nhan_su.GUI
             btnEdit.FillColor = Color.FromArgb(41, 128, 185);
             btnEdit.Font = new Font("Segoe UI", 9F);
             btnEdit.ForeColor = Color.White;
-            btnEdit.Location = new Point(886, 220);
-            btnEdit.Margin = new Padding(3, 2, 3, 2);
+
+            btnEdit.Location = new Point(1011, 309);
+
             btnEdit.Name = "btnEdit";
             btnEdit.ShadowDecoration.CustomizableEdges = customizableEdges24;
             btnEdit.Size = new Size(105, 27);
@@ -429,8 +432,9 @@ namespace Quan_ly_nhan_su.GUI
             btnAdd.FillColor = Color.FromArgb(41, 128, 185);
             btnAdd.Font = new Font("Segoe UI", 9F);
             btnAdd.ForeColor = Color.White;
-            btnAdd.Location = new Point(766, 220);
-            btnAdd.Margin = new Padding(3, 2, 3, 2);
+
+            btnAdd.Location = new Point(874, 309);
+
             btnAdd.Name = "btnAdd";
             btnAdd.ShadowDecoration.CustomizableEdges = customizableEdges26;
             btnAdd.Size = new Size(105, 27);
@@ -445,8 +449,9 @@ namespace Quan_ly_nhan_su.GUI
             btnExport.FillColor = Color.FromArgb(46, 204, 113);
             btnExport.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnExport.ForeColor = Color.White;
-            btnExport.Location = new Point(1245, 220);
-            btnExport.Margin = new Padding(3, 2, 3, 2);
+
+            btnExport.Location = new Point(1422, 309);
+
             btnExport.Name = "btnExport";
             btnExport.ShadowDecoration.CustomizableEdges = customizableEdges28;
             btnExport.Size = new Size(105, 27);
@@ -583,6 +588,38 @@ namespace Quan_ly_nhan_su.GUI
             lblId.TabIndex = 0;
             lblId.Text = "Mã NV";
             // 
+
+            // txtSearch
+            // 
+            txtSearch.BorderRadius = 8;
+            txtSearch.Cursor = Cursors.IBeam;
+            txtSearch.CustomizableEdges = customizableEdges37;
+            txtSearch.DefaultText = "";
+            txtSearch.Font = new Font("Segoe UI", 9F);
+            txtSearch.Location = new Point(149, 12);
+            txtSearch.Margin = new Padding(3, 4, 3, 4);
+            txtSearch.Name = "txtSearch";
+            txtSearch.PlaceholderText = "Nhập tên, chức vụ, SĐT, email...";
+            txtSearch.SelectedText = "";
+            txtSearch.ShadowDecoration.CustomizableEdges = customizableEdges38;
+            txtSearch.Size = new Size(1257, 27);
+            txtSearch.TabIndex = 1;
+            txtSearch.TextChanged += txtSearch_TextChanged;
+            // 
+            // lblSearch
+            // 
+            lblSearch.AutoSize = true;
+            lblSearch.Location = new Point(24, 15);
+            lblSearch.Name = "lblSearch";
+            lblSearch.Size = new Size(70, 20);
+            lblSearch.TabIndex = 0;
+            lblSearch.Text = "Tìm kiếm";
+            // 
+            // pnlSearch
+            // 
+   
+            // 
+
             // gridEmployees
             // 
             gridEmployees.AllowUserToAddRows = false;

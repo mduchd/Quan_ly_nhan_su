@@ -9,15 +9,13 @@ namespace Quan_ly_nhan_su.DAL
     internal class DbContext
     {
 
-
         // server = . la localhost
-        public static string ConnectionString = @"Server=.;Database=QL_Nhansu; Integrated Security=true;TrustServerCertificate=True";
+        public static string ConnectionString = @"Server=.;Database=QL_Nhansu;Integrated Security=true;TrustServerCertificate=True";
 
 
         public static SqlConnection GetSqlConnection()
         {
             return new SqlConnection(ConnectionString);
         }
-
     }
 }

@@ -135,40 +135,41 @@ namespace Quan_ly_nhan_su.DAL
             return trangthai;
 
         }
-
-        public int KiemTraTT(string MaNV)
+       
+        public int KiemTraTT(string maNV)
         {
-            using(SqlConnection conn = DbContext.GetSqlConnection())
+            using (SqlConnection conn = DbContext.GetSqlConnection())
             {
                 try
                 {
                     conn.Open();
-                    string checkUserQuery = "Select count(*) from NhanVien where MaNV = @MaNV";
-                    using(SqlCommand cmdCheck = new SqlCommand(checkUserQuery, conn))
+                    // Kiem tra xem nhan vien ton tai khong
+                    string queryUserCheck = "Select count(*) from NhanVien where MaNV = @MaNV";
+                    using (SqlCommand cmdCheck = new SqlCommand(queryUserCheck, conn))
                     {
-                        cmdCheck.Parameters.AddWithValue("@MaNV", MaNV);
+                        cmdCheck.Parameters.AddWithValue("@MaNV", maNV);
                         int count = (int)cmdCheck.ExecuteScalar();
-                        if (count == 0) return -1;
+                        if (count == 0) return -1; // Neu - 1 thi khong tim thay nhan vien 
                     }
-                    string query = "Select GioVao from ChiTietChamCong where MaNV = @MaNV and NgayChamCong = Cast(getdate() as DATE) and GioRa Is null";
+                    string query = "Select GioVao from ChiTietChamCong where MaNV = @MaNV and NgayChamCong = CAST(GetDate() as Date) and GioRa is null";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
-                        cmd.Parameters.AddWithValue("@MaNV", MaNV);
+                        cmd.Parameters.AddWithValue("@MaNV", maNV);
                         object result = cmd.ExecuteScalar();
+                        // Neu cos ket qua thi la dang check in
                         if(result != null && result != DBNull.Value)
                         {
                             return 1;
                         }
                     }
-                    return 0;
+                    return 0; // Neu cac buoc tren ma chua return 1 thi la chua check in
                 }
                 catch(Exception ex)
                 {
-                    throw new Exception("Chi tiết lối : " + ex.Message);
+                    throw new Exception("Chi tiet loi ow ham kiem tra trang thai : " + ex.Message);
                 }
             }
         }
-
         public ChamCongDTO LayThongTinChamCong(string maNV)
         {
             ChamCongDTO nv = null;

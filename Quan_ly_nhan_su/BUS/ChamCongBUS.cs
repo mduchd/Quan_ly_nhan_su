@@ -42,7 +42,7 @@ namespace Quan_ly_nhan_su.BUS
         {
             if (string.IsNullOrEmpty(maNV)) return "Vui lòng nhập mã nhân viên!";
 
-            int trangThai = dal.KiemTraTT(maNV);
+            int trangThai = dal.KiemTraTrangThai(maNV);
             if (trangThai == -1) return "Mã nhân viên không tồn tại trong hệ thống!";
             if (trangThai == 1) return "Nhân viên này đã Check-in rồi!";
 

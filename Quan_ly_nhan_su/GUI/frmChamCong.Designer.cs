@@ -88,7 +88,7 @@ namespace Quan_ly_nhan_su.GUI
             // 
             label1.Anchor = AnchorStyles.Top;
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(671, 26);
+            label1.Location = new Point(682, 26);
             label1.Name = "label1";
             label1.Size = new Size(158, 31);
             label1.TabIndex = 0;
@@ -99,7 +99,7 @@ namespace Quan_ly_nhan_su.GUI
             lbDate.Anchor = AnchorStyles.Top;
             lbDate.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbDate.ForeColor = Color.DarkGray;
-            lbDate.Location = new Point(660, 77);
+            lbDate.Location = new Point(671, 77);
             lbDate.Name = "lbDate";
             lbDate.Size = new Size(198, 22);
             lbDate.TabIndex = 2;
@@ -110,7 +110,7 @@ namespace Quan_ly_nhan_su.GUI
             // 
             lbClock.Anchor = AnchorStyles.Top;
             lbClock.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbClock.Location = new Point(660, 100);
+            lbClock.Location = new Point(671, 99);
             lbClock.Name = "lbClock";
             lbClock.Size = new Size(198, 39);
             lbClock.TabIndex = 3;
@@ -381,7 +381,7 @@ namespace Quan_ly_nhan_su.GUI
             txtNhapMaNV.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             txtNhapMaNV.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
             txtNhapMaNV.Location = new Point(574, 142);
-            txtNhapMaNV.Margin = new Padding(4, 4, 4, 4);
+            txtNhapMaNV.Margin = new Padding(4);
             txtNhapMaNV.Name = "txtNhapMaNV";
             txtNhapMaNV.PlaceholderText = "Vui lòng nhập mã nhân viên...";
             txtNhapMaNV.SelectedText = "";
@@ -443,11 +443,10 @@ namespace Quan_ly_nhan_su.GUI
             pnThongTinNV.Controls.Add(lblSDT);
             pnThongTinNV.Controls.Add(lblHoTenNV);
             pnThongTinNV.CustomizableEdges = customizableEdges13;
-            pnThongTinNV.Location = new Point(945, 77);
-            pnThongTinNV.Margin = new Padding(3, 2, 3, 2);
+            pnThongTinNV.Location = new Point(935, 75);
             pnThongTinNV.Name = "pnThongTinNV";
             pnThongTinNV.ShadowDecoration.CustomizableEdges = customizableEdges14;
-            pnThongTinNV.Size = new Size(538, 100);
+            pnThongTinNV.Size = new Size(531, 112);
             pnThongTinNV.TabIndex = 17;
             // 
             // lblDiaChiNhanVien
@@ -463,7 +462,7 @@ namespace Quan_ly_nhan_su.GUI
             // 
             lblSoDienThoai.AutoSize = true;
             lblSoDienThoai.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblSoDienThoai.Location = new Point(418, 16);
+            lblSoDienThoai.Location = new Point(404, 16);
             lblSoDienThoai.Name = "lblSoDienThoai";
             lblSoDienThoai.Size = new Size(0, 21);
             lblSoDienThoai.TabIndex = 4;
@@ -491,7 +490,7 @@ namespace Quan_ly_nhan_su.GUI
             // 
             lblSDT.AutoSize = true;
             lblSDT.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblSDT.Location = new Point(296, 15);
+            lblSDT.Location = new Point(274, 16);
             lblSDT.Name = "lblSDT";
             lblSDT.Size = new Size(124, 21);
             lblSDT.TabIndex = 1;

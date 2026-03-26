@@ -13,8 +13,15 @@ namespace Quan_ly_nhan_su.DAL
             var ds = new List<NhanVienDTO>();
             totalRecords = 0;
 
-            if (pageNumber < 1) pageNumber = 1;
-            if (pageSize < 1) pageSize = 20;
+            if (pageNumber < 1)
+            {
+                pageNumber = 1;
+            }
+
+            if (pageSize < 1)
+            {
+                pageSize = 20;
+            }
 
             const string countQuery = @"
                 SELECT COUNT(1)
@@ -24,55 +31,27 @@ namespace Quan_ly_nhan_su.DAL
             using var conn = DbContext.GetSqlConnection();
             conn.Open();
 
-
-            var dataQuery = @"
-                SELECT MaNV, TenNV, NgaySinh, GioiTinh, ChucVu, SoDienThoai, Email, DiaChi, NgayVaoLam, TrangThai, PhongBan, LuongCung
-
-                FROM NhanVien
-                WHERE (@TuKhoa = '' OR MaNV LIKE @LikeTuKhoa OR TenNV LIKE @LikeTuKhoa OR SoDienThoai LIKE @LikeTuKhoa OR Email LIKE @LikeTuKhoa)
-                ORDER BY MaNV
-                OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY";
-
+            var attendanceColumns = ResolveAttendanceColumns(conn);
+            var dataQuery = BuildSelectNhanVienQuery(attendanceColumns);
             var keyword = tuKhoa.Trim();
 
             using (var countCmd = new SqlCommand(countQuery, conn))
             {
-                countCmd.Parameters.Add("@TuKhoa", SqlDbType.NVarChar, 100).Value = keyword;
-                countCmd.Parameters.Add("@LikeTuKhoa", SqlDbType.NVarChar, 110).Value = $"%{keyword}%";
+                AddKeywordParameters(countCmd, keyword);
                 totalRecords = Convert.ToInt32(countCmd.ExecuteScalar());
             }
 
             var offset = (pageNumber - 1) * pageSize;
 
             using var dataCmd = new SqlCommand(dataQuery, conn);
-            dataCmd.Parameters.Add("@TuKhoa", SqlDbType.NVarChar, 100).Value = keyword;
-            dataCmd.Parameters.Add("@LikeTuKhoa", SqlDbType.NVarChar, 110).Value = $"%{keyword}%";
+            AddKeywordParameters(dataCmd, keyword);
             dataCmd.Parameters.Add("@Offset", SqlDbType.Int).Value = offset;
             dataCmd.Parameters.Add("@PageSize", SqlDbType.Int).Value = pageSize;
 
             using var reader = dataCmd.ExecuteReader();
             while (reader.Read())
             {
-                ds.Add(new NhanVienDTO
-                {
-                    MaNV = reader["MaNV"]?.ToString() ?? string.Empty,
-                    TenNV = reader["TenNV"]?.ToString() ?? string.Empty,
-                    NgaySinh = reader["NgaySinh"] == DBNull.Value ? DateTime.Today : Convert.ToDateTime(reader["NgaySinh"]),
-                    GioiTinh = reader["GioiTinh"]?.ToString() ?? "Nam",
-                    ChucVu = reader["ChucVu"]?.ToString() ?? string.Empty,
-                    SoDienThoai = reader["SoDienThoai"]?.ToString() ?? string.Empty,
-                    Email = reader["Email"]?.ToString() ?? string.Empty,
-                    DiaChi = reader["DiaChi"]?.ToString() ?? string.Empty,
-                    NgayVaoLam = reader["NgayVaoLam"] == DBNull.Value ? DateTime.Today : Convert.ToDateTime(reader["NgayVaoLam"]),
-                    TrangThai = reader["TrangThai"] != DBNull.Value && Convert.ToBoolean(reader["TrangThai"]),
-                    PhongBan = reader["PhongBan"]?.ToString() ?? string.Empty,
-                    LuongCung = reader["LuongCung"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["LuongCung"]),
-
-                    NgayChamCong = null,
-                    GioVao = null,
-                    GioRa = null
-
-                });
+                ds.Add(MapNhanVien(reader));
             }
 
             return ds;
@@ -85,40 +64,37 @@ namespace Quan_ly_nhan_su.DAL
 
         public bool ThemNhanVien(NhanVienDTO nv)
         {
-            const string query = @"
-                INSERT INTO NhanVien(MaNV, TenNV, NgaySinh, GioiTinh, ChucVu, SoDienThoai, Email, DiaChi, NgayVaoLam, PhongBan, LuongCung)
-                VALUES(@MaNV, @TenNV, @NgaySinh, @GioiTinh, @ChucVu, @SoDienThoai, @Email, @DiaChi, @NgayVaoLam, @PhongBan, @LuongCung)";
+
 
             using var conn = DbContext.GetSqlConnection();
-            using var cmd = new SqlCommand(query, conn);
-            FillNhanVienParameters(cmd, nv);
             conn.Open();
+
+            var attendanceColumns = ResolveAttendanceColumns(conn);
+            var query = BuildInsertNhanVienQuery(attendanceColumns);
+
+            using var cmd = new SqlCommand(query, conn);
+            FillNhanVienParameters(cmd, nv,
+                !string.IsNullOrWhiteSpace(attendanceColumns.NgayChamCong),
+                !string.IsNullOrWhiteSpace(attendanceColumns.GioVao),
+                !string.IsNullOrWhiteSpace(attendanceColumns.GioRa));
+
             return cmd.ExecuteNonQuery() > 0;
         }
 
         public bool CapNhatNhanVien(NhanVienDTO nv)
         {
-            const string query = @"
-                UPDATE NhanVien
-                SET TenNV = @TenNV,
-                    NgaySinh = @NgaySinh,
-                    GioiTinh = @GioiTinh,
-                    ChucVu = @ChucVu,
-                    SoDienThoai = @SoDienThoai,
-                    Email = @Email,
-                    DiaChi = @DiaChi,
-                    NgayVaoLam = @NgayVaoLam,
-                    TrangThai = @TrangThai,
-                    PhongBan = @PhongBan,
-
-                    LuongCung = @LuongCung
-
-                WHERE MaNV = @MaNV";
-
             using var conn = DbContext.GetSqlConnection();
-            using var cmd = new SqlCommand(query, conn);
-            FillNhanVienParameters(cmd, nv);
             conn.Open();
+
+            var attendanceColumns = ResolveAttendanceColumns(conn);
+            var query = BuildUpdateNhanVienQuery(attendanceColumns);
+
+            using var cmd = new SqlCommand(query, conn);
+            FillNhanVienParameters(cmd, nv,
+                !string.IsNullOrWhiteSpace(attendanceColumns.NgayChamCong),
+                !string.IsNullOrWhiteSpace(attendanceColumns.GioVao),
+                !string.IsNullOrWhiteSpace(attendanceColumns.GioRa));
+
             return cmd.ExecuteNonQuery() > 0;
         }
 
@@ -171,7 +147,7 @@ namespace Quan_ly_nhan_su.DAL
             var so = 0;
             if (maCuoi.StartsWith("NV", StringComparison.OrdinalIgnoreCase))
             {
-                int.TryParse(maCuoi.Substring(2), out so);
+                _ = int.TryParse(maCuoi.Substring(2), out so);
             }
 
             return $"NV{(so + 1):D3}";
@@ -183,17 +159,36 @@ namespace Quan_ly_nhan_su.DAL
             using var conn = DbContext.GetSqlConnection();
             conn.Open();
 
-            const string query = @"
-                SELECT TenPhongBan
-                FROM PhongBan
-                WHERE TenPhongBan IS NOT NULL AND LTRIM(RTRIM(TenPhongBan)) <> ''
-                ORDER BY TenPhongBan";
-
-            using var cmd = new SqlCommand(query, conn);
-            using var reader = cmd.ExecuteReader();
-            while (reader.Read())
+            var tenCotPhongBan = ResolveDepartmentNameColumn(conn);
+            if (!string.IsNullOrWhiteSpace(tenCotPhongBan))
             {
-                ds.Add(reader["TenPhongBan"].ToString() ?? string.Empty);
+                var query = $@"
+                    SELECT [{tenCotPhongBan}]
+                    FROM PhongBan
+                    WHERE [{tenCotPhongBan}] IS NOT NULL AND LTRIM(RTRIM([{tenCotPhongBan}])) <> ''
+                    ORDER BY [{tenCotPhongBan}]";
+
+                using var cmd = new SqlCommand(query, conn);
+                using var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ds.Add(reader[tenCotPhongBan].ToString() ?? string.Empty);
+                }
+
+                return ds;
+            }
+
+            const string fallbackQuery = @"
+                SELECT DISTINCT PhongBan
+                FROM NhanVien
+                WHERE PhongBan IS NOT NULL AND LTRIM(RTRIM(PhongBan)) <> ''
+                ORDER BY PhongBan";
+
+            using var fallbackCmd = new SqlCommand(fallbackQuery, conn);
+            using var fallbackReader = fallbackCmd.ExecuteReader();
+            while (fallbackReader.Read())
+            {
+                ds.Add(fallbackReader["PhongBan"].ToString() ?? string.Empty);
             }
 
             return ds;
@@ -204,40 +199,26 @@ namespace Quan_ly_nhan_su.DAL
             using var conn = DbContext.GetSqlConnection();
             conn.Open();
 
-            string query = "INSERT INTO PhongBan (TenPhongBan) VALUES (@TenPhongBan)";
-
-            using var cmd = new SqlCommand(query, conn);
-            cmd.Parameters.Add("@TenPhongBan", SqlDbType.NVarChar, 100).Value = tenPhongBan;
-            
-            try
-            {
-                return cmd.ExecuteNonQuery() > 0;
-            }
-            catch
+            var tenCotPhongBan = ResolveDepartmentNameColumn(conn);
+            if (string.IsNullOrWhiteSpace(tenCotPhongBan))
             {
                 return false;
             }
-        }
 
-        public bool DoiTenPhongBan(string tenCu, string tenMoi)
-        {
-            using var conn = DbContext.GetSqlConnection();
-            conn.Open();
-
-            string query = "UPDATE PhongBan SET TenPhongBan = @TenMoi WHERE TenPhongBan = @TenCu";
-
-            using var cmd = new SqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@TenMoi", tenMoi);
-            cmd.Parameters.AddWithValue("@TenCu", tenCu);
-
-            try
+            var checkQuery = $"SELECT COUNT(1) FROM PhongBan WHERE [{tenCotPhongBan}] = @TenPhongBan";
+            using (var checkCmd = new SqlCommand(checkQuery, conn))
             {
-                return cmd.ExecuteNonQuery() > 0;
+                checkCmd.Parameters.Add("@TenPhongBan", SqlDbType.NVarChar, 100).Value = tenPhongBan;
+                if (Convert.ToInt32(checkCmd.ExecuteScalar()) > 0)
+                {
+                    return false;
+                }
             }
-            catch
-            {
-                return false;
-            }
+
+            var insertQuery = $"INSERT INTO PhongBan([{tenCotPhongBan}]) VALUES (@TenPhongBan)";
+            using var insertCmd = new SqlCommand(insertQuery, conn);
+            insertCmd.Parameters.Add("@TenPhongBan", SqlDbType.NVarChar, 100).Value = tenPhongBan;
+            return insertCmd.ExecuteNonQuery() > 0;
         }
 
         public bool XoaPhongBan(string tenPhongBan)
@@ -245,49 +226,284 @@ namespace Quan_ly_nhan_su.DAL
             using var conn = DbContext.GetSqlConnection();
             conn.Open();
 
-            string query = "DELETE FROM PhongBan WHERE TenPhongBan = @TenPhongBan";
-
-            using var cmd = new SqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@TenPhongBan", tenPhongBan);
-
-            try
-            {
-                return cmd.ExecuteNonQuery() > 0;
-            }
-            catch
+            var tenCotPhongBan = ResolveDepartmentNameColumn(conn);
+            if (string.IsNullOrWhiteSpace(tenCotPhongBan))
             {
                 return false;
             }
+
+            var query = $"DELETE FROM PhongBan WHERE [{tenCotPhongBan}] = @TenPhongBan";
+            using var cmd = new SqlCommand(query, conn);
+            cmd.Parameters.Add("@TenPhongBan", SqlDbType.NVarChar, 100).Value = tenPhongBan;
+            return cmd.ExecuteNonQuery() > 0;
         }
 
         public bool KiemTraPhongBanDangDuocSuDung(string tenPhongBan)
         {
+            const string query = "SELECT COUNT(1) FROM NhanVien WHERE PhongBan = @TenPhongBan";
+
             using var conn = DbContext.GetSqlConnection();
-            conn.Open();
-
-            string query = "SELECT COUNT(1) FROM NhanVien WHERE PhongBan = @TenPhongBan";
-
             using var cmd = new SqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@TenPhongBan", tenPhongBan);
-
-            return (int)cmd.ExecuteScalar() > 0;
-
+            cmd.Parameters.Add("@TenPhongBan", SqlDbType.NVarChar, 100).Value = tenPhongBan;
+            conn.Open();
+            return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
         }
 
-        private static void FillNhanVienParameters(SqlCommand cmd, NhanVienDTO nv)
+        public bool DoiTenPhongBan(string tenCu, string tenMoi)
+        {
+            using var conn = DbContext.GetSqlConnection();
+            conn.Open();
+            using var tran = conn.BeginTransaction();
+
+            try
+            {
+                var tenCotPhongBan = ResolveDepartmentNameColumn(conn, tran);
+                if (string.IsNullOrWhiteSpace(tenCotPhongBan))
+                {
+                    tran.Rollback();
+                    return false;
+                }
+
+                var checkQuery = $"SELECT COUNT(1) FROM PhongBan WHERE [{tenCotPhongBan}] = @TenMoi";
+                using (var checkCmd = new SqlCommand(checkQuery, conn, tran))
+                {
+                    checkCmd.Parameters.Add("@TenMoi", SqlDbType.NVarChar, 100).Value = tenMoi;
+                    if (Convert.ToInt32(checkCmd.ExecuteScalar()) > 0)
+                    {
+                        tran.Rollback();
+                        return false;
+                    }
+                }
+
+                var updatePhongBanQuery = $"UPDATE PhongBan SET [{tenCotPhongBan}] = @TenMoi WHERE [{tenCotPhongBan}] = @TenCu";
+                using (var updatePhongBanCmd = new SqlCommand(updatePhongBanQuery, conn, tran))
+                {
+                    updatePhongBanCmd.Parameters.Add("@TenMoi", SqlDbType.NVarChar, 100).Value = tenMoi;
+                    updatePhongBanCmd.Parameters.Add("@TenCu", SqlDbType.NVarChar, 100).Value = tenCu;
+                    if (updatePhongBanCmd.ExecuteNonQuery() <= 0)
+                    {
+                        tran.Rollback();
+                        return false;
+                    }
+                }
+
+                const string updateNhanVienQuery = "UPDATE NhanVien SET PhongBan = @TenMoi WHERE PhongBan = @TenCu";
+                using (var updateNhanVienCmd = new SqlCommand(updateNhanVienQuery, conn, tran))
+                {
+                    updateNhanVienCmd.Parameters.Add("@TenMoi", SqlDbType.NVarChar, 100).Value = tenMoi;
+                    updateNhanVienCmd.Parameters.Add("@TenCu", SqlDbType.NVarChar, 100).Value = tenCu;
+                    _ = updateNhanVienCmd.ExecuteNonQuery();
+                }
+
+                tran.Commit();
+                return true;
+            }
+            catch
+            {
+                tran.Rollback();
+                return false;
+            }
+        }
+
+        private static (string? NgayChamCong, string? GioVao, string? GioRa) ResolveAttendanceColumns(SqlConnection conn, SqlTransaction? tran = null)
+        {
+            var ngayChamCong = AttendanceSchemaHelper.ResolveColumn(conn, "NhanVien", tran, "NgayChamCong", "Ngay", "ngay", "NgayCong");
+            var gioVao = AttendanceSchemaHelper.ResolveColumn(conn, "NhanVien", tran, "GioVao", "gioVao", "CheckIn");
+            var gioRa = AttendanceSchemaHelper.ResolveColumn(conn, "NhanVien", tran, "GioRa", "gioRa", "CheckOut");
+            return (ngayChamCong, gioVao, gioRa);
+        }
+
+        private static string BuildInsertNhanVienQuery((string? NgayChamCong, string? GioVao, string? GioRa) attendanceColumns)
+        {
+            var insertColumns = new List<string>
+            {
+                "[MaNV]", "[TenNV]", "[NgaySinh]", "[GioiTinh]", "[ChucVu]", "[SoDienThoai]", "[Email]", "[DiaChi]", "[NgayVaoLam]", "[TrangThai]", "[PhongBan]", "[LuongCung]"
+            };
+
+            var insertValues = new List<string>
+            {
+                "@MaNV", "@TenNV", "@NgaySinh", "@GioiTinh", "@ChucVu", "@SoDienThoai", "@Email", "@DiaChi", "@NgayVaoLam", "@TrangThai", "@PhongBan", "@LuongCung"
+            };
+
+            AddOptionalInsertColumn(insertColumns, insertValues, attendanceColumns.NgayChamCong, "@NgayChamCong");
+            AddOptionalInsertColumn(insertColumns, insertValues, attendanceColumns.GioVao, "@GioVao");
+            AddOptionalInsertColumn(insertColumns, insertValues, attendanceColumns.GioRa, "@GioRa");
+
+            return $@"
+                INSERT INTO NhanVien({string.Join(", ", insertColumns)})
+                VALUES({string.Join(", ", insertValues)})";
+        }
+
+        private static string BuildUpdateNhanVienQuery((string? NgayChamCong, string? GioVao, string? GioRa) attendanceColumns)
+        {
+            var setClauses = new List<string>
+            {
+                "TenNV = @TenNV",
+                "NgaySinh = @NgaySinh",
+                "GioiTinh = @GioiTinh",
+                "ChucVu = @ChucVu",
+                "SoDienThoai = @SoDienThoai",
+                "Email = @Email",
+                "DiaChi = @DiaChi",
+                "NgayVaoLam = @NgayVaoLam",
+                "TrangThai = @TrangThai",
+                "PhongBan = @PhongBan",
+                "LuongCung = @LuongCung"
+            };
+
+            AddOptionalUpdateSet(setClauses, attendanceColumns.NgayChamCong, "@NgayChamCong");
+            AddOptionalUpdateSet(setClauses, attendanceColumns.GioVao, "@GioVao");
+            AddOptionalUpdateSet(setClauses, attendanceColumns.GioRa, "@GioRa");
+
+            return $@"
+                UPDATE NhanVien
+                SET {string.Join(",\n                    ", setClauses)}
+                WHERE MaNV = @MaNV";
+        }
+
+        private static string BuildSelectNhanVienQuery((string? NgayChamCong, string? GioVao, string? GioRa) attendanceColumns)
+        {
+            var ngayChamCongExpression = BuildOptionalSelectExpression(attendanceColumns.NgayChamCong, "date");
+            var gioVaoExpression = BuildOptionalSelectExpression(attendanceColumns.GioVao, "time");
+            var gioRaExpression = BuildOptionalSelectExpression(attendanceColumns.GioRa, "time");
+
+            return $@"
+                SELECT MaNV, TenNV, NgaySinh, GioiTinh, ChucVu, SoDienThoai, Email, DiaChi, NgayVaoLam, TrangThai, PhongBan, LuongCung,
+                       {ngayChamCongExpression} AS NgayChamCong,
+                       {gioVaoExpression} AS GioVao,
+                       {gioRaExpression} AS GioRa
+                FROM NhanVien
+                WHERE (@TuKhoa = '' OR MaNV LIKE @LikeTuKhoa OR TenNV LIKE @LikeTuKhoa OR SoDienThoai LIKE @LikeTuKhoa OR Email LIKE @LikeTuKhoa)
+                ORDER BY MaNV
+                OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY";
+        }
+
+        private static string BuildOptionalSelectExpression(string? columnName, string sqlType)
+        {
+            return string.IsNullOrWhiteSpace(columnName)
+                ? $"CAST(NULL AS {sqlType})"
+                : $"[{columnName}]";
+        }
+
+        private static void AddKeywordParameters(SqlCommand cmd, string keyword)
+        {
+            cmd.Parameters.Add("@TuKhoa", SqlDbType.NVarChar, 100).Value = keyword;
+            cmd.Parameters.Add("@LikeTuKhoa", SqlDbType.NVarChar, 110).Value = $"%{keyword}%";
+        }
+
+        private static NhanVienDTO MapNhanVien(SqlDataReader reader)
+        {
+            return new NhanVienDTO
+            {
+                MaNV = reader["MaNV"]?.ToString() ?? string.Empty,
+                TenNV = reader["TenNV"]?.ToString() ?? string.Empty,
+                NgaySinh = reader["NgaySinh"] == DBNull.Value ? DateTime.Today : Convert.ToDateTime(reader["NgaySinh"]),
+                GioiTinh = reader["GioiTinh"]?.ToString() ?? "Nam",
+                ChucVu = reader["ChucVu"]?.ToString() ?? string.Empty,
+                SoDienThoai = reader["SoDienThoai"]?.ToString() ?? string.Empty,
+                Email = reader["Email"]?.ToString() ?? string.Empty,
+                DiaChi = reader["DiaChi"]?.ToString() ?? string.Empty,
+                NgayVaoLam = reader["NgayVaoLam"] == DBNull.Value ? DateTime.Today : Convert.ToDateTime(reader["NgayVaoLam"]),
+                TrangThai = reader["TrangThai"] != DBNull.Value && Convert.ToBoolean(reader["TrangThai"]),
+                PhongBan = reader["PhongBan"]?.ToString() ?? string.Empty,
+                LuongCung = reader["LuongCung"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["LuongCung"]),
+                NgayChamCong = reader["NgayChamCong"] == DBNull.Value ? null : Convert.ToDateTime(reader["NgayChamCong"]),
+                GioVao = reader["GioVao"] == DBNull.Value ? null : (TimeSpan?)reader["GioVao"],
+                GioRa = reader["GioRa"] == DBNull.Value ? null : (TimeSpan?)reader["GioRa"]
+            };
+        }
+
+        private static void AddOptionalInsertColumn(List<string> columns, List<string> values, string? columnName, string parameterName)
+        {
+            if (string.IsNullOrWhiteSpace(columnName))
+            {
+                return;
+            }
+
+            columns.Add($"[{columnName}]");
+            values.Add(parameterName);
+        }
+
+        private static void AddOptionalUpdateSet(List<string> setClauses, string? columnName, string parameterName)
+        {
+            if (string.IsNullOrWhiteSpace(columnName))
+            {
+                return;
+            }
+
+            setClauses.Add($"[{columnName}] = {parameterName}");
+        }
+
+        private static string ResolveDepartmentNameColumn(SqlConnection conn, SqlTransaction? tran = null)
+        {
+            const string preferredNameQuery = @"
+                SELECT TOP 1 c.name
+                FROM sys.tables t
+                INNER JOIN sys.columns c ON t.object_id = c.object_id
+                WHERE t.name = 'PhongBan'
+                  AND c.name IN ('TenPhongBan', 'PhongBan', 'TenPB', 'TenPhong')
+                ORDER BY CASE c.name
+                    WHEN 'TenPhongBan' THEN 1
+                    WHEN 'PhongBan' THEN 2
+                    WHEN 'TenPB' THEN 3
+                    WHEN 'TenPhong' THEN 4
+                    ELSE 5
+                END";
+
+            using (var preferredCmd = new SqlCommand(preferredNameQuery, conn, tran))
+            {
+                var preferredColumn = preferredCmd.ExecuteScalar()?.ToString();
+                if (!string.IsNullOrWhiteSpace(preferredColumn))
+                {
+                    return preferredColumn;
+                }
+            }
+
+            const string fallbackNameQuery = @"
+                SELECT TOP 1 c.name
+                FROM sys.tables t
+                INNER JOIN sys.columns c ON t.object_id = c.object_id
+                INNER JOIN sys.types ty ON c.user_type_id = ty.user_type_id
+                WHERE t.name = 'PhongBan'
+                  AND ty.name IN ('nvarchar', 'varchar', 'nchar', 'char')
+                  AND c.name NOT LIKE 'Ma%'
+                ORDER BY c.column_id";
+
+            using var fallbackCmd = new SqlCommand(fallbackNameQuery, conn, tran);
+            return fallbackCmd.ExecuteScalar()?.ToString() ?? string.Empty;
+        }
+
+        private static void FillNhanVienParameters(SqlCommand cmd, NhanVienDTO nv, bool includeNgayChamCong, bool includeGioVao, bool includeGioRa)
         {
             cmd.Parameters.Add("@MaNV", SqlDbType.VarChar, 20).Value = nv.MaNV;
-            cmd.Parameters.Add("@TenNV", SqlDbType.NVarChar, 150).Value = nv.TenNV;
-            cmd.Parameters.Add("@NgaySinh", SqlDbType.Date).Value = nv.NgaySinh.Date;
+            cmd.Parameters.Add("@TenNV", SqlDbType.NVarChar, 100).Value = nv.TenNV;
+            cmd.Parameters.Add("@NgaySinh", SqlDbType.Date).Value = nv.NgaySinh;
             cmd.Parameters.Add("@GioiTinh", SqlDbType.NVarChar, 10).Value = nv.GioiTinh;
             cmd.Parameters.Add("@ChucVu", SqlDbType.NVarChar, 100).Value = nv.ChucVu;
             cmd.Parameters.Add("@SoDienThoai", SqlDbType.VarChar, 20).Value = nv.SoDienThoai;
-            cmd.Parameters.Add("@Email", SqlDbType.VarChar, 150).Value = nv.Email;
+            cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 100).Value = nv.Email;
             cmd.Parameters.Add("@DiaChi", SqlDbType.NVarChar, 255).Value = nv.DiaChi;
-            cmd.Parameters.Add("@NgayVaoLam", SqlDbType.Date).Value = nv.NgayVaoLam.Date;
+            cmd.Parameters.Add("@NgayVaoLam", SqlDbType.Date).Value = nv.NgayVaoLam;
             cmd.Parameters.Add("@TrangThai", SqlDbType.Bit).Value = nv.TrangThai;
             cmd.Parameters.Add("@PhongBan", SqlDbType.NVarChar, 100).Value = nv.PhongBan;
             cmd.Parameters.Add("@LuongCung", SqlDbType.Decimal).Value = nv.LuongCung;
+            cmd.Parameters["@LuongCung"].Precision = 18;
+            cmd.Parameters["@LuongCung"].Scale = 2;
+
+            if (includeNgayChamCong)
+            {
+                cmd.Parameters.Add("@NgayChamCong", SqlDbType.Date).Value = (object?)nv.NgayChamCong ?? DBNull.Value;
+            }
+
+            if (includeGioVao)
+            {
+                cmd.Parameters.Add("@GioVao", SqlDbType.Time).Value = (object?)nv.GioVao ?? DBNull.Value;
+            }
+
+            if (includeGioRa)
+            {
+                cmd.Parameters.Add("@GioRa", SqlDbType.Time).Value = (object?)nv.GioRa ?? DBNull.Value;
+            }
         }
     }
 }

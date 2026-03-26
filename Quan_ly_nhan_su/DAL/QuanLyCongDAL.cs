@@ -25,7 +25,7 @@ namespace Quan_ly_nhan_su.DAL
                         c.GioRa as gioRa,
                         c.TongGio as TongGio,
                         N'' as trangThai
-                    FROM CHiTietChamCong c
+                    FROM ChamCong c
                     LEFT JOIN NhanVien n ON c.MaNV = n.MaNV
                     WHERE 1 = 1 ";
 
