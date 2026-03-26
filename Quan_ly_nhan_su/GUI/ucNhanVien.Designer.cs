@@ -70,6 +70,8 @@ namespace Quan_ly_nhan_su.GUI
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             grpInput = new GroupBox();
+            txtSearch = new Guna.UI2.WinForms.Guna2TextBox();
+            lblSearch = new Label();
             lblStatus = new Label();
             chkIsActive = new CheckBox();
             lblAddress = new Label();
@@ -100,17 +102,15 @@ namespace Quan_ly_nhan_su.GUI
             lblName = new Label();
             txtId = new Guna.UI2.WinForms.Guna2TextBox();
             lblId = new Label();
-            txtSearch = new Guna.UI2.WinForms.Guna2TextBox();
-            lblSearch = new Label();
-            pnlSearch = new Panel();
             gridEmployees = new Guna.UI2.WinForms.Guna2DataGridView();
             grpInput.SuspendLayout();
-            pnlSearch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)gridEmployees).BeginInit();
             SuspendLayout();
             // 
             // grpInput
             // 
+            grpInput.Controls.Add(txtSearch);
+            grpInput.Controls.Add(lblSearch);
             grpInput.Controls.Add(lblStatus);
             grpInput.Controls.Add(chkIsActive);
             grpInput.Controls.Add(lblAddress);
@@ -143,27 +143,57 @@ namespace Quan_ly_nhan_su.GUI
             grpInput.Controls.Add(lblId);
             grpInput.Dock = DockStyle.Top;
             grpInput.Location = new Point(0, 0);
+            grpInput.Margin = new Padding(3, 2, 3, 2);
             grpInput.Name = "grpInput";
-            grpInput.Size = new Size(1804, 380);
+            grpInput.Padding = new Padding(3, 2, 3, 2);
+            grpInput.Size = new Size(1578, 407);
             grpInput.TabIndex = 0;
             grpInput.TabStop = false;
             grpInput.Text = "Thông tin nhân viên";
             // 
+            // txtSearch
+            // 
+            txtSearch.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            txtSearch.BorderRadius = 8;
+            txtSearch.Cursor = Cursors.IBeam;
+            txtSearch.CustomizableEdges = customizableEdges1;
+            txtSearch.DefaultText = "";
+            txtSearch.Font = new Font("Segoe UI", 9F);
+            txtSearch.Location = new Point(130, 344);
+            txtSearch.Name = "txtSearch";
+            txtSearch.PlaceholderText = "Nhập tên, chức vụ, SĐT, email...";
+            txtSearch.SelectedText = "";
+            txtSearch.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            txtSearch.Size = new Size(1100, 20);
+            txtSearch.TabIndex = 1;
+            txtSearch.TextChanged += txtSearch_TextChanged;
+            // 
+            // lblSearch
+            // 
+            lblSearch.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblSearch.AutoSize = true;
+            lblSearch.Location = new Point(21, 344);
+            lblSearch.Name = "lblSearch";
+            lblSearch.Size = new Size(56, 15);
+            lblSearch.TabIndex = 0;
+            lblSearch.Text = "Tìm kiếm";
+            // 
             // lblStatus
             // 
             lblStatus.AutoSize = true;
-            lblStatus.Location = new Point(737, 212);
+            lblStatus.Location = new Point(645, 159);
             lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(75, 20);
+            lblStatus.Size = new Size(59, 15);
             lblStatus.TabIndex = 28;
             lblStatus.Text = "Trạng thái";
             // 
             // chkIsActive
             // 
             chkIsActive.AutoSize = true;
-            chkIsActive.Location = new Point(874, 210);
+            chkIsActive.Location = new Point(765, 158);
+            chkIsActive.Margin = new Padding(3, 2, 3, 2);
             chkIsActive.Name = "chkIsActive";
-            chkIsActive.Size = new Size(96, 24);
+            chkIsActive.Size = new Size(77, 19);
             chkIsActive.TabIndex = 27;
             chkIsActive.Text = "Đang làm";
             chkIsActive.UseVisualStyleBackColor = true;
@@ -171,9 +201,9 @@ namespace Quan_ly_nhan_su.GUI
             // lblAddress
             // 
             lblAddress.AutoSize = true;
-            lblAddress.Location = new Point(24, 256);
+            lblAddress.Location = new Point(21, 192);
             lblAddress.Name = "lblAddress";
-            lblAddress.Size = new Size(55, 20);
+            lblAddress.Size = new Size(43, 15);
             lblAddress.TabIndex = 26;
             lblAddress.Text = "Địa chỉ";
             // 
@@ -181,24 +211,23 @@ namespace Quan_ly_nhan_su.GUI
             // 
             txtAddress.BorderRadius = 8;
             txtAddress.Cursor = Cursors.IBeam;
-            txtAddress.CustomizableEdges = customizableEdges1;
+            txtAddress.CustomizableEdges = customizableEdges3;
             txtAddress.DefaultText = "";
             txtAddress.Font = new Font("Segoe UI", 9F);
-            txtAddress.Location = new Point(149, 253);
-            txtAddress.Margin = new Padding(3, 4, 3, 4);
+            txtAddress.Location = new Point(130, 190);
             txtAddress.Name = "txtAddress";
             txtAddress.PlaceholderText = "";
             txtAddress.SelectedText = "";
-            txtAddress.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            txtAddress.Size = new Size(1257, 27);
+            txtAddress.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            txtAddress.Size = new Size(1100, 20);
             txtAddress.TabIndex = 25;
             // 
             // lblEmail
             // 
             lblEmail.AutoSize = true;
-            lblEmail.Location = new Point(24, 212);
+            lblEmail.Location = new Point(21, 159);
             lblEmail.Name = "lblEmail";
-            lblEmail.Size = new Size(46, 20);
+            lblEmail.Size = new Size(36, 15);
             lblEmail.TabIndex = 24;
             lblEmail.Text = "Email";
             // 
@@ -206,24 +235,23 @@ namespace Quan_ly_nhan_su.GUI
             // 
             txtEmail.BorderRadius = 8;
             txtEmail.Cursor = Cursors.IBeam;
-            txtEmail.CustomizableEdges = customizableEdges3;
+            txtEmail.CustomizableEdges = customizableEdges5;
             txtEmail.DefaultText = "";
             txtEmail.Font = new Font("Segoe UI", 9F);
-            txtEmail.Location = new Point(149, 209);
-            txtEmail.Margin = new Padding(3, 4, 3, 4);
+            txtEmail.Location = new Point(130, 157);
             txtEmail.Name = "txtEmail";
             txtEmail.PlaceholderText = "";
             txtEmail.SelectedText = "";
-            txtEmail.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            txtEmail.Size = new Size(532, 27);
+            txtEmail.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            txtEmail.Size = new Size(466, 20);
             txtEmail.TabIndex = 23;
             // 
             // lblPhone
             // 
             lblPhone.AutoSize = true;
-            lblPhone.Location = new Point(24, 168);
+            lblPhone.Location = new Point(21, 126);
             lblPhone.Name = "lblPhone";
-            lblPhone.Size = new Size(36, 20);
+            lblPhone.Size = new Size(27, 15);
             lblPhone.TabIndex = 22;
             lblPhone.Text = "SĐT";
             // 
@@ -231,24 +259,23 @@ namespace Quan_ly_nhan_su.GUI
             // 
             txtPhone.BorderRadius = 8;
             txtPhone.Cursor = Cursors.IBeam;
-            txtPhone.CustomizableEdges = customizableEdges5;
+            txtPhone.CustomizableEdges = customizableEdges7;
             txtPhone.DefaultText = "";
             txtPhone.Font = new Font("Segoe UI", 9F);
-            txtPhone.Location = new Point(149, 165);
-            txtPhone.Margin = new Padding(3, 4, 3, 4);
+            txtPhone.Location = new Point(130, 124);
             txtPhone.Name = "txtPhone";
             txtPhone.PlaceholderText = "";
             txtPhone.SelectedText = "";
-            txtPhone.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            txtPhone.Size = new Size(532, 27);
+            txtPhone.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            txtPhone.Size = new Size(466, 20);
             txtPhone.TabIndex = 21;
             // 
             // lblStartDate
             // 
             lblStartDate.AutoSize = true;
-            lblStartDate.Location = new Point(737, 168);
+            lblStartDate.Location = new Point(645, 126);
             lblStartDate.Name = "lblStartDate";
-            lblStartDate.Size = new Size(101, 20);
+            lblStartDate.Size = new Size(80, 15);
             lblStartDate.TabIndex = 20;
             lblStartDate.Text = "Ngày vào làm";
             // 
@@ -257,32 +284,33 @@ namespace Quan_ly_nhan_su.GUI
             dtpStartDate.BorderRadius = 8;
             dtpStartDate.Checked = true;
             dtpStartDate.CustomFormat = "dd/MM/yyyy";
-            dtpStartDate.CustomizableEdges = customizableEdges7;
+            dtpStartDate.CustomizableEdges = customizableEdges9;
             dtpStartDate.FillColor = Color.White;
             dtpStartDate.Font = new Font("Segoe UI", 9F);
             dtpStartDate.Format = DateTimePickerFormat.Custom;
-            dtpStartDate.Location = new Point(874, 165);
+            dtpStartDate.Location = new Point(765, 124);
+            dtpStartDate.Margin = new Padding(3, 2, 3, 2);
             dtpStartDate.MaxDate = new DateTime(9998, 12, 31, 0, 0, 0, 0);
             dtpStartDate.MinDate = new DateTime(1753, 1, 1, 0, 0, 0, 0);
             dtpStartDate.Name = "dtpStartDate";
-            dtpStartDate.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            dtpStartDate.Size = new Size(532, 27);
+            dtpStartDate.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            dtpStartDate.Size = new Size(466, 20);
             dtpStartDate.TabIndex = 19;
             dtpStartDate.Value = new DateTime(2026, 1, 1, 0, 0, 0, 0);
             // 
             // lblGender
             // 
             lblGender.AutoSize = true;
-            lblGender.Location = new Point(737, 124);
+            lblGender.Location = new Point(645, 93);
             lblGender.Name = "lblGender";
-            lblGender.Size = new Size(65, 20);
+            lblGender.Size = new Size(52, 15);
             lblGender.TabIndex = 18;
             lblGender.Text = "Giới tính";
             // 
             // cbGender
             // 
             cbGender.BackColor = Color.Transparent;
-            cbGender.CustomizableEdges = customizableEdges9;
+            cbGender.CustomizableEdges = customizableEdges11;
             cbGender.DrawMode = DrawMode.OwnerDrawFixed;
             cbGender.DropDownStyle = ComboBoxStyle.DropDownList;
             cbGender.FocusedColor = Color.FromArgb(94, 148, 255);
@@ -291,23 +319,25 @@ namespace Quan_ly_nhan_su.GUI
             cbGender.ForeColor = Color.FromArgb(68, 88, 112);
             cbGender.FormattingEnabled = true;
             cbGender.ItemHeight = 22;
-            cbGender.Location = new Point(874, 121);
+            cbGender.Location = new Point(765, 91);
+            cbGender.Margin = new Padding(3, 2, 3, 2);
             cbGender.Name = "cbGender";
-            cbGender.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            cbGender.Size = new Size(532, 28);
+            cbGender.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            cbGender.Size = new Size(466, 28);
             cbGender.TabIndex = 17;
             // 
             // btnDeleteDept
             // 
             btnDeleteDept.BorderRadius = 8;
-            btnDeleteDept.CustomizableEdges = customizableEdges11;
+            btnDeleteDept.CustomizableEdges = customizableEdges13;
             btnDeleteDept.FillColor = Color.FromArgb(231, 76, 60);
             btnDeleteDept.Font = new Font("Segoe UI", 9F);
             btnDeleteDept.ForeColor = Color.White;
-            btnDeleteDept.Location = new Point(1364, 76);
+            btnDeleteDept.Location = new Point(1194, 57);
+            btnDeleteDept.Margin = new Padding(3, 2, 3, 2);
             btnDeleteDept.Name = "btnDeleteDept";
-            btnDeleteDept.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            btnDeleteDept.Size = new Size(42, 30);
+            btnDeleteDept.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            btnDeleteDept.Size = new Size(37, 22);
             btnDeleteDept.TabIndex = 16;
             btnDeleteDept.Text = "-";
             btnDeleteDept.Click += btnDeleteDept_Click;
@@ -315,14 +345,15 @@ namespace Quan_ly_nhan_su.GUI
             // btnEditDept
             // 
             btnEditDept.BorderRadius = 8;
-            btnEditDept.CustomizableEdges = customizableEdges13;
+            btnEditDept.CustomizableEdges = customizableEdges15;
             btnEditDept.FillColor = Color.FromArgb(41, 128, 185);
             btnEditDept.Font = new Font("Segoe UI", 9F);
             btnEditDept.ForeColor = Color.White;
-            btnEditDept.Location = new Point(1316, 76);
+            btnEditDept.Location = new Point(1152, 57);
+            btnEditDept.Margin = new Padding(3, 2, 3, 2);
             btnEditDept.Name = "btnEditDept";
-            btnEditDept.ShadowDecoration.CustomizableEdges = customizableEdges14;
-            btnEditDept.Size = new Size(42, 30);
+            btnEditDept.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            btnEditDept.Size = new Size(37, 22);
             btnEditDept.TabIndex = 15;
             btnEditDept.Text = "✎";
             btnEditDept.Click += btnEditDept_Click;
@@ -330,14 +361,15 @@ namespace Quan_ly_nhan_su.GUI
             // btnAddDept
             // 
             btnAddDept.BorderRadius = 8;
-            btnAddDept.CustomizableEdges = customizableEdges15;
+            btnAddDept.CustomizableEdges = customizableEdges17;
             btnAddDept.FillColor = Color.FromArgb(41, 128, 185);
             btnAddDept.Font = new Font("Segoe UI", 9F);
             btnAddDept.ForeColor = Color.White;
-            btnAddDept.Location = new Point(1268, 76);
+            btnAddDept.Location = new Point(1110, 57);
+            btnAddDept.Margin = new Padding(3, 2, 3, 2);
             btnAddDept.Name = "btnAddDept";
-            btnAddDept.ShadowDecoration.CustomizableEdges = customizableEdges16;
-            btnAddDept.Size = new Size(42, 30);
+            btnAddDept.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            btnAddDept.Size = new Size(37, 22);
             btnAddDept.TabIndex = 14;
             btnAddDept.Text = "+";
             btnAddDept.Click += btnAddDept_Click;
@@ -345,14 +377,15 @@ namespace Quan_ly_nhan_su.GUI
             // btnClear
             // 
             btnClear.BorderRadius = 8;
-            btnClear.CustomizableEdges = customizableEdges17;
+            btnClear.CustomizableEdges = customizableEdges19;
             btnClear.FillColor = Color.FromArgb(189, 195, 199);
             btnClear.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnClear.ForeColor = Color.Black;
-            btnClear.Location = new Point(1286, 294);
+            btnClear.Location = new Point(1125, 220);
+            btnClear.Margin = new Padding(3, 2, 3, 2);
             btnClear.Name = "btnClear";
-            btnClear.ShadowDecoration.CustomizableEdges = customizableEdges18;
-            btnClear.Size = new Size(120, 36);
+            btnClear.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            btnClear.Size = new Size(105, 27);
             btnClear.TabIndex = 13;
             btnClear.Text = "Làm mới";
             btnClear.Click += btnClear_Click;
@@ -360,14 +393,15 @@ namespace Quan_ly_nhan_su.GUI
             // btnDelete
             // 
             btnDelete.BorderRadius = 8;
-            btnDelete.CustomizableEdges = customizableEdges19;
+            btnDelete.CustomizableEdges = customizableEdges21;
             btnDelete.FillColor = Color.FromArgb(231, 76, 60);
             btnDelete.Font = new Font("Segoe UI", 9F);
             btnDelete.ForeColor = Color.White;
-            btnDelete.Location = new Point(1149, 294);
+            btnDelete.Location = new Point(1005, 220);
+            btnDelete.Margin = new Padding(3, 2, 3, 2);
             btnDelete.Name = "btnDelete";
-            btnDelete.ShadowDecoration.CustomizableEdges = customizableEdges20;
-            btnDelete.Size = new Size(120, 36);
+            btnDelete.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            btnDelete.Size = new Size(105, 27);
             btnDelete.TabIndex = 12;
             btnDelete.Text = "Xóa";
             btnDelete.Click += btnDelete_Click;
@@ -375,14 +409,15 @@ namespace Quan_ly_nhan_su.GUI
             // btnEdit
             // 
             btnEdit.BorderRadius = 8;
-            btnEdit.CustomizableEdges = customizableEdges21;
+            btnEdit.CustomizableEdges = customizableEdges23;
             btnEdit.FillColor = Color.FromArgb(41, 128, 185);
             btnEdit.Font = new Font("Segoe UI", 9F);
             btnEdit.ForeColor = Color.White;
-            btnEdit.Location = new Point(1012, 294);
+            btnEdit.Location = new Point(886, 220);
+            btnEdit.Margin = new Padding(3, 2, 3, 2);
             btnEdit.Name = "btnEdit";
-            btnEdit.ShadowDecoration.CustomizableEdges = customizableEdges22;
-            btnEdit.Size = new Size(120, 36);
+            btnEdit.ShadowDecoration.CustomizableEdges = customizableEdges24;
+            btnEdit.Size = new Size(105, 27);
             btnEdit.TabIndex = 11;
             btnEdit.Text = "Sửa";
             btnEdit.Click += btnEdit_Click;
@@ -390,14 +425,15 @@ namespace Quan_ly_nhan_su.GUI
             // btnAdd
             // 
             btnAdd.BorderRadius = 8;
-            btnAdd.CustomizableEdges = customizableEdges23;
+            btnAdd.CustomizableEdges = customizableEdges25;
             btnAdd.FillColor = Color.FromArgb(41, 128, 185);
             btnAdd.Font = new Font("Segoe UI", 9F);
             btnAdd.ForeColor = Color.White;
-            btnAdd.Location = new Point(875, 294);
+            btnAdd.Location = new Point(766, 220);
+            btnAdd.Margin = new Padding(3, 2, 3, 2);
             btnAdd.Name = "btnAdd";
-            btnAdd.ShadowDecoration.CustomizableEdges = customizableEdges24;
-            btnAdd.Size = new Size(120, 36);
+            btnAdd.ShadowDecoration.CustomizableEdges = customizableEdges26;
+            btnAdd.Size = new Size(105, 27);
             btnAdd.TabIndex = 10;
             btnAdd.Text = "Thêm";
             btnAdd.Click += btnAdd_Click;
@@ -405,14 +441,15 @@ namespace Quan_ly_nhan_su.GUI
             // btnExport
             // 
             btnExport.BorderRadius = 8;
-            btnExport.CustomizableEdges = customizableEdges25;
+            btnExport.CustomizableEdges = customizableEdges27;
             btnExport.FillColor = Color.FromArgb(46, 204, 113);
             btnExport.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnExport.ForeColor = Color.White;
-            btnExport.Location = new Point(1423, 294);
+            btnExport.Location = new Point(1245, 220);
+            btnExport.Margin = new Padding(3, 2, 3, 2);
             btnExport.Name = "btnExport";
-            btnExport.ShadowDecoration.CustomizableEdges = customizableEdges26;
-            btnExport.Size = new Size(120, 36);
+            btnExport.ShadowDecoration.CustomizableEdges = customizableEdges28;
+            btnExport.Size = new Size(105, 27);
             btnExport.TabIndex = 29;
             btnExport.Text = "Xuất CSV";
             btnExport.Click += btnExport_Click;
@@ -420,7 +457,7 @@ namespace Quan_ly_nhan_su.GUI
             // cbDept
             // 
             cbDept.BackColor = Color.Transparent;
-            cbDept.CustomizableEdges = customizableEdges27;
+            cbDept.CustomizableEdges = customizableEdges29;
             cbDept.DrawMode = DrawMode.OwnerDrawFixed;
             cbDept.DropDownStyle = ComboBoxStyle.DropDownList;
             cbDept.FocusedColor = Color.FromArgb(94, 148, 255);
@@ -429,18 +466,19 @@ namespace Quan_ly_nhan_su.GUI
             cbDept.ForeColor = Color.FromArgb(68, 88, 112);
             cbDept.FormattingEnabled = true;
             cbDept.ItemHeight = 22;
-            cbDept.Location = new Point(874, 77);
+            cbDept.Location = new Point(765, 58);
+            cbDept.Margin = new Padding(3, 2, 3, 2);
             cbDept.Name = "cbDept";
-            cbDept.ShadowDecoration.CustomizableEdges = customizableEdges28;
-            cbDept.Size = new Size(532, 28);
+            cbDept.ShadowDecoration.CustomizableEdges = customizableEdges30;
+            cbDept.Size = new Size(466, 28);
             cbDept.TabIndex = 9;
             // 
             // lblDept
             // 
             lblDept.AutoSize = true;
-            lblDept.Location = new Point(737, 80);
+            lblDept.Location = new Point(645, 60);
             lblDept.Name = "lblDept";
-            lblDept.Size = new Size(80, 20);
+            lblDept.Size = new Size(65, 15);
             lblDept.TabIndex = 8;
             lblDept.Text = "Phòng ban";
             // 
@@ -448,24 +486,23 @@ namespace Quan_ly_nhan_su.GUI
             // 
             txtPosition.BorderRadius = 8;
             txtPosition.Cursor = Cursors.IBeam;
-            txtPosition.CustomizableEdges = customizableEdges29;
+            txtPosition.CustomizableEdges = customizableEdges31;
             txtPosition.DefaultText = "";
             txtPosition.Font = new Font("Segoe UI", 9F);
-            txtPosition.Location = new Point(874, 33);
-            txtPosition.Margin = new Padding(3, 4, 3, 4);
+            txtPosition.Location = new Point(765, 25);
             txtPosition.Name = "txtPosition";
             txtPosition.PlaceholderText = "";
             txtPosition.SelectedText = "";
-            txtPosition.ShadowDecoration.CustomizableEdges = customizableEdges30;
-            txtPosition.Size = new Size(532, 27);
+            txtPosition.ShadowDecoration.CustomizableEdges = customizableEdges32;
+            txtPosition.Size = new Size(466, 20);
             txtPosition.TabIndex = 7;
             // 
             // lblPosition
             // 
             lblPosition.AutoSize = true;
-            lblPosition.Location = new Point(737, 36);
+            lblPosition.Location = new Point(645, 27);
             lblPosition.Name = "lblPosition";
-            lblPosition.Size = new Size(61, 20);
+            lblPosition.Size = new Size(51, 15);
             lblPosition.TabIndex = 6;
             lblPosition.Text = "Chức vụ";
             // 
@@ -474,25 +511,26 @@ namespace Quan_ly_nhan_su.GUI
             dtpDob.BorderRadius = 8;
             dtpDob.Checked = true;
             dtpDob.CustomFormat = "dd/MM/yyyy";
-            dtpDob.CustomizableEdges = customizableEdges31;
+            dtpDob.CustomizableEdges = customizableEdges33;
             dtpDob.FillColor = Color.White;
             dtpDob.Font = new Font("Segoe UI", 9F);
             dtpDob.Format = DateTimePickerFormat.Custom;
-            dtpDob.Location = new Point(149, 121);
+            dtpDob.Location = new Point(130, 91);
+            dtpDob.Margin = new Padding(3, 2, 3, 2);
             dtpDob.MaxDate = new DateTime(9998, 12, 31, 0, 0, 0, 0);
             dtpDob.MinDate = new DateTime(1753, 1, 1, 0, 0, 0, 0);
             dtpDob.Name = "dtpDob";
-            dtpDob.ShadowDecoration.CustomizableEdges = customizableEdges32;
-            dtpDob.Size = new Size(532, 27);
+            dtpDob.ShadowDecoration.CustomizableEdges = customizableEdges34;
+            dtpDob.Size = new Size(466, 20);
             dtpDob.TabIndex = 5;
             dtpDob.Value = new DateTime(2026, 1, 1, 0, 0, 0, 0);
             // 
             // lblDob
             // 
             lblDob.AutoSize = true;
-            lblDob.Location = new Point(24, 126);
+            lblDob.Location = new Point(21, 94);
             lblDob.Name = "lblDob";
-            lblDob.Size = new Size(74, 20);
+            lblDob.Size = new Size(60, 15);
             lblDob.TabIndex = 4;
             lblDob.Text = "Ngày sinh";
             // 
@@ -500,24 +538,23 @@ namespace Quan_ly_nhan_su.GUI
             // 
             txtName.BorderRadius = 8;
             txtName.Cursor = Cursors.IBeam;
-            txtName.CustomizableEdges = customizableEdges33;
+            txtName.CustomizableEdges = customizableEdges35;
             txtName.DefaultText = "";
             txtName.Font = new Font("Segoe UI", 9F);
-            txtName.Location = new Point(149, 77);
-            txtName.Margin = new Padding(3, 4, 3, 4);
+            txtName.Location = new Point(130, 58);
             txtName.Name = "txtName";
             txtName.PlaceholderText = "";
             txtName.SelectedText = "";
-            txtName.ShadowDecoration.CustomizableEdges = customizableEdges34;
-            txtName.Size = new Size(532, 27);
+            txtName.ShadowDecoration.CustomizableEdges = customizableEdges36;
+            txtName.Size = new Size(466, 20);
             txtName.TabIndex = 3;
             // 
             // lblName
             // 
             lblName.AutoSize = true;
-            lblName.Location = new Point(24, 80);
+            lblName.Location = new Point(21, 60);
             lblName.Name = "lblName";
-            lblName.Size = new Size(54, 20);
+            lblName.Size = new Size(43, 15);
             lblName.TabIndex = 2;
             lblName.Text = "Họ tên";
             // 
@@ -525,63 +562,26 @@ namespace Quan_ly_nhan_su.GUI
             // 
             txtId.BorderRadius = 8;
             txtId.Cursor = Cursors.IBeam;
-            txtId.CustomizableEdges = customizableEdges35;
+            txtId.CustomizableEdges = customizableEdges37;
             txtId.DefaultText = "";
             txtId.Font = new Font("Segoe UI", 9F);
-            txtId.Location = new Point(149, 33);
-            txtId.Margin = new Padding(3, 4, 3, 4);
+            txtId.Location = new Point(130, 25);
             txtId.Name = "txtId";
             txtId.PlaceholderText = "";
             txtId.ReadOnly = true;
             txtId.SelectedText = "";
-            txtId.ShadowDecoration.CustomizableEdges = customizableEdges36;
-            txtId.Size = new Size(532, 27);
+            txtId.ShadowDecoration.CustomizableEdges = customizableEdges38;
+            txtId.Size = new Size(466, 20);
             txtId.TabIndex = 1;
             // 
             // lblId
             // 
             lblId.AutoSize = true;
-            lblId.Location = new Point(24, 36);
+            lblId.Location = new Point(21, 27);
             lblId.Name = "lblId";
-            lblId.Size = new Size(54, 20);
+            lblId.Size = new Size(43, 15);
             lblId.TabIndex = 0;
             lblId.Text = "Mã NV";
-            // 
-            // txtSearch
-            // 
-            txtSearch.BorderRadius = 8;
-            txtSearch.Cursor = Cursors.IBeam;
-            txtSearch.CustomizableEdges = customizableEdges37;
-            txtSearch.DefaultText = "";
-            txtSearch.Font = new Font("Segoe UI", 9F);
-            txtSearch.Location = new Point(149, 12);
-            txtSearch.Margin = new Padding(3, 4, 3, 4);
-            txtSearch.Name = "txtSearch";
-            txtSearch.PlaceholderText = "Nhập tên, chức vụ, SĐT, email...";
-            txtSearch.SelectedText = "";
-            txtSearch.ShadowDecoration.CustomizableEdges = customizableEdges38;
-            txtSearch.Size = new Size(1257, 27);
-            txtSearch.TabIndex = 1;
-            txtSearch.TextChanged += txtSearch_TextChanged;
-            // 
-            // lblSearch
-            // 
-            lblSearch.AutoSize = true;
-            lblSearch.Location = new Point(24, 15);
-            lblSearch.Name = "lblSearch";
-            lblSearch.Size = new Size(70, 20);
-            lblSearch.TabIndex = 0;
-            lblSearch.Text = "Tìm kiếm";
-            // 
-            // pnlSearch
-            // 
-            pnlSearch.Controls.Add(txtSearch);
-            pnlSearch.Controls.Add(lblSearch);
-            pnlSearch.Dock = DockStyle.Top;
-            pnlSearch.Location = new Point(0, 380);
-            pnlSearch.Name = "pnlSearch";
-            pnlSearch.Size = new Size(1804, 52);
-            pnlSearch.TabIndex = 2;
             // 
             // gridEmployees
             // 
@@ -597,7 +597,8 @@ namespace Quan_ly_nhan_su.GUI
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             gridEmployees.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            gridEmployees.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            gridEmployees.ColumnHeadersHeight = 4;
+            gridEmployees.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = Color.White;
             dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
@@ -608,13 +609,15 @@ namespace Quan_ly_nhan_su.GUI
             gridEmployees.DefaultCellStyle = dataGridViewCellStyle3;
             gridEmployees.Dock = DockStyle.Fill;
             gridEmployees.GridColor = Color.FromArgb(231, 229, 255);
-            gridEmployees.Location = new Point(0, 392);
+            gridEmployees.Location = new Point(0, 407);
+            gridEmployees.Margin = new Padding(3, 2, 3, 2);
             gridEmployees.MultiSelect = false;
             gridEmployees.Name = "gridEmployees";
             gridEmployees.ReadOnly = true;
             gridEmployees.RowHeadersVisible = false;
             gridEmployees.RowHeadersWidth = 51;
-            gridEmployees.Size = new Size(1804, 321);
+            gridEmployees.RowTemplate.Height = 29;
+            gridEmployees.Size = new Size(1578, 128);
             gridEmployees.TabIndex = 1;
             gridEmployees.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White;
             gridEmployees.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -627,7 +630,7 @@ namespace Quan_ly_nhan_su.GUI
             gridEmployees.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None;
             gridEmployees.ThemeStyle.HeaderStyle.Font = new Font("Segoe UI", 9F);
             gridEmployees.ThemeStyle.HeaderStyle.ForeColor = Color.White;
-            gridEmployees.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            gridEmployees.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             gridEmployees.ThemeStyle.HeaderStyle.Height = 4;
             gridEmployees.ThemeStyle.ReadOnly = true;
             gridEmployees.ThemeStyle.RowsStyle.BackColor = Color.White;
@@ -641,18 +644,16 @@ namespace Quan_ly_nhan_su.GUI
             // 
             // ucNhanVien
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(gridEmployees);
-            Controls.Add(pnlSearch);
-            Controls.Add(grpInput);
-            Name = "ucNhanVien";
-            Size = new Size(1804, 713);
             BackColor = Color.FromArgb(242, 245, 250);
+            Controls.Add(gridEmployees);
+            Controls.Add(grpInput);
+            Margin = new Padding(3, 2, 3, 2);
+            Name = "ucNhanVien";
+            Size = new Size(1578, 535);
             grpInput.ResumeLayout(false);
             grpInput.PerformLayout();
-            pnlSearch.ResumeLayout(false);
-            pnlSearch.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)gridEmployees).EndInit();
             ResumeLayout(false);
         }
@@ -691,7 +692,6 @@ namespace Quan_ly_nhan_su.GUI
         private Guna.UI2.WinForms.Guna2TextBox txtAddress;
         private Label lblStatus;
         private CheckBox chkIsActive;
-        private Panel pnlSearch;
         private Guna.UI2.WinForms.Guna2TextBox txtSearch;
         private Label lblSearch;
     }

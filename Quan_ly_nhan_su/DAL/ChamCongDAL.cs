@@ -136,6 +136,39 @@ namespace Quan_ly_nhan_su.DAL
 
         }
 
+        public int KiemTraTT(string MaNV)
+        {
+            using(SqlConnection conn = DbContext.GetSqlConnection())
+            {
+                try
+                {
+                    conn.Open();
+                    string checkUserQuery = "Select count(*) from NhanVien where MaNV = @MaNV";
+                    using(SqlCommand cmdCheck = new SqlCommand(checkUserQuery, conn))
+                    {
+                        cmdCheck.Parameters.AddWithValue("@MaNV", MaNV);
+                        int count = (int)cmdCheck.ExecuteScalar();
+                        if (count == 0) return -1;
+                    }
+                    string query = "Select GioVao from ChiTietChamCong where MaNV = @MaNV and NgayChamCong = Cast(getdate() as DATE) and GioRa Is null";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@MaNV", MaNV);
+                        object result = cmd.ExecuteScalar();
+                        if(result != null && result != DBNull.Value)
+                        {
+                            return 1;
+                        }
+                    }
+                    return 0;
+                }
+                catch(Exception ex)
+                {
+                    throw new Exception("Chi tiết lối : " + ex.Message);
+                }
+            }
+        }
+
         public ChamCongDTO LayThongTinChamCong(string maNV)
         {
             ChamCongDTO nv = null;

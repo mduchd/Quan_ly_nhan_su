@@ -88,9 +88,9 @@ namespace Quan_ly_nhan_su.GUI
             // 
             label1.Anchor = AnchorStyles.Top;
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(767, 35);
+            label1.Location = new Point(671, 26);
             label1.Name = "label1";
-            label1.Size = new Size(181, 41);
+            label1.Size = new Size(158, 31);
             label1.TabIndex = 0;
             label1.Text = "Chấm Công";
             // 
@@ -99,9 +99,9 @@ namespace Quan_ly_nhan_su.GUI
             lbDate.Anchor = AnchorStyles.Top;
             lbDate.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbDate.ForeColor = Color.DarkGray;
-            lbDate.Location = new Point(754, 103);
+            lbDate.Location = new Point(660, 77);
             lbDate.Name = "lbDate";
-            lbDate.Size = new Size(226, 30);
+            lbDate.Size = new Size(198, 22);
             lbDate.TabIndex = 2;
             lbDate.Text = "Thứ Tư, 18 Tháng 3, 2026";
             lbDate.Click += lbDate_Click;
@@ -110,9 +110,9 @@ namespace Quan_ly_nhan_su.GUI
             // 
             lbClock.Anchor = AnchorStyles.Top;
             lbClock.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbClock.Location = new Point(754, 133);
+            lbClock.Location = new Point(660, 100);
             lbClock.Name = "lbClock";
-            lbClock.Size = new Size(226, 52);
+            lbClock.Size = new Size(198, 39);
             lbClock.TabIndex = 3;
             lbClock.Text = "08:00:00";
             lbClock.Click += lbClock_Click;
@@ -127,10 +127,11 @@ namespace Quan_ly_nhan_su.GUI
             pnCheckOut.CustomizableEdges = customizableEdges1;
             pnCheckOut.Dock = DockStyle.Fill;
             pnCheckOut.FillColor = Color.FromArgb(255, 128, 0);
-            pnCheckOut.Location = new Point(846, 3);
+            pnCheckOut.Location = new Point(740, 2);
+            pnCheckOut.Margin = new Padding(3, 2, 3, 2);
             pnCheckOut.Name = "pnCheckOut";
             pnCheckOut.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            pnCheckOut.Size = new Size(808, 94);
+            pnCheckOut.Size = new Size(707, 71);
             pnCheckOut.TabIndex = 6;
             pnCheckOut.Click += pnCheckOut_Click;
             // 
@@ -140,10 +141,11 @@ namespace Quan_ly_nhan_su.GUI
             icCheckOut.IconChar = FontAwesome.Sharp.IconChar.SignOut;
             icCheckOut.IconColor = Color.White;
             icCheckOut.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            icCheckOut.IconSize = 40;
-            icCheckOut.Location = new Point(397, 17);
+            icCheckOut.IconSize = 30;
+            icCheckOut.Location = new Point(347, 13);
+            icCheckOut.Margin = new Padding(3, 2, 3, 2);
             icCheckOut.Name = "icCheckOut";
-            icCheckOut.Size = new Size(48, 40);
+            icCheckOut.Size = new Size(42, 30);
             icCheckOut.SizeMode = PictureBoxSizeMode.StretchImage;
             icCheckOut.TabIndex = 9;
             icCheckOut.TabStop = false;
@@ -154,9 +156,9 @@ namespace Quan_ly_nhan_su.GUI
             lbCheckOut.BackColor = Color.FromArgb(255, 128, 0);
             lbCheckOut.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbCheckOut.ForeColor = Color.White;
-            lbCheckOut.Location = new Point(371, 60);
+            lbCheckOut.Location = new Point(325, 45);
             lbCheckOut.Name = "lbCheckOut";
-            lbCheckOut.Size = new Size(129, 32);
+            lbCheckOut.Size = new Size(103, 25);
             lbCheckOut.TabIndex = 1;
             lbCheckOut.Text = "Check-out";
             // 
@@ -170,10 +172,11 @@ namespace Quan_ly_nhan_su.GUI
             pnCheckIn.CustomizableEdges = customizableEdges3;
             pnCheckIn.Dock = DockStyle.Fill;
             pnCheckIn.FillColor = Color.MediumSeaGreen;
-            pnCheckIn.Location = new Point(3, 3);
+            pnCheckIn.Location = new Point(3, 2);
+            pnCheckIn.Margin = new Padding(3, 2, 3, 2);
             pnCheckIn.Name = "pnCheckIn";
             pnCheckIn.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            pnCheckIn.Size = new Size(837, 94);
+            pnCheckIn.Size = new Size(731, 71);
             pnCheckIn.TabIndex = 7;
             pnCheckIn.Click += pnCheckIn_Click;
             pnCheckIn.Paint += guna2Panel3_Paint;
@@ -184,10 +187,11 @@ namespace Quan_ly_nhan_su.GUI
             icCheckIn.IconChar = FontAwesome.Sharp.IconChar.SignIn;
             icCheckIn.IconColor = Color.White;
             icCheckIn.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            icCheckIn.IconSize = 40;
-            icCheckIn.Location = new Point(383, 17);
+            icCheckIn.IconSize = 30;
+            icCheckIn.Location = new Point(335, 13);
+            icCheckIn.Margin = new Padding(3, 2, 3, 2);
             icCheckIn.Name = "icCheckIn";
-            icCheckIn.Size = new Size(48, 40);
+            icCheckIn.Size = new Size(42, 30);
             icCheckIn.SizeMode = PictureBoxSizeMode.StretchImage;
             icCheckIn.TabIndex = 8;
             icCheckIn.TabStop = false;
@@ -198,9 +202,9 @@ namespace Quan_ly_nhan_su.GUI
             lbCheckIn.BackColor = Color.MediumSeaGreen;
             lbCheckIn.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbCheckIn.ForeColor = Color.White;
-            lbCheckIn.Location = new Point(358, 60);
+            lbCheckIn.Location = new Point(313, 45);
             lbCheckIn.Name = "lbCheckIn";
-            lbCheckIn.Size = new Size(112, 32);
+            lbCheckIn.Size = new Size(89, 25);
             lbCheckIn.TabIndex = 0;
             lbCheckIn.Text = "Check-in";
             // 
@@ -221,33 +225,36 @@ namespace Quan_ly_nhan_su.GUI
             guna2Panel4.Controls.Add(label6);
             guna2Panel4.CustomizableEdges = customizableEdges5;
             guna2Panel4.FillColor = Color.White;
-            guna2Panel4.Location = new Point(18, 377);
+            guna2Panel4.Location = new Point(16, 283);
+            guna2Panel4.Margin = new Padding(3, 2, 3, 2);
             guna2Panel4.Name = "guna2Panel4";
             guna2Panel4.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            guna2Panel4.Size = new Size(1657, 91);
+            guna2Panel4.Size = new Size(1450, 68);
             guna2Panel4.TabIndex = 8;
             // 
             // lbTongGio
             // 
+            lbTongGio.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lbTongGio.AutoSize = true;
             lbTongGio.BackColor = Color.White;
             lbTongGio.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbTongGio.ForeColor = Color.LightSkyBlue;
-            lbTongGio.Location = new Point(1322, 58);
+            lbTongGio.Location = new Point(1157, 44);
             lbTongGio.Name = "lbTongGio";
-            lbTongGio.Size = new Size(49, 28);
+            lbTongGio.Size = new Size(38, 21);
             lbTongGio.TabIndex = 7;
             lbTongGio.Text = "--:--";
             // 
             // lbGioRa
             // 
+            lbGioRa.Anchor = AnchorStyles.Top;
             lbGioRa.AutoSize = true;
             lbGioRa.BackColor = Color.White;
             lbGioRa.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbGioRa.ForeColor = Color.Gray;
-            lbGioRa.Location = new Point(818, 59);
+            lbGioRa.Location = new Point(716, 44);
             lbGioRa.Name = "lbGioRa";
-            lbGioRa.Size = new Size(59, 25);
+            lbGioRa.Size = new Size(45, 20);
             lbGioRa.TabIndex = 6;
             lbGioRa.Text = "  --:--";
             // 
@@ -256,9 +263,9 @@ namespace Quan_ly_nhan_su.GUI
             lbGioVao.AutoSize = true;
             lbGioVao.BackColor = Color.White;
             lbGioVao.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbGioVao.Location = new Point(299, 59);
+            lbGioVao.Location = new Point(262, 44);
             lbGioVao.Name = "lbGioVao";
-            lbGioVao.Size = new Size(54, 25);
+            lbGioVao.Size = new Size(41, 20);
             lbGioVao.TabIndex = 5;
             lbGioVao.Text = " --:--";
             lbGioVao.Click += label11_Click;
@@ -269,33 +276,36 @@ namespace Quan_ly_nhan_su.GUI
             iconButton2.IconColor = SystemColors.MenuHighlight;
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 20;
-            iconButton2.Location = new Point(6, 5);
+            iconButton2.Location = new Point(5, 4);
+            iconButton2.Margin = new Padding(3, 2, 3, 2);
             iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(31, 29);
+            iconButton2.Size = new Size(27, 22);
             iconButton2.TabIndex = 4;
             iconButton2.UseVisualStyleBackColor = true;
             // 
             // label10
             // 
+            label10.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label10.AutoSize = true;
             label10.BackColor = Color.White;
             label10.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             label10.ForeColor = Color.Silver;
-            label10.Location = new Point(1311, 31);
+            label10.Location = new Point(1147, 23);
             label10.Name = "label10";
-            label10.Size = new Size(93, 23);
+            label10.Size = new Size(72, 17);
             label10.TabIndex = 3;
             label10.Text = "TỔNG GIỜ";
             // 
             // label9
             // 
+            label9.Anchor = AnchorStyles.Top;
             label9.AutoSize = true;
             label9.BackColor = Color.White;
             label9.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             label9.ForeColor = Color.Silver;
-            label9.Location = new Point(818, 31);
+            label9.Location = new Point(716, 23);
             label9.Name = "label9";
-            label9.Size = new Size(68, 23);
+            label9.Size = new Size(52, 17);
             label9.TabIndex = 2;
             label9.Text = "GIỜ RA";
             // 
@@ -305,9 +315,9 @@ namespace Quan_ly_nhan_su.GUI
             label8.BackColor = Color.White;
             label8.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             label8.ForeColor = Color.Silver;
-            label8.Location = new Point(294, 31);
+            label8.Location = new Point(257, 23);
             label8.Name = "label8";
-            label8.Size = new Size(80, 23);
+            label8.Size = new Size(62, 17);
             label8.TabIndex = 1;
             label8.Text = "GIỜ VÀO";
             // 
@@ -316,9 +326,9 @@ namespace Quan_ly_nhan_su.GUI
             label6.AutoSize = true;
             label6.BackColor = Color.White;
             label6.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(43, 11);
+            label6.Location = new Point(38, 8);
             label6.Name = "label6";
-            label6.Size = new Size(161, 25);
+            label6.Size = new Size(129, 20);
             label6.TabIndex = 0;
             label6.Text = "Tóm tắt hôm nay";
             // 
@@ -326,9 +336,9 @@ namespace Quan_ly_nhan_su.GUI
             // 
             label14.AutoSize = true;
             label14.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label14.Location = new Point(18, 483);
+            label14.Location = new Point(16, 362);
             label14.Name = "label14";
-            label14.Size = new Size(187, 28);
+            label14.Size = new Size(151, 21);
             label14.TabIndex = 9;
             label14.Text = "Lịch sử chấm công";
             // 
@@ -336,9 +346,10 @@ namespace Quan_ly_nhan_su.GUI
             // 
             flpDanhSachChamCong.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             flpDanhSachChamCong.AutoScroll = true;
-            flpDanhSachChamCong.Location = new Point(24, 531);
+            flpDanhSachChamCong.Location = new Point(21, 398);
+            flpDanhSachChamCong.Margin = new Padding(3, 2, 3, 2);
             flpDanhSachChamCong.Name = "flpDanhSachChamCong";
-            flpDanhSachChamCong.Size = new Size(1671, 615);
+            flpDanhSachChamCong.Size = new Size(1462, 461);
             flpDanhSachChamCong.TabIndex = 11;
             // 
             // guna2Panel5
@@ -347,10 +358,11 @@ namespace Quan_ly_nhan_su.GUI
             guna2Panel5.CustomizableEdges = customizableEdges7;
             guna2Panel5.FillColor = Color.FromArgb(224, 224, 224);
             guna2Panel5.ForeColor = Color.Cyan;
-            guna2Panel5.Location = new Point(18, 79);
+            guna2Panel5.Location = new Point(16, 59);
+            guna2Panel5.Margin = new Padding(3, 2, 3, 2);
             guna2Panel5.Name = "guna2Panel5";
             guna2Panel5.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            guna2Panel5.Size = new Size(1677, 3);
+            guna2Panel5.Size = new Size(1467, 2);
             guna2Panel5.TabIndex = 12;
             // 
             // txtNhapMaNV
@@ -368,13 +380,13 @@ namespace Quan_ly_nhan_su.GUI
             txtNhapMaNV.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             txtNhapMaNV.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             txtNhapMaNV.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            txtNhapMaNV.Location = new Point(656, 190);
-            txtNhapMaNV.Margin = new Padding(4, 5, 4, 5);
+            txtNhapMaNV.Location = new Point(574, 142);
+            txtNhapMaNV.Margin = new Padding(4, 4, 4, 4);
             txtNhapMaNV.Name = "txtNhapMaNV";
             txtNhapMaNV.PlaceholderText = "Vui lòng nhập mã nhân viên...";
             txtNhapMaNV.SelectedText = "";
             txtNhapMaNV.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            txtNhapMaNV.Size = new Size(404, 60);
+            txtNhapMaNV.Size = new Size(354, 45);
             txtNhapMaNV.TabIndex = 13;
             txtNhapMaNV.TextAlign = HorizontalAlignment.Center;
             txtNhapMaNV.TextChanged += txtNhapMaNV_TextChanged;
@@ -392,13 +404,13 @@ namespace Quan_ly_nhan_su.GUI
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.1249237F));
             tableLayoutPanel1.Controls.Add(pnCheckOut, 1, 0);
             tableLayoutPanel1.Controls.Add(pnCheckIn, 0, 0);
-            tableLayoutPanel1.Location = new Point(18, 258);
-            tableLayoutPanel1.Margin = new Padding(3, 3, 10, 3);
+            tableLayoutPanel1.Location = new Point(16, 194);
+            tableLayoutPanel1.Margin = new Padding(3, 2, 9, 2);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(1657, 100);
+            tableLayoutPanel1.Size = new Size(1450, 75);
             tableLayoutPanel1.TabIndex = 14;
             // 
             // btnBack
@@ -412,10 +424,11 @@ namespace Quan_ly_nhan_su.GUI
             btnBack.FillColor = Color.FromArgb(41, 128, 185);
             btnBack.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnBack.ForeColor = Color.White;
-            btnBack.Location = new Point(18, 19);
+            btnBack.Location = new Point(16, 14);
+            btnBack.Margin = new Padding(3, 2, 3, 2);
             btnBack.Name = "btnBack";
             btnBack.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            btnBack.Size = new Size(117, 45);
+            btnBack.Size = new Size(102, 34);
             btnBack.TabIndex = 16;
             btnBack.Text = "Back";
             btnBack.Click += btnBack_Click;
@@ -430,46 +443,47 @@ namespace Quan_ly_nhan_su.GUI
             pnThongTinNV.Controls.Add(lblSDT);
             pnThongTinNV.Controls.Add(lblHoTenNV);
             pnThongTinNV.CustomizableEdges = customizableEdges13;
-            pnThongTinNV.Location = new Point(1080, 103);
+            pnThongTinNV.Location = new Point(945, 77);
+            pnThongTinNV.Margin = new Padding(3, 2, 3, 2);
             pnThongTinNV.Name = "pnThongTinNV";
             pnThongTinNV.ShadowDecoration.CustomizableEdges = customizableEdges14;
-            pnThongTinNV.Size = new Size(615, 134);
+            pnThongTinNV.Size = new Size(538, 100);
             pnThongTinNV.TabIndex = 17;
             // 
             // lblDiaChiNhanVien
             // 
             lblDiaChiNhanVien.AutoSize = true;
             lblDiaChiNhanVien.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblDiaChiNhanVien.Location = new Point(98, 81);
+            lblDiaChiNhanVien.Location = new Point(86, 61);
             lblDiaChiNhanVien.Name = "lblDiaChiNhanVien";
-            lblDiaChiNhanVien.Size = new Size(0, 28);
+            lblDiaChiNhanVien.Size = new Size(0, 21);
             lblDiaChiNhanVien.TabIndex = 5;
             // 
             // lblSoDienThoai
             // 
             lblSoDienThoai.AutoSize = true;
             lblSoDienThoai.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblSoDienThoai.Location = new Point(478, 21);
+            lblSoDienThoai.Location = new Point(418, 16);
             lblSoDienThoai.Name = "lblSoDienThoai";
-            lblSoDienThoai.Size = new Size(0, 28);
+            lblSoDienThoai.Size = new Size(0, 21);
             lblSoDienThoai.TabIndex = 4;
             // 
             // lblHoTenNhanVien
             // 
             lblHoTenNhanVien.AutoSize = true;
             lblHoTenNhanVien.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblHoTenNhanVien.Location = new Point(98, 21);
+            lblHoTenNhanVien.Location = new Point(86, 16);
             lblHoTenNhanVien.Name = "lblHoTenNhanVien";
-            lblHoTenNhanVien.Size = new Size(0, 28);
+            lblHoTenNhanVien.Size = new Size(0, 21);
             lblHoTenNhanVien.TabIndex = 3;
             // 
             // lblDiaChi
             // 
             lblDiaChi.AutoSize = true;
             lblDiaChi.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblDiaChi.Location = new Point(21, 81);
+            lblDiaChi.Location = new Point(18, 61);
             lblDiaChi.Name = "lblDiaChi";
-            lblDiaChi.Size = new Size(89, 28);
+            lblDiaChi.Size = new Size(71, 21);
             lblDiaChi.TabIndex = 2;
             lblDiaChi.Text = "Địa chỉ: ";
             // 
@@ -477,9 +491,9 @@ namespace Quan_ly_nhan_su.GUI
             // 
             lblSDT.AutoSize = true;
             lblSDT.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblSDT.Location = new Point(338, 20);
+            lblSDT.Location = new Point(296, 15);
             lblSDT.Name = "lblSDT";
-            lblSDT.Size = new Size(155, 28);
+            lblSDT.Size = new Size(124, 21);
             lblSDT.TabIndex = 1;
             lblSDT.Text = "Số Điện Thoại: ";
             // 
@@ -487,18 +501,18 @@ namespace Quan_ly_nhan_su.GUI
             // 
             lblHoTenNV.AutoSize = true;
             lblHoTenNV.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblHoTenNV.Location = new Point(21, 20);
+            lblHoTenNV.Location = new Point(18, 15);
             lblHoTenNV.Name = "lblHoTenNV";
-            lblHoTenNV.Size = new Size(89, 28);
+            lblHoTenNV.Size = new Size(71, 21);
             lblHoTenNV.TabIndex = 0;
             lblHoTenNV.Text = "Họ Tên: ";
             // 
             // frmChamCong
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(242, 245, 250);
-            ClientSize = new Size(1714, 1055);
+            ClientSize = new Size(1500, 791);
             Controls.Add(pnThongTinNV);
             Controls.Add(btnBack);
             Controls.Add(tableLayoutPanel1);
@@ -510,8 +524,9 @@ namespace Quan_ly_nhan_su.GUI
             Controls.Add(lbClock);
             Controls.Add(lbDate);
             Controls.Add(label1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "frmChamCong";
-            Padding = new Padding(0, 0, 10, 0);
+            Padding = new Padding(0, 0, 9, 0);
             FormClosing += frmChamCong_FormClosing;
             FormClosed += frmChamCong_FormClosed;
             Load += frmChamCong_Load;

@@ -86,8 +86,8 @@ namespace Quan_ly_nhan_su.DAL
         public bool ThemNhanVien(NhanVienDTO nv)
         {
             const string query = @"
-                INSERT INTO NhanVien(MaNV, TenNV, NgaySinh, GioiTinh, ChucVu, SoDienThoai, Email, DiaChi, NgayVaoLam, TrangThai, PhongBan, LuongCung)
-                VALUES(@MaNV, @TenNV, @NgaySinh, @GioiTinh, @ChucVu, @SoDienThoai, @Email, @DiaChi, @NgayVaoLam, @TrangThai, @PhongBan, @LuongCung)";
+                INSERT INTO NhanVien(MaNV, TenNV, NgaySinh, GioiTinh, ChucVu, SoDienThoai, Email, DiaChi, NgayVaoLam, PhongBan, LuongCung)
+                VALUES(@MaNV, @TenNV, @NgaySinh, @GioiTinh, @ChucVu, @SoDienThoai, @Email, @DiaChi, @NgayVaoLam, @PhongBan, @LuongCung)";
 
             using var conn = DbContext.GetSqlConnection();
             using var cmd = new SqlCommand(query, conn);

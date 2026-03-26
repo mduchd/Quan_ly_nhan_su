@@ -14,7 +14,7 @@ namespace Quan_ly_nhan_su.BUS
 
         public int KiemTraTrangThai(string maNV)
         {
-            return dal.KiemTraTrangThai(maNV);
+            return dal.KiemTraTT(maNV);
         }
 
         // Hàm bắc cầu số 2
@@ -42,7 +42,7 @@ namespace Quan_ly_nhan_su.BUS
         {
             if (string.IsNullOrEmpty(maNV)) return "Vui lòng nhập mã nhân viên!";
 
-            int trangThai = dal.KiemTraTrangThai(maNV);
+            int trangThai = dal.KiemTraTT(maNV);
             if (trangThai == -1) return "Mã nhân viên không tồn tại trong hệ thống!";
             if (trangThai == 1) return "Nhân viên này đã Check-in rồi!";
 
@@ -60,7 +60,7 @@ namespace Quan_ly_nhan_su.BUS
 
             if (string.IsNullOrEmpty(maNV)) return "Vui lòng nhập mã nhân viên!";
 
-            int trangThai = dal.KiemTraTrangThai(maNV);
+            int trangThai = dal.KiemTraTT(maNV);
             if (trangThai == -1) return "Mã nhân viên không tồn tại trong hệ thống!";
             if (trangThai == 0) return "Bạn chưa Check-In. Vui lòng Check-In trước khi Check-Out!";
 
